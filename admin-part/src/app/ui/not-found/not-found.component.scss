@@ -1,0 +1,37 @@
+.error-container {
+    background: #0d102b !important;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    .mat-icon {
+        font-size: 8em;
+        width: unset;
+        height: unset;
+        text-align: center;
+        margin: 1rem;
+    }
+    img {
+        margin: 1rem;
+        width: 150px;
+        margin: 50px 10px 10px 10px;
+    }
+    .status-code {
+        text-align: center;
+        font-size: 180px;
+        font-family: 'Catamaran', sans-serif;
+        font-weight: 800;
+        color: var(--s3);
+        line-height: 1;
+    }
+    h1,
+    h2 {
+        text-align: center;
+    }
+    .text-container {
+        padding: 20px;
+    }
+    button {
+        align-self: center;
+        margin: 30px 0px;
+    }
+}

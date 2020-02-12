@@ -1,0 +1,111 @@
+<div class="title">Nustatymai</div>
+
+<section class="fixed">
+
+    <div class="container">
+        <h3>
+            <i class="fas fa-desktop"></i>
+            <span>Ekranai</span>
+        </h3>
+        <div class="margin20">
+            <app-screens></app-screens>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <h3>
+            <i class="fas fa-clock"></i>
+            <span>Pamokų laikas</span>
+        </h3>
+        <app-times></app-times>
+    </div>
+
+
+    <!-- <div class="container">
+        <h3>
+            <i class="fas fa-sliders-h"></i>
+            <span>Pritaikymas</span>
+        </h3>
+        <div class="margin20">
+            <label for="timetableRepeat" class="bl">Vykstančių pamokų kortelės pasikeičia kas</label>
+            <input type="number" name="timetableRepeat" id="timetableRepeat" min="0.4" max="5" step="0.1" value="1">s
+            <label for="bellDuration" class="bl">Skambučio grojimo trukmė </label>
+            <input type="number" name="bellDuration" min="10" max="300" step="0.1" id="bellDuration" value="60">s
+        </div>
+    </div> -->
+
+
+    <div class="container" *ngIf="this.loginService.user.role > 1">
+        <h3>
+            <i class="fas fa-users"></i>
+            <span>Vartotojai</span>
+        </h3>
+        <app-users></app-users>
+    </div>
+
+
+
+    <div class="container">
+        <h3>
+            <i class="fas fa-image"></i>
+            <span>Švietimo įstaigos logotipas</span>
+        </h3>
+        <app-logo></app-logo>
+    </div>
+
+    <div class="container">
+        <h3>
+            <i class="fas fa-sitemap"></i>
+            <span> interneto tinklo viešas IP adresas </span>
+        </h3>
+        <div class="margin20">
+            <input type="text" name="ip" (change)="update()" [(ngModel)]="this.settings.ip" pattern="^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$" required class="in">
+        </div>
+        <div class="margin20">
+            <div class="info"><i class="fas fa-info-circle"></i> IP viešas adresas svarbus saugumo atžvelgiu, jis suteikia galimybę informaciniam ekranui veikti įstaigos patalpose.</div>
+            <!-- <div class="info"><i class="fas fa-info-circle"></i>
+            <span onclick="$(this).html('</i>Šio tinklo viešas IP ').css('font-weight', 'bold');">
+              Norėdami sužinoti šio tinklo viešą IP adresą spauskite čia.
+            </span>
+        </div> -->
+        </div>
+    </div>
+
+
+    <!-- Pagrindinės informacijos rodymo laikas -->
+    <div class="container">
+        <h3>
+            <i class="far fa-eye"></i>
+            <span>Ekranų funkcionavimo laikas</span>
+        </h3>
+        <div class="margin20">
+            <input type="time" required name="turnOnTime" (change)="update()" [(ngModel)]="this.settings.turnOnTime"> - <input type="time" required name="turnOffTime" (change)="update()" [(ngModel)]="this.settings.turnOffTime">
+        </div>
+        <div class="margin20">
+            <div class="info"><i class="fas fa-info-circle"></i> Į ši laikotarpį nepatenkančiu laiku bei šeštadieniais ir sekmadieniais bus rodomas tik dabartinis laikas ir įstaigos logotipas! </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- <div class="container">
+          <h3>
+          <i class="fab fa-facebook"></i>
+          <span>Facebook puslapio fanų atvaizdavimas</span>
+        </h3>
+          <div style="margin:20px;">
+            <a href="#fbbb" rel="modal:open">
+              <button type="button" class="btn">Rodyti pasirinkimus</button>
+            </a>
+            <div class="modal" id="fbbb">
+              <h1>Facebook duomenys</h1>
+              <label for="fbToken">Access Token:</label>
+              <input type="text" name="fbToken" value="">
+              <h3>Sukurta - </h3>
+            </div>
+          </div>
+        </div> -->
+
+</section>

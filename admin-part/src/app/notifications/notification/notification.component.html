@@ -1,0 +1,23 @@
+<div class="notification" [ngClass]="{ 'disabled': this.data.visibility, 'relevant': this.isRelevant() }" [class.disabled]="!this.data.visibility">
+    <div class="flex">
+        <div class="flex1">{{ this.index + 1 }}</div>
+        <div class="flex2"><i class="fas fa-circle" title="Pranešimas nebus rodomas išanksto" *ngIf="!this.data.showBefore"></i> {{ (this.data.repeatTimes) ? this.data.date1 + ' - ' + this.data.date2 : this.data.date1 }}</div>
+        <div class="flex3">
+            <i *ngIf='!this.data.displayAuthor' class="fas fa-user-slash" title="Autorius pranešime nerodomas"></i>
+            <i *ngIf='this.data.displayAuthor' class="fas fa-user" title="Autorius pranešime rodomas"></i> {{ this.data.author }}
+        </div>
+    </div>
+    <div class="content" [innerHTML]='this.data.note' *ngIf="this.data.note"></div>
+    <div class="preview" *ngIf="this.data.images.length > 0">
+        <img [src]="image.url" *ngFor="let image of this.data.images">
+    </div>
+    <div class="content" class="disabled margin" *ngIf="this.data.images.length == 0 && !this.data.note">Pranešimas tuščias</div>
+    <div class="tools" *ngIf="this.data.rights">
+        <select name="visibility" [value]="this.data.visibility" (change)='toggleVisibility()'>
+                <option value="true">Rodoma</option>
+                <option value="false">Paslėpta</option>
+            </select>
+        <a (click)="this.edit()" title="Redaguoti"><i class="fas fa-edit"></i></a>
+        <a (click)="this.remove()" title="Pašalinti"><i class="fas fa-trash"></i></a>
+    </div>
+</div>

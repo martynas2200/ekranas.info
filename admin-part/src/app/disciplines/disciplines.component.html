@@ -1,0 +1,33 @@
+<div class="title">Disciplinos | Mokomieji dalykai</div>
+<div class="container margin20">
+    <button class="btn small" (click)="create()" *ngIf="this.loginService.user.role > 0"><i class="fas fa-plus-circle"></i>&nbsp;&nbsp;Pridėti</button>
+    <div class="responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Dalykas</th>
+                    <th>Mokytojas</th>
+                    <th>Kabinetas</th>
+                    <th *ngIf="this.loginService.user.role > 0">Veiksmai</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let discipline of this.disciplines; let i = index">
+                    <td>{{ (i + 1) }}</td>
+                    <td>{{ discipline.name }}</td>
+                    <td>{{ discipline.teacher }}</td>
+                    <td>{{ discipline.room }}</td>
+                    <td *ngIf="this.loginService.user.role > 0">
+                        <div class="flex">
+                            <i class="fas fa-trash" (click)="remove(discipline.id);"></i>
+                            <i class="fas fa-edit" (click)="edit(discipline.id);"></i>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <button class="btn small" (click)="create()" *ngIf="this.loginService.user.role > 0"><i class="fas fa-plus-circle"></i>&nbsp;&nbsp;Pridėti</button>
+
+</div>

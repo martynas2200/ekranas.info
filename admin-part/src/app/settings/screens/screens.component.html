@@ -1,0 +1,7 @@
+<div class="container margin flex" style="max-width: 700px;" *ngFor="let screen of this.screens; let i = index">
+    <span>{{ screen.name }}</span>
+    <span style="color: var(--s4)">Būsena nežinoma</span>
+    <div><button class="btn small" (click)="showKey(i)">Nuoroda</button></div>
+    <div><button class="btn small" (click)="edit(i)">Pasirinktys</button></div>
+</div>
+<button style="margin-left:20px;" class="btn" (click)="add()"><i class="fas fa-plus"></i>&nbsp;Pridėti naują ekraną</button>

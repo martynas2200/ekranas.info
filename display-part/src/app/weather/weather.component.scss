@@ -1,0 +1,20 @@
+.wi-wind {
+    padding: 0px 6px;
+    width: 1em;
+}
+
+.weather,
+.sun {
+    display: flex;
+    justify-content: space-evenly;
+    font-family: 'Proza Libre', sans-serif !important;
+    align-items: center;
+    font-size: 4vw;
+}
+
+.sun {
+    font-size: 3vw;
+    i.fa-sun {
+        color: #f7f119;
+    }
+}

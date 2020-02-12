@@ -1,0 +1,7 @@
+<h1>Ekrano nuoroda</h1>
+<div *ngIf="!this.config.data.clue" class="error"><i class="fas fa-times-circle"></i>Prašome perkrauti puslapį!</div>
+<textarea rows="8" cols="35" readonly>{{ 'https://ekranas.info/show/' + this.config.data.clue }}</textarea>
+<mat-dialog-actions>
+    <button type="button" class="btn" (click)="updateKey()">Generuoti naują raktą</button>
+    <button type="button" class="btn" mat-dialog-close>Atlikta</button>
+</mat-dialog-actions>

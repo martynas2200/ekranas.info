@@ -1,0 +1,38 @@
+.musicBell {
+    font-family: 'Voltaire', sans-serif;
+}
+
+.diagram {
+    display: flex;
+    flex-direction: row;
+}
+
+.track {
+    height: 76vh;
+    line-height: 1;
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 5px;
+    text-align: right;
+    .procentages {
+        align-self: stretch;
+        text-align: center;
+        background: #b30000;
+        padding: 6px;
+        margin-top: 5px;
+        font-size: 3.4vw;
+    }
+}
+
+.inner {
+    background: red;
+    display: grid;
+    justify-items: center;
+    padding: 30px;
+    min-height: 22vw;
+    img {
+        width: 100%;
+    }
+}

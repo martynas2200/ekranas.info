@@ -1,0 +1,19 @@
+<div class="box musicBell">
+    <h1>Muzikinis skambutis</h1>
+    <p style="margin-top: 20px;">
+        Balsuok už Tau patinkančias dainas ir dvi iš jų surinkusios daugiausiai balsų, bus naudojamos muzikiniam skambučiui.
+    </p>
+    <p>
+        Balsavimą rasi tinklalapyje <strong>ekranas.info/skambutis</strong>
+    </p>
+    <div class="diagram">
+        <div class="track" *ngFor="let track of this.tracks">
+            <h3>{{ track.artistName }}</h3>
+            <h2>{{ track.trackName }}</h2>
+            <div class="inner" [style.height]="track.procentages + '%'">
+                <img [src]='track.artworkUrl' alt="">
+            </div>
+            <div class="procentages">{{ track.procentages }} %</div>
+        </div>
+    </div>
+</div>

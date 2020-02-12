@@ -1,0 +1,234 @@
+header {
+    background-color: #131b2c;
+    min-height: 80px;
+    min-width: 150px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+    // margin: 0px -0.8em;
+    padding: 0px 8px;
+    -webkit-transition: 1s;
+    -o-transition: 1s;
+    transition: 1s;
+    -webkit-box-shadow: 0px 5px 5px #0009;
+    box-shadow: 0px 5px 5px #0009;
+}
+
+header>div {
+    float: left;
+    color: white;
+    font-size: 20px;
+    /* margin: 0.5em; */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    line-height: 1;
+    height: 80px;
+}
+
+header h1 {
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+header img {
+    /* width: 52px; */
+    height: 60px;
+}
+
+header img+img {
+    margin-left: 5px;
+}
+
+.status.ok {
+    color: var(--s2);
+}
+
+.status.error {
+    color: var(--s5);
+}
+
+.status {
+    font-size: 0.7em;
+    color: var(--s3);
+    margin: 0px -0.8em;
+    background: #0c111c;
+    padding: 12px 16px;
+}
+
+header #menuToggle {
+    display: block;
+    float: right;
+    color: white;
+    text-decoration: none;
+    padding: 0.75em;
+    border: 1.5px var(--s2) solid;
+    margin: 0.8em;
+    cursor: pointer;
+}
+
+header #toggled {
+    clear: left;
+    list-style-type: none;
+    color: white;
+    padding-left: 0;
+    margin-bottom: 0;
+    display: none;
+}
+
+header #toggled a {
+    color: white;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+header>nav>#toggled>* {
+    color: white;
+    padding: 1em 0em 1em 1.4em;
+    border-top: 2px var(--s2) solid;
+}
+
+i.fas+span,
+i.fa+span {
+    padding-left: 6px;
+}
+
+header #toggled>*:hover {
+    background-color: #192239;
+    border-color: var(--s5);
+}
+
+.dropdown-right>*:hover:not(.details) {
+    background-color: #ddd;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown a i {
+    font-size: 1.5em;
+}
+
+.dropdown-right,
+.dropdown-left {
+    -webkit-transition: 1s;
+    -o-transition: 1s;
+    transition: 1s;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 40;
+    top: 55px;
+}
+
+.dropdown-right {
+    right: 0px;
+}
+
+.dropdown-left {
+    left: 0px;
+}
+
+.dropdown-left a,
+.dropdown-right a {
+    color: black !important;
+    display: grid !important;
+    grid-template-columns: 1fr 3fr;
+}
+
+.dropdown-left img,
+.dropdown-right img {
+    height: auto;
+    width: 180px;
+    margin: 0px auto;
+}
+
+.dropdown-left>*:not(.status),
+.dropdown-right>*:not(.status) {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    header div h1 {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .details {
+        display: none !important;
+    }
+    .dropdown-right {
+        display: block !important;
+        position: static !important;
+        margin: 1em 0em;
+        box-shadow: none !important;
+    }
+}
+
+.active {
+    border-color: var(--s5) !important;
+}
+
+
+/* if wider than 1024 px */
+
+@media screen and (min-width: 1024px) {
+    header #menuToggle {
+        display: none;
+    }
+    header nav {
+        float: right;
+    }
+    header #toggled {
+        display: flex !important;
+        height: 80px;
+        align-items: flex-end;
+    }
+    header>nav>#toggled>* {
+        float: left;
+        display: flex;
+        padding: 0.8em;
+        border-top: none;
+        border-bottom: var(--s2) 5px solid;
+    }
+    header a.active {
+        border-color: var(--s5);
+    }
+    .dropdown:hover .dropdown-right,
+    .dropdown:active .dropdown-right,
+    .dropdown:hover .dropdown-left,
+    .dropdown:active .dropdown-left {
+        display: block;
+        animation: fade 0.5s ease-in forwards;
+    }
+}
+
+a:focus {
+    outline: 0;
+}

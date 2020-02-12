@@ -1,0 +1,17 @@
+<div class="box current weather" *ngIf="this.data.main.temp">
+    <i [className]=" 'wi ' + ((this.data.weather[0].icon == '01n') ? 'wi-night-clear' : 'wi-owm-' + this.data.weather[0].id)"></i>
+    <span>{{ math.round(this.data.main.temp) }}<i class="wi wi-celsius"></i></span>
+    <i class="wi wi-wind" *ngIf="this.data.wind.deg" [ngStyle]="{'transform': 'rotate(' + this.data.wind.deg + 'deg)'}"></i>
+    <i [className]=" (this.data.wind.speed <= 12) ? 'wi wi-wind-beaufort-' + math.round(this.data.wind.speed) : 'wi wi-strong-wind'"></i>
+</div>
+<div class="box current sun" *ngIf="this.sunrise">
+    <i class="fas fa-sun"></i>
+    <div>
+        <i class="fas fa-arrow-up"></i>
+        <span id="sr">{{ this.sunrise }}</span>
+    </div>
+    <div>
+        <i class="fas fa-arrow-down"></i>
+        <span id="ss">{{ this.sunset }}</span>
+    </div>
+</div>

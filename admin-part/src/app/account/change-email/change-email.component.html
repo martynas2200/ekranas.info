@@ -1,0 +1,28 @@
+<h1>Elektroninio pašto keitimas</h1>
+<form #emailForm="ngForm" (ngSubmit)="submit(emailForm)" *ngIf="!this.busy">
+    <aside style="margin:30px 0px;">
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Senasis el. pašto adresas" class="full-width" [(ngModel)]="this.config.email" name="oldmail" disabled>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Naujas el. pašto adresas" class="full-width" [(ngModel)]="this.email" name="email" #emaill="ngModel" required>
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-error *ngIf="emaill.errors?.required">
+                Prašome įvesti naujo elektroninio pašto adresą.
+            </mat-error>
+        </mat-form-field>
+        <div class="info"><i class="fas fa-info-circle"></i>Nurodytu el. paštu, bus išsiųstas el. laiškas naujo el. pašto patvirtinimui.</div>
+    </aside>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Slaptažodis" class="full-width" name="password" type="password" [(ngModel)]="this.password" #ppassword="ngModel" required>
+        <mat-icon matSuffix>vpn_key</mat-icon>
+        <mat-error *ngIf="ppassword.errors?.required">
+            Prašome įvesti slaptažodį saugumo sumetimais.
+        </mat-error>
+    </mat-form-field>
+    <mat-dialog-actions>
+        <button type="submit" class="btn">Keisti</button>
+        <button type="button" class="btn" mat-dialog-close>Atšaukti</button>
+    </mat-dialog-actions>
+</form>
+<spinner *ngIf="this.busy"></spinner>

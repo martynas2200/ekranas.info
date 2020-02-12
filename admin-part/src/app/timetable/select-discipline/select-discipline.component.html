@@ -1,0 +1,22 @@
+<h1>Disciplinos pasirinkimas</h1>
+<div class="selectedDiscipline flex" *ngIf="this.current.name">
+    <h4>Pasirinkta:</h4>
+    <div>
+        <p>{{ this.current.name }}</p>
+        <p class="dinfo">{{ this.current.teacher + ' · ' + this.current.room}}</p>
+    </div>
+</div>
+<div style="margin: 20px 0px;">
+    <!-- <input type="text" class="full-width" name="dfg" id="Sdiscipline"> -->
+    <form class="example-form">
+        <mat-form-field class="full-width">
+            <input type="text" placeholder="Disciplina" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option.id">
+                    <div class="option">{{ option.name }}</div>
+                    <div class="option dinfo">{{ option.teacher + ' · ' + option.room }}</div>
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </form>
+</div>

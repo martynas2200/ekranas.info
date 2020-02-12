@@ -1,0 +1,25 @@
+form {
+    display: flex;
+    flex-direction: column;
+    &>*:not(button) {
+        width: 100%;
+    }
+}
+
+// .dialog-content {
+//   position: absolute !important;
+//   top: 5em;
+//   bottom: 0px;
+//   left: 0px;
+//   right: 0px;
+//   max-height: unset;
+//   margin: 12px;
+// }
+// .ng-trigger-dialogContainer {
+//   position: relative;
+// }
+button {
+    background: var(--s5);
+    color: white;
+    border-radius: 90px;
+}

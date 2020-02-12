@@ -1,0 +1,22 @@
+.mat-form-field {
+    width: 100px;
+    height: 80px;
+}
+
+.small {
+    margin-top: 10px;
+}
+
+@keyframes blinker {
+    from {
+        opacity: 1.0;
+    }
+    to {
+        opacity: 0.4;
+    }
+}
+
+.blink {
+    text-decoration: blink;
+    animation: blinker 0.6s ease-in-out infinite alternate;
+}

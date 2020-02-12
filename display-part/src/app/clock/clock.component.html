@@ -1,0 +1,24 @@
+<div class="box current" [class.str]="this.time.bell">
+    <div class="date">
+        <div>{{ this.time.weekDays[this.time.now.getDay()] }}</div>
+        <div>{{ this.time.checkPrefix(this.time.now.getMonth() + 1) + '.' + this.time.checkPrefix(this.time.now.getDate()) }}</div>
+    </div>
+    <div class="time">{{ this.time.get('h') + ':' + this.time.get('m') }}
+        <div class="seconds">{{ ':' + this.time.get('s') }}</div>
+    </div>
+</div>
+<div class="box current left-time" *ngIf="this.time.lesson != -1">
+    <span class="number">
+      <div *ngIf="!this.time.break" >{{ this.time.lesson }}</div>
+      <!-- <i *ngIf="this.time.break" class="fas fa-smile-beam"></i> -->
+    </span>
+    <span class="text text-group">
+      <div class="right">Liko &nbsp;</div>
+      <div class="left">{{this.time.break ? 'Pertrauka' : 'pamoka'}}</div>
+    </span>
+    <span class="number" [style.color]="this.time.color">{{ this.time.left }}</span>
+    <span class="text">{{ this.time.leftMinutes }}</span>
+</div>
+<div class="progress-wrap" *ngIf="this.time.lesson != -1">
+    <div class="progress-bar" [ngStyle]="{width: this.time.leftPercentages + '%', background: this.time.color}"></div>
+</div>

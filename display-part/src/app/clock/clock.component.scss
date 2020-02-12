@@ -1,0 +1,94 @@
+.time {
+    font-size: 9vw;
+    text-align: left;
+    line-height: 0.9;
+    // transform: translate(2vh, 1vh);
+    // font-family: 'Bubblegum Sans', cursive;
+    font-variant-numeric: tabular-nums;
+    font-family: 'Voltaire', sans-serif;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.date {
+    font-family: 'Cantora One', sans-serif;
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    justify-content: space-between;
+    font-size: 3vw;
+    color: #aaa;
+    padding: 0px 10px;
+}
+
+.seconds {
+    font-size: 0.5em;
+    width: 2.5ch;
+    display: block;
+}
+
+.number {
+    font-size: 2em;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+.text-group {
+    flex: 2 2;
+}
+
+.text {
+    font-size: 1em;
+    align-content: baseline;
+    align-items: end;
+    align-self: flex-end;
+}
+
+.left-time {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: space-evenly;
+    font-size: 2.6vw;
+    font-family: 'Cantora One', sans-serif;
+    margin: 0px;
+}
+
+.progress-wrap {
+    background: #353535;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 10px;
+    height: 0.4vw;
+    .progress-bar {
+        background: #fff;
+        left: 0;
+        position: absolute;
+        top: 0;
+        bottom: 0px;
+    }
+}
+
+.str {
+    color: black;
+    background: var(--s2);
+    animation: str 0.5s infinite;
+}
+
+@keyframes str {
+    50% {
+        color: var(--s2);
+        background: black;
+    }
+}
+
+.str .date {
+    display: none;
+}

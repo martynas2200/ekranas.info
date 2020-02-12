@@ -1,0 +1,39 @@
+<div class="responsive" style="padding:5px 10px;">
+    <table>
+        <thead>
+            <tr>
+                <th>Prisijungimo vardas</th>
+                <th>Vardas, pavardė</th>
+                <th>El. pašto adresas</th>
+                <th>Teisės</th>
+                <th>Paskutinis prisijungimas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users; let i = index">
+                <td [class.disabled]="!user.username">{{ (user.username) ? user.username : 'Nenustatyta' }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ this.getRoleName(user.role) }}</td>
+                <td>{{ user.lastLogin }}</td>
+                <td *ngIf="this.loginService.user.role > 1">
+                    <div class="flex" *ngIf="user.role < 3">
+                        <i class="fas fa-edit" (click)="edit(i);"></i>
+                        <i class="fas fa-trash" (click)="delete(i)"></i>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<button style="margin-left:20px;" class="btn" (click)="add()"><i class="fas fa-plus"></i>&nbsp;Pridėti naują vartotoją</button>
+<div class="margin20">
+    <div class="info">
+        <i class="fas fa-info-circle"></i>
+        <div>
+            <div>Administratorius - Gali koreguoti visą turinį ir nustatymus (įskaitant vartotojus).</div>
+            <div>Redaktorius - Gali koreguoti visą turinį (tvarkaraščiai, pranešimai).</div>
+            <div>Mokytojas - Gali tik pridėti naujus pranešimus.</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+body>.logo {
+    width: 300px;
+    position: fixed;
+    top: 0vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    animation: up-down 60s infinite alternate;
+}
+
+@keyframes up-down {
+    0% {
+        top: 18vh;
+    }
+    47% {
+        top: 18vh;
+    }
+    53% {
+        top: 82vh;
+    }
+    100% {
+        top: 82vh;
+    }
+}
+
+.main {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    /* grid-template-columns: 1fr 2fr; */
+    align-content: center;
+    justify-content: space-around;
+    /* flex-grow: 2; */
+    align-content: stretch;
+    padding: 5px;
+}
+
+.main>* {
+    padding: 10px 5px;
+}

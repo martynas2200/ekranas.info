@@ -1,0 +1,12 @@
+connection=wired
+netmask=255.255.255.0
+network_interface=eth0
+additional_components=uefi.zip
+ip_address=172.16.197.56
+default_gateway=172.16.197.254
+dns_server=193.219.61.11 193.219.61.111
+kiosk_config=https://ekranas.info/wall/first.txt
+hide_mouse=5
+timezone=Europe/Vilnius
+run_command=grep -q "kiosk" $chflags || echo '--kiosk' >> $chflags
+homepage=https://ekranas.info/show/d1d0d15abb16ba8554313a9b51b82c7f5d1c515586edb12b6fabd00649e1da7ee94dc9e0c523d689dcdde82d69d3d89dddb134f2845cc0ddda14b5b136f235985150993986dd7733c7be7a72eec461c102004672f4b23705bf7b

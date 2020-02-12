@@ -1,0 +1,20 @@
+<span class="title">Pranešimai</span>
+<div class="filter-block">
+    <div class=""> Rodoma: </div>
+    <div class="filter" [class.active]="this.filters.mode == 'relevant'" (click)="toggleFilter('relevant')">Aktualūs</div>
+    <div class="filter" [class.active]="this.filters.mode == 'archive'" (click)="toggleFilter('archive')">Archyvas</div>
+    <div class="filter" [class.active]="this.filters.mode == 'deleted'" (click)="toggleFilter('deleted')">Ištrinti</div>
+    <!-- <div class="split"></div>
+    <div class="filter" [class.active]="this.filters.textual" (click)="toggleType(1)">Tekstiniai</div>
+    <div class="filter" [class.active]="this.filters.visual" (click)="toggleType(2)">Vaizdiniai</div> -->
+</div>
+<div *ngIf="this.filters.mode == 'deleted'" class="info" style="margin: 10px 7px;"><i class="fas fa-info-circle"></i><span>Pranešimai, buvę šiukšliadėžėje daugiau nei 30 dienų, bus ištrinti automatiškai.</span></div>
+<ngx-masonry [options]="myOptions" [useImagesLoaded]="true">
+    <notification ngxMasonryItem class="notification" *ngFor="let noti of this.notifications; let i = index" [data]='noti' [index]='i'></notification>
+</ngx-masonry>
+<div class="flex mbcolumn" *ngIf="this.notifications.length == 0">
+    <i class="fas fa-sticky-note"></i>
+    <div style="text-align: center;" class="container">Pranešimų nėra</div>
+    <i class="fas fa-sticky-note"></i>
+</div>
+<button *ngIf="this.filters.mode == 'relevant'" type="button" (click)="selectNotificationDialog()" class="btn" style="padding: 10px 18px;"><i class="fas fa-plus"></i>&nbsp;&nbsp;Pridėti naują pranešimą</button>

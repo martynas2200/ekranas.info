@@ -1,0 +1,67 @@
+.selectBox.active {
+    border-color: var(--s5);
+}
+
+.selectBox:hover h2 {
+    color: var(--s5);
+}
+
+.option {
+    position: relative;
+    margin: 20px;
+}
+
+.selectBox {
+    padding: 5px;
+    text-align: center;
+    min-width: 230px;
+    width: 15vw;
+    border-color: #464646;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 5px;
+    background: var(--ss);
+    min-height: 250px;
+}
+
+.selectBox div {
+    font-family: 'Source Code Pro', monospace;
+    padding-top: 10px;
+    color: white;
+    white-space: pre-wrap;
+}
+
+.selectBox i,
+.option i {
+    color: white;
+}
+
+.option i:hover {
+    font-size: 1.6em;
+}
+
+.selectBox.add {
+    display: flex;
+    justify-content: center;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+.selectBox.add i {
+    font-size: 2.5em;
+}
+
+.option i.minus {
+    position: absolute;
+    bottom: -12px;
+    right: -12px;
+    padding: 0px;
+    background: red;
+    background: #000;
+    border-radius: 60%;
+    font-size: 1.4em;
+}
+
+.alltimes p {
+    padding: 10px;
+}

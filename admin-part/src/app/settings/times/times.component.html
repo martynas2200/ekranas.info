@@ -1,0 +1,19 @@
+<div style="display:flex;flex-wrap: wrap;">
+    <div class="option" *ngFor="let time of times; let k = index">
+        <i class="fas fa-minus-circle minus" title="Ištrinti šių laikų rinkinį" (click)="delete(k)" *ngIf="this.loginService.user.role > 1"></i>
+        <div class="selectBox" [class.active]="time.active" (click)="select(k)">
+            <h2>{{ time.name }}</h2>
+            <div>
+                <span *ngFor="let t of time.times; let i = index"> {{ ((i + 1) % 2 == 1) ? math.round((i+1) / 2) + '. ' + wrap(t.h) + ':' + wrap(t.m)  : ' - ' + wrap(t.h) + ':' + wrap(t.m) + ' \n' }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="option selectBox add" (click)="add()" *ngIf="this.loginService.user.role > 1">
+        <i class="fas fa-plus"></i>
+        <h2>Pridėti</h2>
+    </div>
+
+    <div class="margin20" *ngIf="this.loginService.user.role > 1">
+        <div class="info"><i class="fas fa-info-circle"></i>Pridėjus naują pamokų laiką, nepamirškite paspausti ant jo kortelės, tada jis taptų numatytasis (kraštinės spalva pasikeis į raudonai rusvą)!</div>
+    </div>
+</div>

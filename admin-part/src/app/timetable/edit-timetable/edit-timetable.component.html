@@ -1,0 +1,164 @@
+<div class="title">{{ this.semester }} pusmečio {{ this.days[this.day - 1] }}</div>
+<div class="margin20 container">
+    <div class="responsive">
+        <table id="timetable">
+            <thead>
+                <tr>
+                    <th>Disciplina</th>
+                    <th>1 pamoka</th>
+                    <th>2 pamoka</th>
+                    <th>3 pamoka</th>
+                    <th>4 pamoka</th>
+                    <th>5 pamoka</th>
+                    <th>6 pamoka</th>
+                    <th>7 pamoka</th>
+                    <th>8 pamoka</th>
+                    <th *ngIf="this.loginService.user.role > 0">Veiksmai</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of rows; let i = index" [class.blink]='row.busy'>
+                    <td>
+                        <div>
+                            <p>
+                                <span>{{ row.name }}</span>
+                                <span style="color:red;" *ngIf="!row.name">NERASTA DISCIPLINA!</span>
+                            </p>
+                            <p class="dinfo">
+                                {{ (row.name) ? row.teacher + ' · ' + row.room : 'Prašome pasirinkti iš naujo!' }}
+                            </p>
+                        </div>
+                        <button *ngIf="row.edit" type="button" class="btn small" (click)="openDisciplineSelectDialog(i);"><i class="fas fa-chalkboard"></i>&nbsp;Keisti</button>
+                    </td>
+                    <ng-template [ngIf]="row.edit" [ngIfElse]="notEditInput">
+                        <td>
+                            <mat-form-field>
+                                <input matInput type="text" maxlength="20" [(ngModel)]="row.lessons[1]">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <input matInput type="text" maxlength="20" [(ngModel)]="row.lessons[2]">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <input matInput type="text" maxlength="20" [(ngModel)]="row.lessons[3]">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <input matInput type="text" maxlength="20" [(ngModel)]="row.lessons[4]">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <input matInput type="text" maxlength="20" [(ngModel)]="row.lessons[5]">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <input matInput type="text" maxlength="20" [(ngModel)]="row.lessons[6]">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <input matInput type="text" maxlength="20" [(ngModel)]="row.lessons[7]">
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <input matInput type="text" maxlength="20" [(ngModel)]="row.lessons[8]">
+                            </mat-form-field>
+                        </td>
+                    </ng-template>
+                    <ng-template #notEditInput>
+                        <td>{{ row.lessons[1] }}</td>
+                        <td>{{ row.lessons[2] }}</td>
+                        <td>{{ row.lessons[3] }}</td>
+                        <td>{{ row.lessons[4] }}</td>
+                        <td>{{ row.lessons[5] }}</td>
+                        <td>{{ row.lessons[6] }}</td>
+                        <td>{{ row.lessons[7] }}</td>
+                        <td>{{ row.lessons[8] }}</td>
+                    </ng-template>
+                    <td *ngIf="this.loginService.user.role > 0">
+                        <div class="flex">
+                            <ng-template [ngIf]="row.edit" [ngIfElse]="notEditing">
+                                <button (click)="save(i)" class="save btn">Išsaugoti</button>
+                            </ng-template>
+                            <ng-template #notEditing>
+                                <i class="fas fa-edit" (click)="edit(i)"></i>
+                                <i class="fas fa-trash" (click)="delete(i)"></i>
+                            </ng-template>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot *ngIf="this.loginService.user.role > 0">
+                <tr>
+                    <td>
+                        <p>
+                            <span>{{ this.newRow.name }}</span>
+                        </p>
+                        <p class="dinfo" *ngIf="this.newRow.room">
+                            {{ this.newRow.teacher + ' · ' + this.newRow.room }}
+                        </p>
+                        <button type="button" name="button" (click)="openDisciplineSelectDialog();" class="btn small"><i class="fas fa-chalkboard"></i>&nbsp;Pasirinkti</button>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input matInput type="text" maxlength="20" [(ngModel)]="this.newRow.lessons[1]" (input)="filter($event.target.value)" (change)="all()" [matAutocomplete]="main">
+                            <mat-autocomplete #main="matAutocomplete">
+                                <mat-option *ngFor="let option of filteredOptions" [value]="option">
+                                    {{option}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input matInput type="text" maxlength="20" [(ngModel)]="this.newRow.lessons[2]" (input)="filter($event.target.value)" (change)="all()" [matAutocomplete]="main">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input matInput type="text" maxlength="20" [(ngModel)]="this.newRow.lessons[3]" (input)="filter($event.target.value)" (change)="all()" [matAutocomplete]="main">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input matInput type="text" maxlength="20" [(ngModel)]="this.newRow.lessons[4]" (input)="filter($event.target.value)" (change)="all()" [matAutocomplete]="main">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input matInput type="text" maxlength="20" [(ngModel)]="this.newRow.lessons[5]" (input)="filter($event.target.value)" (change)="all()" [matAutocomplete]="main">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input matInput type="text" maxlength="20" [(ngModel)]="this.newRow.lessons[6]" (input)="filter($event.target.value)" (change)="all()" [matAutocomplete]="main">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input matInput type="text" maxlength="20" [(ngModel)]="this.newRow.lessons[7]" (input)="filter($event.target.value)" (change)="all()" [matAutocomplete]="main">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input matInput type="text" maxlength="20" [(ngModel)]="this.newRow.lessons[8]" (input)="filter($event.target.value)" (change)="all()" [matAutocomplete]="main">
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <button (click)="save()" class="btn">Pridėti</button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div class="container flex">
+    <input type="button" class="btn" [routerLink]="['/tvarkarastis']" value="Grįžti">
+</div>

@@ -1,0 +1,17 @@
+<div style="height: 2vw;">
+    <div class="movingLine fast" *ngIf="this.nameDays.length != 0">
+        <strong>Vardadieniai: </strong>
+        <span *ngFor="let name of this.nameDays"> {{ name }} || </span>
+        <span *ngFor="let name of this.celebrations">{{ ((name) ? '   >> ' + name : '') }}</span>
+    </div>
+</div>
+<div>
+    <div class="movingLine slow" *ngIf="this.horoscopes.length != 0">
+        <span>Horoskopai: &nbsp;&nbsp;&nbsp;</span>
+        <span *ngFor="let horoscope of this.horoscopes">
+        <strong>{{ horoscope.title }}: </strong>
+        <span>{{ horoscope.description }}</span>
+        <span> || </span>
+        </span>
+    </div>
+</div>

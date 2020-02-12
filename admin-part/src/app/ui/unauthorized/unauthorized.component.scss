@@ -1,0 +1,31 @@
+.error-container {
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    .mat-icon {
+        font-size: 8em;
+        width: unset;
+        height: unset;
+        text-align: center;
+        margin: 1rem;
+    }
+    img {
+        margin: 1rem;
+        width: 150px;
+        margin: 10px;
+    }
+    h1 {
+        color: var(--s3);
+    }
+    h1,
+    h2 {
+        text-align: center;
+    }
+    .text-container {
+        padding: 20px;
+    }
+    button {
+        align-self: center;
+        margin: 30px 0px;
+    }
+}

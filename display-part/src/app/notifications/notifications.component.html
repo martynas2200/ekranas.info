@@ -1,0 +1,38 @@
+<!-- <ngx-slick-carousel class="carousel" 
+#slickModal="slick-carousel" 
+[config]="slideConfig" 
+(init)="slickInit($event)"
+(breakpoint)="breakpoint($event)"
+(afterChange)="afterChange($event)"
+(beforeChange)="beforeChange($event)">
+<div ngxSlickItem *ngFor="let slide of slides" class="slide"> -->
+
+<ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="{
+    fade: true,
+    autoplay: true,
+    autoplaySpeed: this.settings.settings.SlideDuration * 1000,
+    arrows: false,
+    pauseOnHover: false,
+    dots: true
+}">
+
+    <div class="slide" *ngFor="let slide of this.notificationBoxes" ngxSlickItem>
+        <div *ngFor="let notification of slide; let i = index">
+            <div *ngIf="notification.note; else elseBlock">
+                <div class="box notification" [class.authorMargin]="notification.displayAuthor" [ngClass]="{'box': true, 'notification': true, 'e1': (i % 2 === 0), 'e2': (i % 2 === 1) }">
+                    <div [innerHTML]="notification.note"></div>
+                    <aside>{{ notification.day }}</aside>
+                    <div class="author" *ngIf="notification.displayAuthor">{{ notification.author }}</div>
+                </div>
+            </div>
+            <ng-template #elseBlock>
+                <img [src]="notification.image" [alt]="'Nepavyko užkrauti nuotraukos > ' + notification.image + ', parašyk pagalbai ekranas.info'">
+            </ng-template>
+        </div>
+    </div>
+
+</ngx-slick-carousel>
+
+
+<!-- old way -->
+<div id="notificationsBox" style="visibility: hidden;" style="height: 90vh"></div>

@@ -1,0 +1,7 @@
+<div class="flex margin20">
+    <img [src]="this.loginService.user.school.logo" style="width:200px;" class="logo" alt="Logotipo nepavyko rasti arba jis dar neįkeltas!">
+    <div *ngIf="this.loginService.user.role > 1">
+        <input type="file" name="logo" accept="image/*" #logo (change)="logoUpload(logo.files);logo.value ='';">
+        <button type="button" class="btn" name="button" (click)="logo.click()">Keisti</button>
+    </div>
+</div>

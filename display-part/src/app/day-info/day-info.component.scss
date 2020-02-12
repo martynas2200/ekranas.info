@@ -1,0 +1,55 @@
+:host {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+.movingLine br {
+    display: none;
+}
+
+.movingLine br:after {
+    content: " || ";
+}
+
+.movingLine {
+    display: inline-block;
+    font-size: 2vw;
+    color: #FFFFFF;
+    background: #000000;
+    line-height: 1;
+    margin: 0px;
+    padding-left: 100%;
+    font-family: 'Proza Libre', sans-serif;
+    white-space: nowrap;
+    * {
+        display: inline-block;
+        padding: 0px 3px;
+    }
+    strong {
+        color: var(--s2);
+        // position: sticky;
+        // left: 0px;
+        // background: black;
+        // z-index: 5;
+        // padding-right: 10px;
+    }
+}
+
+.movingLine.fast {
+    animation: marquee 15s linear infinite;
+}
+
+.movingLine.slow {
+    animation: marquee 200s linear infinite;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(-100%, 0);
+    }
+}

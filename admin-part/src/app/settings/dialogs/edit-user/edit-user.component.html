@@ -1,0 +1,30 @@
+<h1>{{ (this.config.edit) ? 'Vartotojo redagavimas' : 'Naujo vartotojo pridėjimas' }}</h1>
+<!-- <div mat-dialog-content> -->
+<form #newUser="ngForm" (ngSubmit)="submit(newUser)" *ngIf="!this.busy">
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Vardas, Pavardė" name="name" required [(ngModel)]="this.user.name">
+    </mat-form-field>
+    <mat-form-field class="full-width" *ngIf="!this.config.edit">
+        <input matInput placeholder="Elektroninio pašto adresas" name="email" type="email" required [(ngModel)]="this.user.email">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Paskyros tipas</mat-label>
+        <mat-select [(ngModel)]="this.user.role" name="role" required>
+            <mat-option [value]='0'>Mokytojas</mat-option>
+            <mat-option [value]='1'>Redaktorius</mat-option>
+            <mat-option [value]='2'>Administratorius</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div *ngIf="!this.config.edit">
+        <div class="info" *ngIf="this.user.role == 2"><i class="fas fa-info-circle"></i>Gali koreguoti visą turinį ir nustatymus (įskaitant vartotojus).</div>
+        <div class="info" *ngIf="this.user.role == 1"><i class="fas fa-info-circle"></i>Gali koreguoti visą turinį (tvarkaraščiai, pranešimai</div>
+        <div class="info" *ngIf="this.user.role == 0"><i class="fas fa-info-circle"></i>Gali tik pridėti naujus pranešimus.</div>
+        <div class="info"><i class="fas fa-info-circle"></i>Elektroninio pašto adresu bus išsiųstas kvietimas paskyros aktyvavimui.</div>
+    </div>
+    <mat-dialog-actions>
+        <button type="submit" class="btn">{{ (this.config.edit) ? 'Išsaugoti' : 'Pridėti' }}</button>
+        <button type="button" class="btn" mat-dialog-close>Atšaukti</button>
+    </mat-dialog-actions>
+</form>
+<spinner *ngIf="this.busy"></spinner>
+<!-- </div> -->

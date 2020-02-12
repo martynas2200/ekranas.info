@@ -1,0 +1,100 @@
+<h1>Pranešimo {{ ((!this.config.edit) ? 'pridėjimas' : 'informacijos redagavimas') }}</h1>
+<form #NotificationForm="ngForm" (ngSubmit)="submit(NotificationForm)" *ngIf="!this.busy">
+    <div class="contents">
+        <fieldset>
+            <legend><i class="fas fa-calendar-alt"></i> Rodymas</legend>
+            <mat-form-field *ngIf="!this.formData.repeatTimes">
+                <input matInput [matDatepicker]="picker" placeholder="Data" name="date1" id="date1" [(ngModel)]="this.formData.date1" required #date1="ngModel">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker touchUi></mat-datepicker>
+            </mat-form-field>
+            <div *ngIf="this.formData.repeatTimes">
+                <mat-form-field style="padding-right: 15px;">
+                    <input matInput [matDatepicker]="picker2" placeholder="Rodyti nuo" name="date1" id="date1" [(ngModel)]="this.formData.date1" #date1="ngModel">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2 touchUi></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput [matDatepicker]="picker3" placeholder="iki" name="date2" id="date2" [(ngModel)]="this.formData.date2" #date2="ngModel">
+                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                    <mat-datepicker #picker3 touchUi></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <!-- <span tooltip="Pasirinkus taip, pranešimas bus rodomas viena diena prieš pagrindinę pranešimo datą." flow="right"><i class="fas fa-question-circle"></i></span> -->
+            <div class="toggle-grid">
+                <label>Išankstinis rodymas</label>
+                <mat-slide-toggle (change)="this.formData.showBefore = !this.formData.showBefore;" [checked]="this.formData.showBefore">{{ this.formData.showBefore ? 'Taip': 'Ne' }}</mat-slide-toggle>
+            </div>
+            <div class="toggle-grid">
+                <label><i class="fas fa-redo-alt"></i> Pasikartojimas</label>
+                <mat-slide-toggle (change)="this.formData.repeatTimes = !this.formData.repeatTimes;" [checked]="this.formData.repeatTimes">{{ this.formData.repeatTimes ? 'Kartoti': 'Nėra' }}</mat-slide-toggle>
+            </div>
+            <div class="info" style="max-width: 550px;">
+                <i class="fas fa-info-circle"></i>
+                <div class="showing">{{ showDatesList() }}</div>
+            </div>
+        </fieldset>
+        <fieldset *ngIf="!this.config.files">
+            <legend><i class="fas fa-info"></i> Informacija</legend>
+            <label>Pranešimas</label>
+            <div class="warning" style="max-width: 550px;" *ngIf="!this.formData.visibility"><i class="fas fa-exclamation-circle"></i>Šis pranešimas šiuo metu paslėptas!</div>
+            <div style="box-shadow: 0px 0px 6px 2px #0000001a;margin-top:5px;margin-bottom: 16px;">
+                <ckeditor [config]="{ toolbar: [ 'heading', 'bold', 'italic', 'blockQuote', 'numberedList', 'bulletedList', 'undo', 'redo']}" [editor]="Editor" [(ngModel)]="this.formData.note" name="note" #note="ngModel"></ckeditor>
+                <!-- <ckeditor [config]="{ toolbar: [ 'heading', 'bold', 'italic', 'blockQuote', 'numberedList', 'bulletedList', 'insertTable', 'undo', 'redo']}" [editor]="Editor" [(ngModel)]="this.formData.note" name="note"></ckeditor> -->
+            </div>
+            <!-- 
+                    14: "tableColumn"
+                    15: "tableRow"
+                    16: "mergeTableCells" 
+    5: "imageTextAlternative"
+    6: "imageStyle:full"
+    7: "imageStyle:side"
+    12: "mediaEmbed"
+    17: "imageUpload" -->
+            <!-- <span tooltip="Pasirinkus svarbu, pranešimas bus rodomas aukščiau negu kiti pranešimai." flow="right"><i class="fas fa-question-circle"></i></span> -->
+            <div class="toggle-grid">
+                <label><i class="fas fa-star"></i> Pranešimas</label>
+                <mat-slide-toggle (change)="this.formData.important = !this.formData.important;" [checked]="this.formData.important">{{ this.formData.important ? 'Svarbus': 'Įprastas' }}</mat-slide-toggle>
+            </div>
+            <div class="toggle-grid">
+                <label>Autorius pranešime</label>
+                <mat-slide-toggle (change)="this.formData.displayAuthor = !this.formData.displayAuthor;" [checked]="this.formData.displayAuthor">{{ this.formData.displayAuthor ? 'rodomas': 'nerodomas' }}</mat-slide-toggle>
+            </div>
+            <mat-form-field>
+                <input matInput placeholder="Autorius" name="author" [(ngModel)]="this.formData.author" required #author="ngModel">
+            </mat-form-field>
+        </fieldset>
+        <fieldset *ngIf="this.config.files">
+            <legend><i class="fas fa-image"></i> Nuotraukos</legend>
+            <input type="file" name="pictures[]" accept="image/*" multiple #upload (change)="uploadsDistribution(upload.files);upload.value ='';">
+            <div class="margin">
+                <span (click)="upload.click()" class="file-select btn">
+                            <i class="fas fa-upload"></i>
+                            <span>Įkelti</span>
+                </span>
+                <!-- <span id="btn-uploads-gallery" class="file-select btn">
+                            <i class="fas fa-images"></i>
+                            <span>Failai</span>
+                </span>
+                <span id="btn-upload-url" class="file-select btn">
+                            <i class="fas fa-link"></i>
+                            <span>Nuoroda</span>
+                </span> -->
+            </div>
+            <div id="preview-box">
+                <div class="preview" *ngFor="let image of this.formData.images; let i = index">
+                    <img [src]="image.url" [alt]="image.name">
+                    <span [title]="image.name">{{ image.name }}</span>
+                    <i class="fas fa-minus-circle minus" title="Pašalinti" (click)="removeUpload(image.id)"></i>
+                </div>
+            </div>
+            <div class="warning" style="max-width: 550px;"><i class="fas fa-exclamation-circle"></i>Vienos nuotraukos dydis iki 10 MB!</div>
+        </fieldset>
+    </div>
+    <mat-dialog-actions>
+        <button type="submit" class="btn">{{ (this.config.edit) ? 'Išsaugoti' : 'Pridėti' }}</button>
+        <button type="button" class="btn" mat-dialog-close>Atšaukti</button>
+    </mat-dialog-actions>
+</form>
+
+<spinner *ngIf="this.busy"></spinner>

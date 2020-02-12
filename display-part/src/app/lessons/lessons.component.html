@@ -1,0 +1,8 @@
+<div class="box lesson_slide current" *ngFor="let lesson of this.filterLessons(this.time.lesson); let i = index" [class.show]="i == this.currentindex">
+    <div *ngIf="lesson.className !== '0'"> {{ lesson.className + ((this.parse(lesson.className)) ? ' klasei' : '') }}</div>
+    <div>{{ lesson.discipline.name }}</div>
+    <div class="grid">
+        <div>{{ lesson.discipline.room }}</div>
+        <div>{{ lesson.discipline.teacher }}</div>
+    </div>
+</div>

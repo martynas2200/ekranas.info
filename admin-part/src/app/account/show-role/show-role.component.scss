@@ -1,0 +1,14 @@
+section {
+    display: grid;
+}
+
+section>div {
+    padding: 15px 30px;
+    background: #eee;
+    margin: 10px;
+    border-radius: 100px;
+}
+
+section>div.selected {
+    background: var(--s4);
+}
