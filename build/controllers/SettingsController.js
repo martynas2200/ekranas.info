@@ -100,7 +100,7 @@ var SettingsController = /** @class */ (function () {
                     _b.trys.push([1, 3, , 4]);
                     return [4 /*yield*/, typeorm_1.getRepository(School_1.School).save({
                             id: req.session.user.school.id,
-                            showTimetable: (showTimetable == "true"),
+                            showTimetable: (showTimetable == "true" || showTimetable),
                             firstSemester: firstSemester,
                             secondSemester: secondSemester,
                             endSemesters: endSemesters

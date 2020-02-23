@@ -1,0 +1,14 @@
+.semester>* {
+    width: 100%;
+}
+
+@media all and (min-width: 400px) {
+    .semester>* {
+        width: auto;
+    }
+    .semesters {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 0px;
+    }
+}

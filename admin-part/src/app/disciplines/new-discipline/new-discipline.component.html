@@ -1,5 +1,6 @@
 <h1>Disciplinos {{ ((!this.config.edit) ? 'pridėjimas' : 'redagavimas') }}</h1>
-<form #DisciplineForm="ngForm" (ngSubmit)="submit(DisciplineForm)">
+<spinner *ngIf="this.busy"></spinner>
+<form #DisciplineForm="ngForm" (ngSubmit)="submit(DisciplineForm)" *ngIf="!this.busy">
     <mat-form-field class="full-width">
         <input matInput placeholder="Mokytoja(s)" name="teacher" maxlength="80" required [(ngModel)]="this.config.data.teacher" #teacher="ngModel">
     </mat-form-field>

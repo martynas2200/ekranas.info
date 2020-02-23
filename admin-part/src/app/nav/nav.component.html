@@ -37,7 +37,6 @@ break;
                 <!-- <i style="color: red;position: absolute;left: 0px;bottom: 0px;/*! background: white; */border-radius: 10px;" class="fas fa-<?= $icon;?>-circle"></i> -->
             </div>
             <div class="dropdown-left">
-                <!-- ?= $aa; ?> -->
             </div>
         </div>
         <div>
@@ -54,18 +53,14 @@ break;
                 <span><i class="fas fa-user"></i><span>{{ this.loginService.user.name }}</span></span>
                 <div class="dropdown-right">
                     <img class="details" src="{{ this.loginService.user.school.logo }}" />
-                    <div>
-                        <a routerLink="paskyra" (click)="hide()">
-                            <i class="fas fa-user-cog" aria-hidden="true"></i>
-                            <span>Paskyros nustatymai</span>
-                        </a>
-                    </div>
-                    <div>
-                        <a (click)="loggout();">
-                            <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
-                            <span>Atsijungti</span>
-                        </a>
-                    </div>
+                    <a routerLink="paskyra" (click)="hide()">
+                        <i class="fas fa-user-cog" aria-hidden="true"></i>
+                        <span>Paskyros nustatymai</span>
+                    </a>
+                    <a (click)="loggout();">
+                        <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                        <span>Atsijungti</span>
+                    </a>
                 </div>
             </div>
         </div>

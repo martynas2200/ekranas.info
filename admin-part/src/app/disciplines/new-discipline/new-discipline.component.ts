@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NgForm } from '@angular/forms';
-import { Discipline } from '../disciplines.component';
 import { HttpClient } from '@angular/common/http';
 import { SnackbarService } from 'src/app/ui/snackbar/snackbar.service';
+import { Discipline } from 'src/app/disciplines.service';
 @Component({
   selector: 'app-new-discipline',
   templateUrl: './new-discipline.component.html',

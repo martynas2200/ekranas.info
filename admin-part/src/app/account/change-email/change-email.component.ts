@@ -22,7 +22,7 @@ export class ChangeEmailComponent {
               private logginService: LoginService) {}
 
   submit(form: NgForm) {
-    if (form.invalid) { return ; }
+    if (form.invalid) return ;
     this.busy = true;
     this.http.post<any>('/api/auth/change/email', form.value).subscribe( success => {
       this.logginService.user.email = this.email;

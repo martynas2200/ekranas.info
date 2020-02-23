@@ -1,1 +1,33 @@
-<p>dialog-change-settings works!</p>
+<h1>Tvarkarasčio nustatymai</h1>
+<form #timetableSettings="ngForm" (ngSubmit)="sendSettings(timetableSettings)" *ngIf="!this.busy">
+
+    <mat-form-field class="full-width">
+        <mat-label></mat-label>
+        <mat-select [(ngModel)]="this.dialogData.settings.showTimetable" name="showTimetable">
+            <mat-option [value]="true">Tvarkaraščio rodymas įjungtas</mat-option>
+            <mat-option [value]="false">Tvarkaraščio rodymas išjungtas</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div class="full-width semesters">
+        <mat-form-field>
+            <mat-label>Pirmas pusmetis prasideda</mat-label>
+            <input matInput type="date" name="firstSemester" [(ngModel)]="this.dialogData.settings.firstSemester">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Antras pusmetis prasideda</mat-label>
+            <input matInput type="date" name="secondSemester" [(ngModel)]="this.dialogData.settings.secondSemester">
+        </mat-form-field>
+    </div>
+
+    <mat-form-field class="full-width">
+        <mat-label>Mokslo metų pabaiga</mat-label>
+        <input matInput type="date" name="endSemesters" [(ngModel)]="this.dialogData.settings.endSemesters">
+    </mat-form-field>
+
+    <mat-dialog-actions>
+        <button type="submit" class="btn">Išsaugoti</button>
+        <button type="button" class="btn" mat-dialog-close>Atšaukti</button>
+    </mat-dialog-actions>
+</form>
+<spinner *ngIf="this.busy"></spinner>

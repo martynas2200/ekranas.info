@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import {MatTabsModule} from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -105,6 +106,7 @@ import { DialogChangeSettingsComponent } from './timetable/dialog-change-setting
     MatSelectModule,
     MatFormFieldModule,
     MatIconModule,
+    MatTabsModule,
     MatInputModule,
     MatButtonModule,
     MatDialogModule,

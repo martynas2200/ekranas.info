@@ -1,0 +1,27 @@
+.snackbar {
+    font-size: 20px;
+    position: relative;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    z-index: 10000;
+    pointer-events: none;
+    margin: 0.1em;
+}
+
+.snackbar i {
+    font-size: 2em;
+    padding-right: 20px;
+}
+
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: none;
+    outline: none;
+    position: fixed;
+    left: 50%;
+    bottom: 1em;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+}

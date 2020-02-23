@@ -1,89 +1,63 @@
 <section class="fixed">
-    <div class="container">
-        <div *ngIf="this.loginService.user.role > 0; else elseBlock">
-            <button type="button" name="button" class="btn" routerLink="/disciplinos" style="margin: 5px 2px 16px 2px;border-radius: 2px;"><i class="fas fa-edit"></i>&nbsp;Redaguoti disciplinas</button>
-            <select id="show_timetable" style="height:40px;" (change)="updateSettings()" [(ngModel)]="this.dates.showTimetable">
-                <option value="false">Tvarkaraščio rodymas išjungtas</option>
-                <option value="true">Tvarkaraščio rodymas įjungtas</option>
-            </select>
+    <div class="main-title">
+        <h1>Tvarkaraštis</h1>
+        <div class="tools">
+            <button type="button" class="transparent" (click)="openSettings()"><mat-icon>settings</mat-icon></button>
+            <button type="button" name="button" routerLink="/disciplinos">Disciplinos<mat-icon>keyboard_arrow_right</mat-icon></button>
         </div>
-        <ng-template #elseBlock>
-            <button type="button" name="button" class="btn" routerLink="/disciplinos" style="margin: 5px 2px 16px 2px;border-radius: 2px;">Peržiūrėti disciplinas</button>
-        </ng-template>
+        <div class="mobile">
+            <button type="button" name="button" routerLink="/disciplinos">Disciplinos<mat-icon>keyboard_arrow_right</mat-icon></button>
+            <button type="button" (click)="openSettings()">Tvarkaraščio nustatymai<mat-icon>keyboard_arrow_right</mat-icon></button>
+            <button type="button" name="button" (click)="this.selected = (this.selected == 1 ? 2 : 1)">{{ this.selected == 1 ? 'Antras' : 'Pirmas'}} pusmetis <mat-icon>keyboard_arrow_right</mat-icon></button>
+        </div>
     </div>
-
-    <div class="container">
-        <div class="title">Pirmas pusmetis</div>
-        <div style="text-align: end;">
-            <span>Prasideda:</span>
-            <input class="inline" type="date" name="firstSemester" (change)="updateSettings()" [(ngModel)]="this.dates.firstSemester">
-        </div>
-        <div class="warning" *ngIf="this.dates.currentSemester == 1 && this.dates.numberOfSavedRows < 0">
-            <i class="fas fa-exclamation-triangle"></i>
-            <span>Pusmetis jau prasidėjęs, bet nėra įvesta pirmojo tvarkaraščio duomenų!</span>
+    <div class="warning" *ngIf="this.data.currentSemester != 0 && this.data.numberOfSavedRows < 0" @EnterLeaveX>
+        <i class="fas fa-exclamation-triangle"></i>
+        <span>Pusmetis jau prasidėjęs, bet nėra įvesta {{this.data.currentSemester == 1 ? 'pirmojo' : 'antrojo'}} tvarkaraščio duomenų!</span>
+    </div>
+    <div class="info" *ngIf="!this.data.settings.showTimetable && this.data.settings.firstSemester != ''" @EnterLeaveX>
+        <i class="fas fa-info"></i>
+        <span>Tvarkaraštis nerodomas!</span>
+    </div>
+    <div class="container" *ngIf="this.data.settings.firstSemester != ''" @EnterLeaveY>
+        <div class="selector">
+            <button type="button" style="background: transparent;border: none;" (click)="this.selected = (this.selected == 1 ? 2 : 1)" *ngIf="this.selected == 2">
+                <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+            <div class="semester">
+                <h1>{{ this.selected == 1 ? 'Pirmas' : 'Antras'}} pusmetis</h1>
+                <h2>{{ this.selected == 1 ? this.data.settings.firstSemester + " - " + this.data.settings.secondSemester : this.data.settings.secondSemester + " - " + this.data.settings.endSemesters}}</h2>
+            </div>
+            <button type="button" class="transparent" (click)="this.selected = (this.selected == 1 ? 2 : 1)" *ngIf="this.selected == 1">
+                <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
         </div>
         <div class="week">
-            <div class="day" routerLink="1/1">PIRMADIENIS
-                <div class="label">{{ this.loginService.user.role == 0 ? 'Peržiūrėti' : 'Peržiūrėti / redaguoti'}}</div>
-            </div>
-            <div class="day" routerLink="1/2">ANTRADIENIS
-                <div class="label">{{ this.loginService.user.role == 0 ? 'Peržiūrėti' : 'Peržiūrėti / redaguoti'}}</div>
-            </div>
-            <div class="day" routerLink="1/3">TREČIADIENIS
-                <div class="label">{{ this.loginService.user.role == 0 ? 'Peržiūrėti' : 'Peržiūrėti / redaguoti'}}</div>
-            </div>
-            <div class="day" routerLink="1/4">KETVIRTADIENIS
-                <div class="label">{{ this.loginService.user.role == 0 ? 'Peržiūrėti' : 'Peržiūrėti / redaguoti'}}</div>
-            </div>
-            <div class="day" routerLink="1/5">PENKTADIENIS
-                <div class="label">{{ this.loginService.user.role == 0 ? 'Peržiūrėti' : 'Peržiūrėti / redaguoti'}}</div>
-            </div>
+            <button type="button" class="day" [routerLink]="[this.selected, 1]">
+                <p>P</p>
+                <div class="label">PIRMADIENIS</div>
+                <mat-icon>{{ this.loginService.user.role == 0 ? 'remove_red_eye' : 'edit'}}</mat-icon>
+            </button>
+            <button type="button" class="day" [routerLink]="[this.selected, 2]">
+                <p>A</p>
+                <div class="label">ANTRADIENIS</div>
+                <mat-icon>{{ this.loginService.user.role == 0 ? 'remove_red_eye' : 'edit'}}</mat-icon>
+            </button>
+            <button type="button" class="day" [routerLink]="[this.selected, 3]">
+                <p>T</p>
+                <div class="label">TREČIADIENIS</div>
+                <mat-icon>{{ this.loginService.user.role == 0 ? 'remove_red_eye' : 'edit'}}</mat-icon>
+            </button>
+            <button type="button" class="day" [routerLink]="[this.selected, 4]">
+                <p>K</p>
+                <div class="label">KETVIRTADIENIS</div>
+                <mat-icon>{{ this.loginService.user.role == 0 ? 'remove_red_eye' : 'edit'}}</mat-icon>
+            </button>
+            <button type="button" class="day" [routerLink]="[this.selected, 5]">
+                <p>Pn</p>
+                <div class="label">PENKTADIENIS</div>
+                <mat-icon>{{ this.loginService.user.role == 0 ? 'remove_red_eye' : 'edit'}}</mat-icon>
+            </button>
         </div>
     </div>
-
-    <div class="container">
-        <div class="title">Antras pusmetis</div>
-        <!-- <div style="text-align: end;">
-        <span>Prasideda:</span>
-        <mat-form-field appearance="fill">
-            <mat-label>pusmetis</mat-label>
-            <input matInput placeholder="Placeholder">
-            <mat-icon matSuffix>date_range</mat-icon>
-        </mat-form-field>
-        <input class="inline" type="date" name="second_semester" id="second_semester" value="2019-01-21">
-    </div> -->
-        <div style="text-align: end;">
-            <span>Prasideda:</span>
-            <input class="inline" type="date" name="secondSemester" (change)="updateSettings()" [(ngModel)]="this.dates.secondSemester">
-        </div>
-        <div class="warning" *ngIf="this.dates.currentSemester == 2 && this.dates.numberOfSavedRows < 0">
-            <i class="fas fa-exclamation-triangle"></i>
-            <span>Pusmetis jau prasidėjęs, bet nėra įvesta antrojo tvarkaraščio duomenų!</span>
-        </div>
-        <div class="week">
-            <div class="day" routerLink="2/1">PIRMADIENIS
-                <div class="label">{{ this.loginService.user.role == 0 ? 'Peržiūrėti' : 'Peržiūrėti / redaguoti'}}</div>
-            </div>
-            <div class="day" routerLink="2/2">ANTRADIENIS
-                <div class="label">{{ this.loginService.user.role == 0 ? 'Peržiūrėti' : 'Peržiūrėti / redaguoti'}}</div>
-            </div>
-            <div class="day" routerLink="2/3">TREČIADIENIS
-                <div class="label">{{ this.loginService.user.role == 0 ? 'Peržiūrėti' : 'Peržiūrėti / redaguoti'}}</div>
-            </div>
-            <div class="day" routerLink="2/4">KETVIRTADIENIS
-                <div class="label">{{ this.loginService.user.role == 0 ? 'Peržiūrėti' : 'Peržiūrėti / redaguoti'}}</div>
-            </div>
-            <div class="day" routerLink="2/5">PENKTADIENIS
-                <div class="label">{{ this.loginService.user.role == 0 ? 'Peržiūrėti' : 'Peržiūrėti / redaguoti'}}</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div style="text-align: end;">
-            <span>Mokslo metų pabaiga:</span>
-            <input class="inline" type="date" name="endSemesters" (change)="updateSettings()" [(ngModel)]="this.dates.endSemesters">
-        </div>
-    </div>
-
 </section>

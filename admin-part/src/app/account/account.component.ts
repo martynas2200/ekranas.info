@@ -12,7 +12,6 @@ import { ShowRoleComponent } from './show-role/show-role.component';
   styleUrls: ['./account.component.scss']
 })
 export class AccountComponent implements OnInit {
-
   constructor(public loginService: LoginService, private dialog: MatDialog) { }
 
   ngOnInit() {

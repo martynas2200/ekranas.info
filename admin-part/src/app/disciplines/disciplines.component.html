@@ -13,7 +13,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let discipline of this.disciplines; let i = index">
+                <tr *ngFor="let discipline of this.disciplinesService.disciplines; let i = index">
                     <td>{{ (i + 1) }}</td>
                     <td>{{ discipline.name }}</td>
                     <td>{{ discipline.teacher }}</td>

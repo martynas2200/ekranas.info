@@ -1,36 +1,22 @@
+import { DisciplinesService } from './../disciplines.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NewDisciplineComponent } from './new-discipline/new-discipline.component';
 import { HttpClient } from '@angular/common/http';
 import { SnackbarService } from '../ui/snackbar/snackbar.service';
 import { LoginService } from '../login.service';
-export interface Discipline {
-  id: number;
-  room: string;
-  teacher: string;
-  // dec: string;
-  name: string;
-}
-
+import { Discipline } from '../disciplines.service';
 @Component({
   selector: 'app-disciplines',
   templateUrl: './disciplines.component.html',
   styleUrls: ['./disciplines.component.scss']
 })
 export class DisciplinesComponent implements OnInit {
-  disciplines: Array<Discipline> = [];
-
   constructor(private dialog: MatDialog,
               private http: HttpClient,
               public loginService: LoginService,
-              private snackBar: SnackbarService) {
-    this.http.get<any>('/api/disciplines').subscribe(success => {
-      if (success.disciplines) {
-        this.disciplines = success.disciplines;
-      }
-    }, error => {
-      this.snackBar.show(error.error);
-    });
+              private snackBar: SnackbarService,
+              private disciplinesService: DisciplinesService) {
   }
 
   ngOnInit() {
@@ -43,29 +29,29 @@ export class DisciplinesComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(callback => {
       if (callback && callback.id) {
-        this.disciplines.push(callback);
+        this.disciplinesService.disciplines.push(callback);
       }
     });
   }
   private edit(id: number): void {
-    const indexx = this.returnDisciplineIndexById(id);
+    const indexx = this.disciplinesService.returnDisciplineIndexById(id);
     if (indexx !== -1) {
       const dialogRef = this.dialog.open(NewDisciplineComponent, {
-        data: { edit: true, data: this.disciplines[indexx]}
+        data: { edit: true, data: this.disciplinesService.disciplines[indexx]}
       });
       dialogRef.afterClosed().subscribe(callback => {
         if (callback && callback.id) {
-          this.disciplines[indexx] = callback;
+          this.disciplinesService.disciplines[indexx] = callback;
         }
       });
     }
   }
 
   private remove(id: number): void {
-      const indexx = this.returnDisciplineIndexById(id);
+      const indexx = this.disciplinesService.returnDisciplineIndexById(id);
       this.http.delete<any>('/api/disciplines/' + id).subscribe(success => {
         if (indexx !== -1) {
-          this.disciplines.splice(indexx, 1);
+          this.disciplinesService.disciplines.splice(indexx, 1);
           this.snackBar.show(success.message, 'success');
         } else {
           this.snackBar.show('Ištrinta, bet prašome perkrauti puslapį (F5)', 'error');
@@ -73,9 +59,5 @@ export class DisciplinesComponent implements OnInit {
       }, error => {
         this.snackBar.show(error.error, 'error');
       });
-  }
-
-  public returnDisciplineIndexById(id: number) {
-    return this.disciplines.findIndex(x => x.id === id);
   }
 }

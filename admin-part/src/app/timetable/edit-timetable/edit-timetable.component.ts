@@ -4,10 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { SelectDisciplineComponent } from '../select-discipline/select-discipline.component';
 import { LoginService } from 'src/app/login.service';
 import { HttpClient } from '@angular/common/http';
-import { Discipline } from '../../disciplines/disciplines.component';
 import { SnackbarService } from 'src/app/ui/snackbar/snackbar.service';
-// import { Observable } from 'rxjs';
-// import { map, startWith } from 'rxjs/operators';
+import { Discipline } from 'src/app/disciplines.service';
 
 interface Row {
   edit?: boolean;
@@ -27,7 +25,7 @@ interface Row {
 export class EditTimetableComponent implements OnInit {
   day: number;
   semester: number;
-  days: Array<string> = ['Pirmadienis', 'Antradienis', 'Trečiadienis', 'Ketvirtadienis', 'Penktadienis'];
+  days: Array<string> = ['pirmadienis', 'antradienis', 'trečiadienis', 'ketvirtadienis', 'penktadienis'];
   filteredOptions: string[] = [];
   rows: Array<Row> = [];
   classes: Array<string> = [];

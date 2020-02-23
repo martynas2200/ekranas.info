@@ -48,7 +48,7 @@ class SettingsController {
     try {
       await getRepository(School).save({
         id: req.session.user.school.id,
-        showTimetable: (showTimetable == "true"),
+        showTimetable: (showTimetable == "true" || showTimetable),
         firstSemester,
         secondSemester,
         endSemesters
