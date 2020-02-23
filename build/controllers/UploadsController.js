@@ -48,12 +48,12 @@ var UploadsController = /** @class */ (function () {
         var image, newName, filesLocation, publicLocation;
         return __generator(this, function (_a) {
             if (Object.keys(req.files).length == 0) {
-                res.status(400).send('Serveris negavo failo. Parašyk žinutę dešinėje pagalbai');
+                res.status(400).send('Serveris negavo failo. Parašyk žinutę dešinėje pagalbai!');
                 return [2 /*return*/];
             }
             image = req.files.image;
             newName = image.md5 + path.extname(image.name);
-            filesLocation = path.join('img/logos/', newName);
+            filesLocation = path.join(__dirname, 'img/logos/', newName);
             publicLocation = path.join('/img/logos/', newName);
             // Use the mv() method to place the file somewhere on your server
             image.mv(filesLocation, function (err) {
@@ -63,6 +63,7 @@ var UploadsController = /** @class */ (function () {
                         switch (_a.label) {
                             case 0:
                                 if (err) {
+                                    err.dd = filesLocation;
                                     res.status(500).send(err);
                                     return [2 /*return*/];
                                 }

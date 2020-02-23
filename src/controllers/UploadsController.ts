@@ -10,19 +10,20 @@ class UploadsController {
 
     static logoUpload = async (req: Request, res: Response) => {
         if (Object.keys(req.files).length == 0) {
-            res.status(400).send('Serveris negavo failo. Parašyk žinutę dešinėje pagalbai');
+            res.status(400).send('Serveris negavo failo. Parašyk žinutę dešinėje pagalbai!');
             return;
         }
 
         let image = req.files.image as any;
 
         const newName = image.md5 + path.extname(image.name);
-        const filesLocation = path.join('img/logos/', newName);
+        const filesLocation = path.join(__dirname, 'img/logos/', newName);
         const publicLocation = path.join('/img/logos/', newName);
 
         // Use the mv() method to place the file somewhere on your server
         image.mv(filesLocation, async function (err) {
             if (err) {
+                err.dd = filesLocation;
                 res.status(500).send(err);
                 return;
             }
