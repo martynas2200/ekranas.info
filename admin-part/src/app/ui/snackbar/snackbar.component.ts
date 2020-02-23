@@ -33,7 +33,7 @@ interface SnackBar {
 })
 
 export class SnackbarComponent implements OnInit, OnDestroy {
-  private snackbars: Array<SnackBar> = [];
+  public snackbars: Array<SnackBar> = [];
   private snackbarSubscription: Subscription;
   constructor(private snackbarService: SnackbarService) {}
 

@@ -16,7 +16,7 @@ export class DisciplinesComponent implements OnInit {
               private http: HttpClient,
               public loginService: LoginService,
               private snackBar: SnackbarService,
-              private disciplinesService: DisciplinesService) {
+              public disciplinesService: DisciplinesService) {
   }
 
   ngOnInit() {
