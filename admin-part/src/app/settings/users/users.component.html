@@ -15,7 +15,7 @@
                 <td>{{ user.name }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ this.getRoleName(user.role) }}</td>
-                <td>{{ user.lastLogin }}</td>
+                <td>{{ this.timeAgo(user.lastLogin) }}</td>
                 <td *ngIf="this.loginService.user.role > 1">
                     <div class="flex" *ngIf="user.role < 3">
                         <i class="fas fa-edit" (click)="edit(i);"></i>
@@ -29,11 +29,11 @@
 <button style="margin-left:20px;" class="btn" (click)="add()"><i class="fas fa-plus"></i>&nbsp;Pridėti naują vartotoją</button>
 <div class="margin20">
     <div class="info">
-        <i class="fas fa-info-circle"></i>
-        <div>
-            <div>Administratorius - Gali koreguoti visą turinį ir nustatymus (įskaitant vartotojus).</div>
-            <div>Redaktorius - Gali koreguoti visą turinį (tvarkaraščiai, pranešimai).</div>
-            <div>Mokytojas - Gali tik pridėti naujus pranešimus.</div>
-        </div>
+        <i class="fas fa-info"></i>
+        <span>
+            <div>Administratorius - gali koreguoti visą turinį ir nustatymus (įskaitant vartotojus).</div>
+            <div>Redaktorius - gali koreguoti visą turinį (tvarkaraščiai, pranešimai).</div>
+            <div>Mokytojas - gali tik pridėti naujus pranešimus.</div>
+        </span>
     </div>
 </div>

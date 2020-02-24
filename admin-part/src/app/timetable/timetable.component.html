@@ -2,10 +2,10 @@
     <div class="main-title">
         <h1>Tvarkaraštis</h1>
         <div class="tools">
-            <button type="button" class="transparent" (click)="openSettings()"><mat-icon>settings</mat-icon></button>
+            <button type="button" class="transparent" (click)="openSettings()" *ngIf="this.data.settings.firstSemester != ''" @EnterLeaveX><mat-icon>settings</mat-icon></button>
             <button type="button" name="button" routerLink="/disciplinos">Disciplinos<mat-icon>keyboard_arrow_right</mat-icon></button>
         </div>
-        <div class="mobile">
+        <div class="mobile" *ngIf="this.data.settings.firstSemester != ''">
             <button type="button" name="button" routerLink="/disciplinos">Disciplinos<mat-icon>keyboard_arrow_right</mat-icon></button>
             <button type="button" (click)="openSettings()">Tvarkaraščio nustatymai<mat-icon>keyboard_arrow_right</mat-icon></button>
             <button type="button" name="button" (click)="this.selected = (this.selected == 1 ? 2 : 1)">{{ this.selected == 1 ? 'Antras' : 'Pirmas'}} pusmetis <mat-icon>keyboard_arrow_right</mat-icon></button>

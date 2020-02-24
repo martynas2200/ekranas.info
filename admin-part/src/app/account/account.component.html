@@ -3,7 +3,7 @@
     <div class="account">
         <div class="item-row">
             <div>Vardas, Pavardė</div>
-            <strong>{{ this.loginService.user.name }}</strong>
+            <strong class="without-cta">{{ this.loginService.user.name }}</strong>
         </div>
         <div class="item-row">
             <div>Teisės</div>
@@ -12,12 +12,18 @@
         </div>
         <div class="item-row">
             <div>Įstaiga</div>
-            <strong>{{ this.loginService.user.school.name }}</strong>
+            <strong class="without-cta">{{ this.loginService.user.school.name }}</strong>
         </div>
         <div class="item-row">
             <div>Prisijungimo vardas</div>
-            <strong [class.disabled]="this.loginService.user.username === ''">{{ (this.loginService.user.username === '') ? 'Nenustatyta' : this.loginService.user.username }}</strong>
-            <button type="button" name="button" class="btn small" (click)='openUsernameDialog()'>Keisti</button>
+            <div *ngIf="this.loginService.user.username; else nousername">
+                <strong>{{ this.loginService.user.username }}</strong>
+                <button type="button" name="button" class="btn small" (click)='openUsernameDialog()'>Keisti</button>
+            </div>
+            <ng-template #nousername>
+                <div class="disabled">Nenustatyta</div>
+                <button type="button" name="button" class="btn small" (click)='openUsernameDialog()'>Sukurti</button>
+            </ng-template>
         </div>
         <div class="item-row">
             <div>El. paštas</div>
