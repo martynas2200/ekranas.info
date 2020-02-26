@@ -2,7 +2,7 @@
     <div class="main-title">
         <h1>Tvarkaraštis</h1>
         <div class="tools">
-            <button type="button" class="transparent" (click)="openSettings()" *ngIf="this.data.settings.firstSemester != ''" @EnterLeaveX><mat-icon>settings</mat-icon></button>
+            <button type="button" class="transparent" (click)="openSettings()" *ngIf="this.data.settings.firstSemester != ''" @scale><mat-icon>settings</mat-icon></button>
             <button type="button" name="button" routerLink="/disciplinos">Disciplinos<mat-icon>keyboard_arrow_right</mat-icon></button>
         </div>
         <div class="mobile" *ngIf="this.data.settings.firstSemester != ''">
@@ -11,11 +11,11 @@
             <button type="button" name="button" (click)="this.selected = (this.selected == 1 ? 2 : 1)">{{ this.selected == 1 ? 'Antras' : 'Pirmas'}} pusmetis <mat-icon>keyboard_arrow_right</mat-icon></button>
         </div>
     </div>
-    <div class="warning" *ngIf="this.data.currentSemester != 0 && this.data.numberOfSavedRows < 0" @EnterLeaveX>
+    <div class="warning" *ngIf="this.data.currentSemester != 0 && this.data.numberOfSavedRows < 0" @scale>
         <i class="fas fa-exclamation-triangle"></i>
         <span>Pusmetis jau prasidėjęs, bet nėra įvesta {{this.data.currentSemester == 1 ? 'pirmojo' : 'antrojo'}} tvarkaraščio duomenų!</span>
     </div>
-    <div class="info" *ngIf="!this.data.settings.showTimetable && this.data.settings.firstSemester != ''" @EnterLeaveX>
+    <div class="info" *ngIf="!this.data.settings.showTimetable && this.data.settings.firstSemester != ''" @scale>
         <i class="fas fa-info"></i>
         <span>Tvarkaraštis nerodomas!</span>
     </div>

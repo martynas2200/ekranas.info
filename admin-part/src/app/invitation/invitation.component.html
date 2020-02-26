@@ -4,7 +4,7 @@
             <a routerLink="/">
                 <img src="/assets/logolight.svg" id="main_logo">
             </a>
-            <div class="">
+            <div>
                 <div class="mini title">Sveiki!</div>
                 <div class="mini title brighter">Ekranas.info paskyros redagavimas</div>
             </div>
@@ -13,21 +13,17 @@
         <form action="kvietimas" method="post" *ngIf="state == 'edit'" #userForm="ngForm" (ngSubmit)="submit(userForm)">
             <div class="flexnw margin">
                 <div style="width: 200px;margin-bottom: 50px;">
-                    <img src="/assets/logo.png" alt="Gimnazijos logotipas">
+                    <img [src]="this.user.school.logo" alt="Gimnazijos logotipas">
                     <div class="margin">{{ this.user.school.name }}</div>
                     <h3>{{ this.user.name }}</h3>
                     <h4>{{ this.user.email }}</h4>
                 </div>
                 <div>
                     <div *ngIf="!this.passwordReset">
-                        <mat-checkbox [(ngModel)]="this.usernameDialog" name="createUsername" #isUser="ngModel">Sukurti vartotojo vardą!</mat-checkbox>
-                        <fieldset *ngIf="this.usernameDialog">
+                        <mat-checkbox [(ngModel)]="this.usernameDialog" name="createUsername" #isUser="ngModel">Sukurti vartotojo vardą</mat-checkbox>
+                        <fieldset *ngIf="this.usernameDialog" @slide style="overflow: hidden;">
                             <legend><i class="fas fa-user"></i> Vartotojo vardas</legend>
                             <input type="text" class="noi" name="username" placeholder="Vartotojo slaptažodis" maxlength="20" autocomplete="off" #username="ngModel" ngModel required>
-                            <!-- <div class="flexnw margin" id="usernameAc" style="display:none;">
-                                <h5>--</h5>
-                                <div>--</div>
-                            </div> -->
                         </fieldset>
                     </div>
                     <fieldset>

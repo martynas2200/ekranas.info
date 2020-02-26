@@ -16,10 +16,10 @@
         </div>
         <div class="item-row">
             <div>Prisijungimo vardas</div>
-            <div *ngIf="this.loginService.user.username; else nousername">
+            <ng-template *ngIf="this.loginService.user.username; else nousername">
                 <strong>{{ this.loginService.user.username }}</strong>
                 <button type="button" name="button" class="btn small" (click)='openUsernameDialog()'>Keisti</button>
-            </div>
+            </ng-template>
             <ng-template #nousername>
                 <div class="disabled">Nenustatyta</div>
                 <button type="button" name="button" class="btn small" (click)='openUsernameDialog()'>Sukurti</button>
