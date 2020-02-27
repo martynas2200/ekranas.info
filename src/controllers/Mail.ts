@@ -11,7 +11,7 @@ export class Mail {
         this.transporter = nodemailer.createTransport({
           sendmail: true,
           newline: 'unix',
-          path: '/var/email',
+          path: '/var/email/',
           dkim: {
             domainName: "ekranas.info",
             keySelector: "2019",
@@ -22,7 +22,7 @@ export class Mail {
           this.transporter = nodemailer.createTransport({
             sendmail: true,
             newline: 'unix',
-            path: '/var/email',
+            path: '/var/email/',
           });
         }
     }
