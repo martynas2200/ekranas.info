@@ -46,7 +46,7 @@ var Mail = /** @class */ (function () {
             this.transporter = nodemailer.createTransport({
                 sendmail: true,
                 newline: 'unix',
-                path: '/usr/sbin/sendmail',
+                path: '/var/email',
                 dkim: {
                     domainName: "ekranas.info",
                     keySelector: "2019",
@@ -58,7 +58,7 @@ var Mail = /** @class */ (function () {
             this.transporter = nodemailer.createTransport({
                 sendmail: true,
                 newline: 'unix',
-                path: '/usr/sbin/sendmail',
+                path: '/var/email',
             });
         }
     }
