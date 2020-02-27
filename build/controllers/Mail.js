@@ -44,12 +44,12 @@ var Mail = /** @class */ (function () {
         if (process.env.NODE_ENV === 'production') {
             this.transporter = nodemailer.createTransport({
                 pool: true,
-                host: "ekranas.info",
+                host: "smtp-relay.sendinblue.com",
                 port: 587,
                 secure: false,
                 auth: {
-                    user: "info",
-                    pass: "drMrUI7n"
+                    user: "martynas2200@gmail.com",
+                    pass: "bhV53CFHwg08PKzr"
                 }
             });
         }
