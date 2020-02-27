@@ -46,7 +46,7 @@ var Mail = /** @class */ (function () {
                 pool: true,
                 host: "ekranas.info",
                 port: 587,
-                secure: true,
+                secure: false,
                 auth: {
                     user: "info",
                     pass: "drMrUI7n"

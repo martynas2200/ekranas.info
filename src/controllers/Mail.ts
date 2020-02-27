@@ -12,7 +12,7 @@ export class Mail {
           pool: true,
           host: "ekranas.info",
           port: 587,
-          secure: true, // use TLS
+          secure: false, // use TLS
           auth: {
             user: "info",
             pass: "drMrUI7n"
