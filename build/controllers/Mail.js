@@ -37,20 +37,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var nodemailer = require("nodemailer");
 var pug = require("pug");
-var fs = require("fs");
 var path = require("path");
 // let transporter;
 var Mail = /** @class */ (function () {
     function Mail() {
         if (process.env.NODE_ENV === 'production') {
             this.transporter = nodemailer.createTransport({
-                sendmail: true,
-                newline: 'unix',
-                path: '/var/email/',
-                dkim: {
-                    domainName: "ekranas.info",
-                    keySelector: "2019",
-                    privateKey: fs.readFileSync("/etc/letsencrypt/live/ekranas.info/privkey.pem")
+                pool: true,
+                host: "ekranas.info",
+                port: 587,
+                secure: true,
+                auth: {
+                    user: "info",
+                    pass: "drMrUI7n"
                 }
             });
         }

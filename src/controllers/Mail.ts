@@ -9,13 +9,13 @@ export class Mail {
     constructor() {
         if (process.env.NODE_ENV === 'production') {
         this.transporter = nodemailer.createTransport({
-          sendmail: true,
-          newline: 'unix',
-          path: '/var/email/',
-          dkim: {
-            domainName: "ekranas.info",
-            keySelector: "2019",
-            privateKey: fs.readFileSync("/etc/letsencrypt/live/ekranas.info/privkey.pem")
+          pool: true,
+          host: "ekranas.info",
+          port: 587,
+          secure: true, // use TLS
+          auth: {
+            user: "info",
+            pass: "drMrUI7n"
           }
         });
         } else {
