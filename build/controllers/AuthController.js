@@ -153,7 +153,7 @@ var AuthController = /** @class */ (function () {
     AuthController.UserData = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var hash;
         return __generator(this, function (_a) {
-            if (req.session.user) {
+            if (req.session && req.session.user) {
                 hash = crypto.createHmac("SHA256", "dae4ff4167cf7d4e15dd62c22816fe23e8ce6ff5").update(req.session.user.email).digest("hex");
                 res.status(200).send({
                     success: true,
