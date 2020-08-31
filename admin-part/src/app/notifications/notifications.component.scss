@@ -10,6 +10,11 @@
 //     column-gap: 2%;
 //     column-width: 50%;
 // }
+.title {
+    margin: 0px;
+    padding: 0px;
+}
+
 .notifications-page {
     display: grid;
     grid-template-columns: 20em auto;
