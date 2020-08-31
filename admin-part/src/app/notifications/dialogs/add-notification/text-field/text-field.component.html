@@ -1,0 +1,27 @@
+<label>Pranešimas</label>
+<div class="warning" style="max-width: 550px;" *ngIf="!this.formData.visibility"><i class="fas fa-exclamation-circle"></i>Šis pranešimas šiuo metu paslėptas!</div>
+<div style="box-shadow: 0px 0px 6px 2px #0000001a;margin-top:5px;margin-bottom: 16px;">
+    <ckeditor [config]="{ toolbar: [ 'heading', 'bold', 'italic', 'blockQuote', 'numberedList', 'bulletedList', 'undo', 'redo']}" [editor]="Editor" [(ngModel)]="this.formData.note" name="note" #note="ngModel"></ckeditor>
+    <!-- <ckeditor [config]="{ toolbar: [ 'heading', 'bold', 'italic', 'blockQuote', 'numberedList', 'bulletedList', 'insertTable', 'undo', 'redo']}" [editor]="Editor" [(ngModel)]="this.formData.note" name="note"></ckeditor> -->
+</div>
+<!-- 
+            14: "tableColumn"
+            15: "tableRow"
+            16: "mergeTableCells" 
+5: "imageTextAlternative"
+6: "imageStyle:full"
+7: "imageStyle:side"
+12: "mediaEmbed"
+17: "imageUpload" -->
+<!-- <span tooltip="Pasirinkus svarbu, pranešimas bus rodomas aukščiau negu kiti pranešimai." flow="right"><i class="fas fa-question-circle"></i></span> -->
+<div class="toggle-grid">
+    <label><i class="fas fa-star"></i> Pranešimas</label>
+    <mat-slide-toggle (change)="this.formData.important = !this.formData.important;" [checked]="this.formData.important">{{ this.formData.important ? 'Svarbus': 'Įprastas' }}</mat-slide-toggle>
+</div>
+<div class="toggle-grid">
+    <label>Autorius pranešime</label>
+    <mat-slide-toggle (change)="this.formData.displayAuthor = !this.formData.displayAuthor;" [checked]="this.formData.displayAuthor">{{ this.formData.displayAuthor ? 'rodomas': 'nerodomas' }}</mat-slide-toggle>
+</div>
+<mat-form-field>
+    <input matInput placeholder="Autorius" name="author" [(ngModel)]="this.formData.author" required #author="ngModel">
+</mat-form-field>

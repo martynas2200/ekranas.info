@@ -11,9 +11,9 @@
             <button type="button" name="button" (click)="this.selected = (this.selected == 1 ? 2 : 1)">{{ this.selected == 1 ? 'Antras' : 'Pirmas'}} pusmetis <mat-icon>keyboard_arrow_right</mat-icon></button>
         </div>
     </div>
-    <div class="warning" *ngIf="this.data.currentSemester != 0 && this.data.numberOfSavedRows < 0" @scale>
+    <div class="warning" *ngIf="this.data.currentSemester != 0 && this.data.numberOfSavedRows <= 0" @scale>
         <i class="fas fa-exclamation-triangle"></i>
-        <span>Pusmetis jau prasidėjęs, bet nėra įvesta {{this.data.currentSemester == 1 ? 'pirmojo' : 'antrojo'}} tvarkaraščio duomenų!</span>
+        <span>Pusmetis jau prasidėjęs, bet nėra įvesta {{this.data.currentSemester == 1 ? 'pirmojo' : 'antrojo'}} pusmečio tvarkaraščio duomenų!</span>
     </div>
     <div class="info" *ngIf="!this.data.settings.showTimetable && this.data.settings.firstSemester != ''" @scale>
         <i class="fas fa-info"></i>

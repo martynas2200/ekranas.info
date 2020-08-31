@@ -1,0 +1,28 @@
+.wi-wind {
+  padding: 0px 6px;
+  width: 1em;
+}
+
+.weather,
+.sun {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  font-family: 'Proza Libre', sans-serif !important;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 4vw;
+}
+
+.sun {
+  font-size: 3vw;
+}
+
+.sun i.fa-sun {
+  color: #f7f119;
+}
+/*# sourceMappingURL=weather.component.css.map */

@@ -1,0 +1,23 @@
+<input type="file" name="pictures[]" accept="image/*" multiple #upload (change)="uploadsDistribution(upload.files);upload.value ='';">
+<div class="margin">
+    <span (click)="upload.click()" class="file-select btn">
+                    <i class="fas fa-upload"></i>
+                    <span>Įkelti</span>
+    </span>
+    <span id="btn-uploads-gallery" class="file-select btn">
+                    <i class="fas fa-images"></i>
+                    <span>Failai</span>
+    </span>
+    <span id="btn-upload-url" class="file-select btn">
+                    <i class="fas fa-link"></i>
+                    <span>Nuoroda</span>
+    </span>
+</div>
+<div id="preview-box">
+    <div class="preview" *ngFor="let image of this.formData.images; let i = index">
+        <img [src]="image.url" [alt]="image.name">
+        <span [title]="image.name">{{ image.name }}</span>
+        <i class="fas fa-minus-circle minus" title="Pašalinti" (click)="removeUpload(image.id)"></i>
+    </div>
+</div>
+<div class="warning" style="max-width: 550px;"><i class="fas fa-exclamation-circle"></i>Vienos nuotraukos dydis iki 10 MB!</div>

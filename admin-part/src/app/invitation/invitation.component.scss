@@ -1,12 +1,79 @@
-@media only screen and (min-width: 600px) {
-    .card {
-        min-width: 600px;
+:host {
+    min-height: 100vh;
+    display: flex;
+}
+
+.wrapper {
+    margin: auto;
+}
+
+.usernamebox {
+    padding-bottom: 1.25em;
+}
+
+.card {
+    background-color: #F6F6F6;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    max-width: 1200px;
+    min-height: 400px;
+    color: black;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 1em;
+    padding: 1em;
+    transition: all 1s ease-out;
+    box-shadow: 0px 0px 14px 12px rgba(0, 0, 0, 0.1);
+    fieldset {
+        margin: 1em 0em;
+    }
+    .side {
+        grid-column: 2/3;
+    }
+    .ill {
+        width: 40vw;
+        grid-column: 1/2;
+        justify-self: center;
+        align-self: center;
+    }
+    .logos {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: center;
+        align-items: center;
+        margin: 1em 0em;
+    }
+    .logos img,
+    #logo {
+        width: 130px;
+        height: 130px;
+        object-fit: contain;
+    }
+    .double {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 0.5em;
+        margin: 1em 0em;
+        p {
+            word-break: break-word;
+        }
+    }
+    .title,
+    button {
+        margin: 1em 0em;
     }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 700px) {
     .card {
-        width: 100% !important;
-        margin: 0px !important;
+        width: calc(100% - 2em);
+        grid-template-columns: 1fr;
+        .ill {
+            display: none;
+        }
+        .side {
+            grid-column: unset;
+        }
     }
 }

@@ -1,14 +1,14 @@
 div(style='border:none;padding:50px 18px;margin:10px auto;width:500px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;flex-direction:column;-webkit-box-direction:normal;-ms-flex-direction:column;')
   div(style='border-bottom-left-radius:8px;border-top-left-radius:8px;background-color:#233151 ;padding:10px 18px;text-align:center')
     a(href='https://ekranas.info/' target='_blank')
-      img(width='125' src='https://www.ekranas.info/etc/logo.png' title='Ekranas.info' style='font-weight:bold;font-size:18px;color:#FFFFFF;vertical-align:top')
+      img(width='125' src='https://www.ekranas.info/assets/logo.png' title='Ekranas.info' style='font-weight:bold;font-size:18px;color:#FFFFFF;vertical-align:top')
   div(style='background-color:#fff;padding:18px;border-top-right-radius:8px;border-bottom-right-radius:8px;')
     h1(style='font-size:25px;margin:16px 0px;color:#333;text-align:center') Bendradarbiaukime!
     p(style='font-size:15px;color:#333;text-align:center')
-      | Neseniai buvo gautas Jūsų prašymas sukurti nauja slaptažodį ekranas.info tinklapyje.
+      | Neseniai buvo gautas Jūsų prašymas sukurti naują slaptažodį ekranas.info tinklapyje.
     div(style='-webkit-box-shadow: 0px 0px 8px 4px #f6f7f8;box-shadow: 0px 0px 8px 4px #f6f7f8;border-radius: 3px;background-color: #f6f7f8;')
       h1(style='text-align:center;color:#283b99;font-size:30px;font-weight:bold;padding: 25px 0px;margin:0px;') #{ user.name }
       p(style='padding-bottom:50px;text-align:center;')
-        a(href="https://www.ekranas.info/kvietimas/" + user.clue style='color: white;background-color: #002878;background-image: -webkit-linear-gradient(45deg, #283b99 20%, #00abf0 60%);background-image: -o-linear-gradient(45deg, #283b99 20%, #00abf0 60%);background-image: linear-gradient(45deg, #283b99 20%, #00abf0 60%);background-position: 100% 0;background-size: 200% 200%;padding: 12px 48px;border-radius: 50px;font-weight: 200;font-size: 16px;text-decoration: none;-webkit-box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);' target='_blank') Sukurti
+        a(href="https://www.ekranas.info/kvietimas/" + user.clue style='color: white;background-color: #002878;background-image: -webkit-linear-gradient(90deg, #10192d 35%, #C13D10);background-image: linear-gradient(90deg, #10192d 35%, #C13D10);background-position: 100% 0;background-size: 200% 200%;padding: 12px 48px;border-radius: 50px;font-weight: 200;font-size: 16px;text-decoration: none;-webkit-box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);box-shadow: 0 16px 32px 0 rgba(0, 40, 120, .35);' target='_blank') Pakeisti slaptažodį
     p(style='font-size:14px;color:#AAA')
-      | Šis laiškas buvo automatiškai išsiųstas, nes prisijungimo puslapyje vartotojas, kurio IP #{ true } (naršyklė - #{ true }) nurodė jūsų #{user.name} pašto dėžutę. Atsiprašome, jeigu jūsų tai nedomina, prašome ignoruokite šį laiška.
+      | Šis laiškas buvo automatiškai išsiųstas, nes prisijungimo puslapyje vartotojas, kurio IP #{ ip } (naršyklė - #{ agent }) nurodė jūsų #{ user.name } pašto dėžutę. Atsiprašome, jeigu jūsų tai nedomina, prašome ignoruokite šį laišką.

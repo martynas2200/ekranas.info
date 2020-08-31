@@ -4,10 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteNotificationComponent } from './dialogs/delete-notification/delete-notification.component';
 import { SelectNotificationComponent } from './dialogs/select-notification/select-notification.component';
 import { AddNotificationComponent } from './dialogs/add-notification/add-notification.component';
-import { isNumber } from 'util';
 import { NgxMasonryOptions } from 'ngx-masonry';
 import { SnackbarService } from '../ui/snackbar/snackbar.service';
-import { error } from '@angular/compiler/src/util';
+
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
@@ -18,7 +17,7 @@ export class NotificationsComponent implements OnInit {
   busy = false;
 
   notifications = [];
-  filters: { mode: string, textual: boolean, visual: boolean} = {
+  public filters: { mode: string, textual: boolean, visual: boolean} = {
     mode: 'relevant',
     textual: true,
     visual: true
@@ -45,9 +44,6 @@ export class NotificationsComponent implements OnInit {
   }
 
   selectNotificationDialog(): void {
-    // const dialogRef = this.dialog.open(SelectNotificationComponent, {
-    //   data: { new: true }
-    // });
     const dialogRef = this.dialog.open(SelectNotificationComponent, {
       data: { new: true }
     });
@@ -57,7 +53,9 @@ export class NotificationsComponent implements OnInit {
   openNotificationDialog(result): void {
     const dialogRef = this.dialog.open(AddNotificationComponent, {
       data: { files: (result === 1) ? false : true, edit: false },
-      width: '95%'
+      width: '100%',
+      maxWidth: '100vw',
+      panelClass: 'main-dialog'
     });
     dialogRef.afterClosed().subscribe(callback => {
       if (callback) {
@@ -118,9 +116,9 @@ export class NotificationsComponent implements OnInit {
     });
   }
 
-  toggleFilter(name: string): void {
+  toggleFilter(): void {
     if (!this.busy) {
-      this.filters.mode = name;
+      // this.filters.mode = name;
       this.getNotifications();
     } else {
       this.snackBar.show('Prašome palaukti');

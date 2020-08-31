@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -34,14 +35,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var Discipline_1 = require("../entity/Discipline");
 var DisciplinesController = /** @class */ (function () {
     function DisciplinesController() {
     }
-    DisciplinesController.getAll = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    DisciplinesController.getAll = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var disciplinesRepository, disciplines;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -63,7 +63,7 @@ var DisciplinesController = /** @class */ (function () {
             }
         });
     }); };
-    DisciplinesController.create = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    DisciplinesController.create = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var _a, teacher, room, name, disciplinesRepository, discipline, error_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -108,7 +108,7 @@ var DisciplinesController = /** @class */ (function () {
             }
         });
     }); };
-    DisciplinesController.update = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    DisciplinesController.update = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var _a, teacher, room, name, id, disciplinesRepository, Checkdiscipline, error_2, discipline, error_3;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -171,7 +171,7 @@ var DisciplinesController = /** @class */ (function () {
             }
         });
     }); };
-    DisciplinesController.delete = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    DisciplinesController.delete = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var id, disciplinesRepository, Checkdiscipline, error_4, error_5;
         return __generator(this, function (_a) {
             switch (_a.label) {

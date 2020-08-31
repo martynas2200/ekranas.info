@@ -1,8 +1,8 @@
 <h1>Prisijungimo vardo keitimas</h1>
 <form #usernameForm="ngForm" (ngSubmit)="submit(usernameForm)" *ngIf="!this.busy">
-    <div *ngIf="this.OldUsername" style="margin-top:30px;">
+    <div *ngIf="this.oldUsername" style="margin-top:30px;">
         <mat-form-field class="full-width">
-            <input matInput name="old-username" disabled [(ngModel)]="this.OldUsername" placeholder="Senas prisijungimo vardas">
+            <input matInput name="old-username" disabled [(ngModel)]="this.oldUsername" placeholder="Senas prisijungimo vardas">
         </mat-form-field>
     </div>
     <mat-form-field class="full-width">

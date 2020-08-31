@@ -1,0 +1,231 @@
+.sidenav-container {
+    height: 100%;
+}
+
+.sidenav {
+    width: 200px;
+}
+
+.sidenav .mat-toolbar {
+    background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+//--------------
+// .status.ok {
+//     color: var(--s2);
+// }
+// .status.error {
+//     color: var(--s5);
+// }
+// .status {
+//     font-size: 0.7em;
+//     color: var(--s3);
+//     margin: 0px -0.8em;
+//     background: #0c111c;
+//     padding: 12px 16px;
+// }
+.dropdown {
+    position: relative;
+    margin-left: auto;
+    margin-right: 1em;
+    min-width: 9em;
+    padding: 0.5em;
+    img {
+        width: 3em;
+        height: 3em;
+        object-fit: contain;
+    }
+    .user {
+        color: #444;
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        .details {
+            font-family: "Catamaran";
+            line-height: 1.5;
+            margin: 0em 0.8em;
+        }
+        .name {
+            font-weight: 600;
+        }
+        .role {
+            color: #666;
+            font-weight: 300;
+            font-size: 0.7em;
+        }
+    }
+}
+
+.dropdown-right,
+.dropdown-left {
+    transition: 1s;
+    display: none;
+    position: absolute;
+    background-color: #f8f8f8;
+    min-width: 10em;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 42;
+    top: 100%;
+    &>* {
+        display: grid !important;
+        align-items: center;
+        grid-template-columns: 1fr 3fr;
+        padding: 12px 16px;
+        display: block;
+        text-align: left;
+    }
+}
+
+.dropdown-right {
+    right: 0px;
+}
+
+.dropdown-left {
+    left: 0px;
+}
+
+@keyframes pulsate-bck {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes beta-fade {
+    95% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+header {
+    a,
+    .hover {
+        color: #555;
+        &.active {
+            animation: pulsate-bck 0.5s;
+            color: var(--s2);
+        }
+        &:focus {
+            color: var(--s2);
+        }
+        &:hover {
+            color: #000;
+        }
+    }
+    min-height: 5.5em;
+    position: sticky;
+    padding: 0px 8px;
+    top: 0px;
+    background-color: var(--component-bg);
+    color: var(--component-text);
+    z-index: 40;
+    min-width: 10rem;
+    display: flex;
+    align-items: center;
+    .logo {
+        position: relative;
+        display: grid;
+        padding: 1.1em;
+        grid-template-columns: auto auto;
+        grid-gap: 0.5em;
+        align-items: center;
+        font-family: "Poppins";
+        font-weight: 500;
+        img {
+            width: 3rem;
+            display: block;
+        }
+        &::before {
+            content: "BETA";
+            position: absolute;
+            font-weight: 400;
+            top: 0.8em;
+            right: 0;
+            font-size: 0.8em;
+            color: black;
+            animation: beta-fade 12s infinite alternate;
+        }
+    }
+    .menu-toggle {
+        display: none;
+        font-size: 1.5em;
+        padding: 0.5em;
+        margin: 0.8em;
+        cursor: pointer;
+    }
+}
+
+nav {
+    margin-left: auto;
+    position: relative;
+    display: flex;
+    a {
+        font-family: "Catamaran";
+        font-weight: 500;
+        padding: 0.8em;
+        margin: 0.8em;
+        border-radius: 2em;
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-gap: 0.8em;
+        align-items: center;
+        i {
+            font-size: 1.2em;
+        }
+        i.fa-sticky-note {
+            font-size: 1.3em;
+        }
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    header p {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .menu-toggle {
+        display: block !important;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    //     header>nav>#toggled>* {
+    //         float: left;
+    //         display: flex;
+    //         padding: 0.8em;
+    //         border-top: none;
+    //         border-bottom: var(--s2) 5px solid;
+    //     }
+    .dropdown:hover .dropdown-right,
+    .dropdown:active .dropdown-right,
+    .dropdown:hover .dropdown-left,
+    .dropdown:active .dropdown-left {
+        display: block;
+        animation: fade 0.5s ease-in forwards;
+    }
+}

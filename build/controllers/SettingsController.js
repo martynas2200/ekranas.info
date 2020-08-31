@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -34,7 +35,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var School_1 = require("../entity/School");
@@ -47,7 +47,7 @@ var ScreenController_1 = require("./ScreenController");
 var SettingsController = /** @class */ (function () {
     function SettingsController() {
     }
-    SettingsController.getTimetableSettings = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    SettingsController.getTimetableSettings = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var school, currentSemester, numberOfSavedRows, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -84,7 +84,7 @@ var SettingsController = /** @class */ (function () {
             }
         });
     }); };
-    SettingsController.updateTimetableSettings = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    SettingsController.updateTimetableSettings = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var _a, showTimetable, firstSemester, secondSemester, endSemesters, error_2;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -125,7 +125,7 @@ var SettingsController = /** @class */ (function () {
             }
         });
     }); };
-    SettingsController.getTimes = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    SettingsController.getTimes = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var times;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -141,7 +141,7 @@ var SettingsController = /** @class */ (function () {
             }
         });
     }); };
-    SettingsController.deleteTime = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    SettingsController.deleteTime = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var id, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -171,7 +171,7 @@ var SettingsController = /** @class */ (function () {
             }
         });
     }); };
-    SettingsController.createTime = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    SettingsController.createTime = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var _a, times, name, newTime, error_4;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -216,7 +216,7 @@ var SettingsController = /** @class */ (function () {
             }
         });
     }); };
-    SettingsController.activateTime = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    SettingsController.activateTime = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var id, error_5;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -253,7 +253,7 @@ var SettingsController = /** @class */ (function () {
             }
         });
     }); };
-    SettingsController.getSettings = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    SettingsController.getSettings = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var settings;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -272,7 +272,7 @@ var SettingsController = /** @class */ (function () {
             }
         });
     }); };
-    SettingsController.updateSettings = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    SettingsController.updateSettings = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var _a, ip, turnOnTime, turnOffTime, error_6;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -326,7 +326,7 @@ var SettingsController = /** @class */ (function () {
             }
         });
     }); };
-    SettingsController.getScreens = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    SettingsController.getScreens = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var screens;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -342,7 +342,7 @@ var SettingsController = /** @class */ (function () {
             }
         });
     }); };
-    SettingsController.createScreen = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    SettingsController.createScreen = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var _a, name, settings, clue, newScreen, error_7;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -382,7 +382,7 @@ var SettingsController = /** @class */ (function () {
             }
         });
     }); };
-    SettingsController.deleteScreen = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    SettingsController.deleteScreen = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var id, screenRepository, error_8, error_9;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -433,7 +433,7 @@ var SettingsController = /** @class */ (function () {
             }
         });
     }); };
-    SettingsController.updateScreenSettings = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    SettingsController.updateScreenSettings = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var id, screenRepository, error_10, _a, name, settings, newScreen, error_11;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -492,7 +492,7 @@ var SettingsController = /** @class */ (function () {
             }
         });
     }); };
-    SettingsController.updateScreenKey = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    SettingsController.updateScreenKey = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var id, clue, error_12;
         return __generator(this, function (_a) {
             switch (_a.label) {

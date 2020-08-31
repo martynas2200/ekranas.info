@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -34,7 +35,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var crypto = require("crypto");
@@ -43,7 +43,7 @@ var Mail_1 = require("./Mail");
 var UserController = /** @class */ (function () {
     function UserController() {
     }
-    UserController.listAll = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    UserController.listAll = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var userRepository, users;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -61,7 +61,7 @@ var UserController = /** @class */ (function () {
             }
         });
     }); };
-    UserController.saveOneByClue = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    UserController.saveOneByClue = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var userRepository, user, error_1, _a, password, repeatedPassword, error_2, usernameRegex, error_3;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -101,16 +101,18 @@ var UserController = /** @class */ (function () {
                         res.status(400).send('Per trumpas slaptažodis');
                         return [2 /*return*/];
                     }
-                    if (!user.password) return [3 /*break*/, 9];
+                    if (!user.password) return [3 /*break*/, 10];
                     // Password reset
                     user.password = password;
                     user.clue = null;
-                    user.hashPassword();
-                    _b.label = 5;
+                    return [4 /*yield*/, user.hashPassword()];
                 case 5:
-                    _b.trys.push([5, 7, , 8]);
-                    return [4 /*yield*/, userRepository.save(user)];
+                    _b.sent();
+                    _b.label = 6;
                 case 6:
+                    _b.trys.push([6, 8, , 9]);
+                    return [4 /*yield*/, userRepository.save(user)];
+                case 7:
                     _b.sent();
                     // Remove details from response
                     delete user.password;
@@ -121,12 +123,12 @@ var UserController = /** @class */ (function () {
                         message: 'Sėkmingai slaptažodis buvo pakeistas!'
                     });
                     return [2 /*return*/];
-                case 7:
+                case 8:
                     error_2 = _b.sent();
                     res.status(400).send('Nepavyko atnaujinti slaptažodžio! Parašyk pagalbai!');
                     return [2 /*return*/];
-                case 8: return [3 /*break*/, 13];
-                case 9:
+                case 9: return [3 /*break*/, 14];
+                case 10:
                     // Account activation
                     user.password = password;
                     user.clue = null;
@@ -139,11 +141,11 @@ var UserController = /** @class */ (function () {
                         }
                         user.username = req.body.username;
                     }
-                    _b.label = 10;
-                case 10:
-                    _b.trys.push([10, 12, , 13]);
-                    return [4 /*yield*/, userRepository.save(user)];
+                    _b.label = 11;
                 case 11:
+                    _b.trys.push([11, 13, , 14]);
+                    return [4 /*yield*/, userRepository.save(user)];
+                case 12:
                     _b.sent();
                     // Remove details from response
                     delete user.password;
@@ -154,32 +156,34 @@ var UserController = /** @class */ (function () {
                         message: 'Sėkmingai paskyra buvo aktyvuota!'
                     });
                     return [2 /*return*/];
-                case 12:
+                case 13:
                     error_3 = _b.sent();
                     res.status(400).send('Atsiprašome, bet vartotojo vardas užimtas!');
                     return [2 /*return*/];
-                case 13: return [2 /*return*/];
+                case 14: return [2 /*return*/];
             }
         });
     }); };
-    UserController.getOneByClue = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    UserController.getOneByClue = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var userRepository, user, school, error_4;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    // Get the clue from the url
                     if (!req.params.clue) {
                         res.status(400).send('Netinkami duomenys');
                         return [2 /*return*/];
                     }
-                    userRepository = typeorm_1.getRepository(User_1.User);
-                    _a.label = 1;
+                    return [4 /*yield*/, new Promise(function (resolve) { return setTimeout(resolve, 1000); })];
                 case 1:
-                    _a.trys.push([1, 3, , 4]);
+                    _a.sent();
+                    userRepository = typeorm_1.getRepository(User_1.User);
+                    _a.label = 2;
+                case 2:
+                    _a.trys.push([2, 4, , 5]);
                     return [4 /*yield*/, userRepository.findOneOrFail({
                             where: { clue: req.params.clue }
                         })];
-                case 2:
+                case 3:
                     user = _a.sent();
                     school = {
                         name: user.school.name,
@@ -204,16 +208,16 @@ var UserController = /** @class */ (function () {
                             passwordReset: true
                         });
                     }
-                    return [3 /*break*/, 4];
-                case 3:
+                    return [3 /*break*/, 5];
+                case 4:
                     error_4 = _a.sent();
                     res.status(404).send("Atsiprašome, bet nuoroda neteisinga!");
-                    return [3 /*break*/, 4];
-                case 4: return [2 /*return*/];
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
     }); };
-    UserController.newUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    UserController.newUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var _a, name, email, role, re, clue, userRepository, mailer, info, user, e_1;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -271,7 +275,7 @@ var UserController = /** @class */ (function () {
             }
         });
     }); };
-    UserController.editUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    UserController.editUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var _a, name, role, id, userRepository, user, error_5, e_2;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -318,7 +322,7 @@ var UserController = /** @class */ (function () {
             }
         });
     }); };
-    UserController.deleteUser = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    UserController.deleteUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var id, userRepository, user, error_6, mailer, info, e_3;
         return __generator(this, function (_a) {
             switch (_a.label) {

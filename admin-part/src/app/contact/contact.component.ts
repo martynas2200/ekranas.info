@@ -18,8 +18,8 @@ export class ContactUsDialogComponent {
     msg = false;
     busy = false;
     themes: Theme[] = [
-        {value: 'get-started-0', viewValue: 'Noriu pradėti naudoti!'},
-        {value: 'questions-1', viewValue: 'Turiu klausimų!'},
+        {value: 'get-started-0', viewValue: 'Noriu pradėti naudoti'},
+        {value: 'questions-1', viewValue: 'Turiu klausimų'},
         {value: 'feedback-2', viewValue: 'Atsiliepimas'}
         ];
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient, private snackBar: SnackbarService) {}

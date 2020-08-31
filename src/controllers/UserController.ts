@@ -59,7 +59,7 @@ class UserController {
       // Password reset
       user.password = password;
       user.clue = null;
-      user.hashPassword();
+      await user.hashPassword();
       try {
         await userRepository.save(user);
         // Remove details from response
@@ -107,13 +107,11 @@ class UserController {
     }
   }
   static getOneByClue = async (req: Request, res: Response) => {
-    // Get the clue from the url
     if (!req.params.clue) {
       res.status(400).send('Netinkami duomenys');
       return;
     }
-
-    // Get the user from database
+    await new Promise(resolve => setTimeout(resolve, 1000));
     const userRepository = getRepository(User);
     try {
       const user = await userRepository.findOneOrFail({

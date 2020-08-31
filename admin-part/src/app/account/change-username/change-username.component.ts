@@ -11,7 +11,7 @@ import { LoginService } from 'src/app/login.service';
   styleUrls: ['./change-username.component.scss']
 })
 export class ChangeUsernameComponent {
-  OldUsername: string;
+  oldUsername: string;
   NewUsername = '';
   password = '';
   busy = false;
@@ -21,7 +21,7 @@ export class ChangeUsernameComponent {
               private http: HttpClient,
               private snackBar: SnackbarService,
               private logginService: LoginService) {
-    this.OldUsername = this.config.username;
+    this.oldUsername = this.config.username;
   }
 
   submit(form: NgForm) {

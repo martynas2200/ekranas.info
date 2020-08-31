@@ -1,99 +1,106 @@
-<div class="g-recaptcha" data-badge="bottomleft" data-sitekey="6LfjGWYUAAAAAEsNsNhy_Gt6ubdap2ut27Unqfd8" data-callback="rr" data-error-callback="err" data-size="invisible"></div>
-<!-- <div class="loader"></div> -->
-<section id="login" [style.backgroundImage]="this.currentBg">
-    <nav>
-        <h1>Informacinis ekranas <sup style="color: #7e7e7e;font-size: 0.7em;"> BETA</sup></h1>
-    </nav>
-    <aside class="login-content">
-        <img id="svgLogo" alt="logo" src="assets/logolight.svg" [ngsReveal]="{
-            delay: 100,
-            distance: '250px',
-            origin: 'left',
-            reset: true
-          }">
-        <div class="card full-button">
-            <div class="mini title">Ekranas.info prisijungimas</div>
-            <form #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)" *ngIf="!(!this.loginService.user.name && this.loginService.busy) && !(this.loginService.user.name && !this.loginService.busy) ">
-                <input type="hidden" name="g-recaptcha-response" class="token" ngModel>
-                <div class="login-wrapper">
-                    <input type="text" placeholder="El.paštas / Vartotojo vardas" name="username" autocomplete="off" required ngModel />
-                    <i class="fa fa-user"></i>
-                </div>
-                <div class="login-wrapper">
-                    <input type="password" placeholder="Slaptažodis" name="password" autocomplete="off" ngModel/>
-                    <i class="fa fa-key"></i>
-                </div>
-                <button type="button" class="rmps">Priminti slaptažodį</button>
-                <button type="submit">Prisijungti</button>
-            </form>
-            <spinner *ngIf="this.loginService.busy"></spinner>
-            <img [src]="this.currentLogo" *ngIf="this.loginService.busy" />
-            <!-- <div class="loggedin"><h1>' + r.name +'!</h1><h3>' + r.school + '</h3></div>
-             -->
-            <h4 *ngIf="this.loginService.user.name">Prisijungta kaip {{ this.loginService.user.name }}</h4>
+<!-- <div class="g-recaptcha" data-badge="bottomleft" data-sitekey="6LfjGWYUAAAAAEsNsNhy_Gt6ubdap2ut27Unqfd8" data-callback="rr" data-error-callback="err" data-size="invisible"></div> -->
+<section class="main">
+    <div class="login">
+        <div class="site-header">
+            <img id="logo" [ngClass]="{'wide': !this.currentLogo}" src="assets/logoblue.svg" [ngsReveal]="{
+                delay: 100,
+                distance: '150px',
+                origin: 'right',
+                reset: true
+                }" />
+            <h1><span>Informacinis ekranas</span><sup> BETA</sup></h1>
+            <img id="secondlg" *ngIf="this.currentLogo && step != 3" [src]="this.currentLogo" />
+            <div class="mini title" *ngIf="step != 3" [ngClass]="{'mini': true, 'title': true, 'narrow': !this.currentLogo}">{{ (this.loginService.user.name ? this.loginService.user.name : (step == 1 ? 'Ekranas.info prisijungimas' : 'Pamiršote slaptažodį?')) }}</div>
         </div>
-    </aside>
+        <form @slide #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)" *ngIf="step == 1 && !(!this.loginService.user.name && this.loginService.busy) && !(this.loginService.user.name && !this.loginService.busy)">
+            <input type="hidden" name="g-recaptcha-response" class="token" ngModel>
+            <div class="login-wrapper">
+                <input type="text" placeholder="El.paštas / vartotojo vardas" name="username" autocomplete="off" required ngModel />
+                <i class="fa fa-user"></i>
+            </div>
+            <div class="login-wrapper">
+                <input type="password" placeholder="Slaptažodis" name="password" autocomplete="off" ngModel/>
+                <i class="fa fa-key"></i>
+            </div>
+            <div class="buttons">
+                <button type="submit" class="upbtn">Prisijungti</button>
+                <a (click)="showForgotForm()">Pamiršau slaptažodį</a>
+            </div>
+        </form>
+        <form @slide #passwordForm="ngForm" (ngSubmit)="passwordReset(passwordForm)" *ngIf="step == 2 && !(!this.loginService.user.name && this.loginService.busy) && !(this.loginService.user.name && !this.loginService.busy)">
+            <div class="login-wrapper">
+                <input type="text" placeholder="El.pašto adresas" name="email" autocomplete="off" required ngModel />
+                <i class="fa fa-envelope"></i>
+            </div>
+            <div class="buttons">
+                <button type="submit" class="upbtn">Siųsti</button>
+                <a (click)="hideForgotForm()">Grįžti</a>
+            </div>
+        </form>
+        <div class="sent" *ngIf="step == 3">
+            <img src="/assets/img/layout/mail.svg" alt="Email sent">
+            <p>El. laiškas buvo sėkmingai išsiųstas</p>
+        </div>
+        <spinner *ngIf="this.loginService.busy"></spinner>
+        <div class="scroll" (click)="scroll()" *ngIf="step == 1 && !this.loginService.busy"></div>
+    </div>
 </section>
-<div class="svg"></div>
-<section style="background-color: #f6f6f6;">
-    <div class="about">
-        <h1>Apie</h1>
-        <div class="flexnw">
-            <img src="/assets/img/layout/notifications.svg" style="padding: 20px;" alt="Nepavyko užkrauti paveikslėlio!">
-            <div [ngsRevealSet]="{
+<section class="about">
+    <h1>Apie</h1>
+    <div class="flexnw content">
+        <img src="/assets/img/layout/notifications.svg" alt="Nepavyko užkrauti paveikslėlio!">
+        <div [ngsRevealSet]="{
                 distance: '100px',
                 interval: 200,
                 origin: 'top'
               }" [ngsSelector]="'p'">
-                <p>"Ekranas.Info" - tai įrankis, palengvinantis, modernizuojantis informacijos sklaidą, skirtas atvaizduoti informaciją išnaudojant švietimo įstaigų ekranus.</p>
-                <p>Tinklapis pakeičia popierinius skelbimus, taip pat supaprastina sklaidą, užtikriną efektyvų ir greitą informacijos paskelbimą iš bet kurios pasaulio vietos, turinčios interneto prieigą.</p>
-                <p>Kiekvienas naudotojas pagal suteiktas teises gali operatyviai pridėti pranešimus, redaguoti pamokų tvarkaraštį.
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="features" [ngsInterval]="300" [ngsRevealSet]="{
-        distance: '100px',
-        origin: 'bottom'
-      }" [ngsSelector]="'.feature'">
-        <h1>Kodėl?</h1>
-        <div class="flex">
-            <div class="feature fghj">
-                <img src="assets/img/layout/timeline.svg">
-                <h2>Informacijos sklaida</h2>
-                <p>Norimą atvaizduoti informaciją galima lengvai sudėlioti kiekvienai dienai.</p>
-            </div>
-            <div class="feature fghj">
-                <img style="margin-left: -32px;" src="assets/img/layout/environment.svg">
-                <h2>Ekologiška aplinkai</h2>
-                <p>Rečiau spausdinama informacija, mažinamas sunaudojamo popieriaus kiekis.</p>
-            </div>
-            <div class="feature fghj">
-                <img src="assets/img/layout/real_time.svg">
-                <h2>Gyva informacija</h2>
-                <p>Bet koks sistemoje informacijos koregavimas iškart matomas ekranuose.</p>
-            </div>
+            <p>"Ekranas.Info" - tai įrankis, palengvinantis, modernizuojantis informacijos sklaidą, skirtas atvaizduoti informaciją išnaudojant švietimo įstaigų ekranus.</p>
+            <p>Tinklapis pakeičia popierinius skelbimus, taip pat supaprastina sklaidą, užtikriną efektyvų ir greitą informacijos paskelbimą iš bet kurios pasaulio vietos, turinčios interneto prieigą.</p>
+            <p>Kiekvienas naudotojas pagal suteiktas teises gali operatyviai pridėti pranešimus, redaguoti pamokų tvarkaraštį.
+            </p>
         </div>
     </div>
 </section>
-<div class="svg2"></div>
-<footer>
-    <div class="flex cta">
-        <h1 [ngsReveal]="{
-            distance: '150px',
-            origin: 'left'
-          }">Kyla klausimų?</h1>
-        <button type="button" name="button" (click)="openDialog()" [ngsReveal]="{
-            distance: '150px',
-            origin: 'right'
-          }">Susisiekite!</button>
+<section class="features" [ngsInterval]="300" [ngsRevealSet]="{
+  distance: '100px',
+  origin: 'bottom'
+}" [ngsSelector]="'.feature'">
+    <h1>Kodėl?</h1>
+    <div class="flex">
+        <div class="feature">
+            <img src="assets/img/layout/timeline.svg">
+            <h2>Informacijos sklaida</h2>
+            <p>Norimą atvaizduoti informaciją galima lengvai sudėlioti kiekvienai dienai.</p>
+        </div>
+        <div class="feature">
+            <img style="margin-left: -32px;" src="assets/img/layout/environment.svg">
+            <h2>Ekologiška aplinkai</h2>
+            <p>Rečiau spausdinama informacija, mažinamas sunaudojamo popieriaus kiekis.</p>
+        </div>
+        <div class="feature">
+            <img src="assets/img/layout/real_time.svg">
+            <h2>Gyva informacija</h2>
+            <p>Bet koks sistemoje informacijos koregavimas iškart matomas ekranuose.</p>
+        </div>
     </div>
+</section>
+<footer data-text="© 2019-2020 ekranas.info">
+    <h1 [ngsReveal]="{
+  distance: '150px',
+  origin: 'left'
+}">Kyla klausimų?</h1>
+    <div class="cta" [ngsInterval]="400" [ngsRevealSet]="{
+      distance: '100px',
+      origin: 'bottom'
+    }" [ngsSelector]="'.ctc'">
+        <button type="button" name="button" class="ctc" (click)="openDialog()">Palikti užklausą</button>
+        <div class="icon ctc"></div>
+        <a class="ctc" href="mailto:info@ekranas.info" id="email">info@ekranas.info</a>
+    </div>
+    <div class="faq">DUK</div>
 </footer>
 
-<!-- <script type="text/javascript" src="etc/c.min.js" charset="UTF-8"></script> -->
-<!-- <script type="text/javascript" src="etc/login.min.js?v=2b" charset="UTF-8"></script> -->
-<!-- <script type="text/javascript">
-    <?php
+<!-- 
     // <p>Vaizduojama informacija:</p>
     //     <ul>
     //       <li>Tekstinė (pranešimai);</li>
@@ -106,30 +113,4 @@
     //       <li>Šventės;</li>
     //       <li>Horoskopai.</li>
     //     </ul>
-     if(!isMobile()) { ?>
-       $('#svgLogo').css('visibility', 'hidden');
-      $('<img/>').attr('src', '<?= $bg; ?>').on('load', function() {
-        $(this).remove(); // prevent memory leaks
-        $('body').css('background-image', 'url(<?= $bg; ?>)');
-        setTimeout(function () {
-          $('.loader').fadeOut();
-          setTimeout(function () {
-            ScrollReveal().reveal('#svgLogo', {
-              delay: 100,
-              distance: '250px',
-              origin: 'left',
-              reset: true
-            });
-          }, 400);
-          $('.grecaptcha-badge').css('z-index', '100');
-        }, 50);
-      });
-      <?php } else {?>
-        $('.loader').fadeOut();
-        $('.grecaptcha-badge').css('z-index', '100');
-      <?php } ?>
-      setTimeout(function () {
-        $('.loader').remove();
-      }, 10000);
-      $('input[name=username]').focus();
-    </script> -->
+  -->

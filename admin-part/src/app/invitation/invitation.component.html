@@ -1,57 +1,60 @@
-<div class="login-content">
-    <div class="card full-button">
-        <div class="flex" style="margin-bottom:30px;">
-            <a routerLink="/">
-                <img src="/assets/logolight.svg" id="main_logo">
-            </a>
-            <div>
-                <div class="mini title">Sveiki!</div>
-                <div class="mini title brighter">Ekranas.info paskyros redagavimas</div>
+<div class="wrapper">
+    <div class="card">
+        <img [src]="'/assets/img/layout/' + (state == 'end' ? 'completed' : 'tasks') + '.svg'" alt="Illustration" class="ill">
+        <div class="side">
+            <div class="logos" *ngIf="state == 'edit'; else justLogo">
+                <img src="/assets/logoblue.svg" id="logo" routerLink="/" alt="logo">
+                <img [src]="this.user.school.logo" alt="second logo">
+            </div>
+            <ng-template #justLogo>
+                <img src="/assets/logoblue.svg" id="logo" routerLink="/" alt="logo">
+            </ng-template>
+            <div class="title">Informacinio ekrano<br/>paskyros redagavimas</div>
+            <spinner *ngIf="state == 'busy'"></spinner>
+            <div @slide class="warning" *ngIf="this.state == 'error'"><i class="fas fa-exclamation"></i>Netinkama / negaliojanti nuoroda! <br> Jeigu manai, jog tai klaida, parašyk žinutę pagalbai!</div>
+            <form action="kvietimas" method="post" *ngIf="state == 'edit'" #userForm="ngForm" (ngSubmit)="submit(userForm)" @slide>
+                <mat-form-field class="full-width">
+                    <mat-label>Vardas, pavardė</mat-label>
+                    <input matInput [(ngModel)]="this.user.name" name="name" class="full-width" readonly ngModel>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Švietimo įstaiga</mat-label>
+                    <input matInput [(ngModel)]="this.user.school.name" name="organization" class="full-width" readonly ngModel>
+                </mat-form-field>
+                <ng-container *ngIf="!this.passwordReset">
+                    <div class="usernamebox">
+                        <mat-checkbox [(ngModel)]="this.usernameDialog" name="createUsername" #isUser="ngModel">Sukurti vartotojo vardą</mat-checkbox>
+                    </div>
+                    <mat-form-field class="full-width" *ngIf="this.usernameDialog" @slide>
+                        <mat-label>Vartotojo vardas</mat-label>
+                        <input type="text" matInput name="username" #username="ngModel" ngModel required class="full-width" #password="ngModel">
+                    </mat-form-field>
+                </ng-container>
+                <mat-form-field class="full-width">
+                    <mat-label>Naujas slaptažodis</mat-label>
+                    <input type="password" matInput name="password" class="full-width" #password="ngModel" ngModel required>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Pakartokite slaptažodį</mat-label>
+                    <input type="password" matInput name="repeatedPassword" class="full-width" #repeatedPassword="ngModel" ngModel required>
+                </mat-form-field>
+                <button type="submit" name="submit" class="upbtn">{{ ((this.passwordReset) ? 'Išsaugoti slaptažodį' : 'Registruotis') }}</button>
+            </form>
+            <div *ngIf="state == 'end'" @slide>
+                <div class="success"><i class="fas fa-check"></i> Sėkmingai {{this.passswordReset? 'pakeistas slaptažodis' : 'paskyros duomenys įrašyti'}}</div>
+                <ng-container *ngIf="!this.passswordReset && this.user.username; else simple">
+                    <div class="double">
+                        <p>Vartotojo vardas:</p>
+                        <p>{{ this.user.username }}</p>
+                        <p>El. paštas:</p>
+                        <p>{{ this.user.email }}</p>
+                    </div>
+                </ng-container>
+                <ng-template #simple>
+                    <p>Galite prisijungti!</p>
+                </ng-template>
+                <button type="button" name="button" class="upbtn" routerLink="/">Prisijungti</button>
             </div>
         </div>
-        <spinner *ngIf="state == 'busy'"></spinner>
-        <form action="kvietimas" method="post" *ngIf="state == 'edit'" #userForm="ngForm" (ngSubmit)="submit(userForm)">
-            <div class="flexnw margin">
-                <div style="width: 200px;margin-bottom: 50px;">
-                    <img [src]="this.user.school.logo" alt="Gimnazijos logotipas">
-                    <div class="margin">{{ this.user.school.name }}</div>
-                    <h3>{{ this.user.name }}</h3>
-                    <h4>{{ this.user.email }}</h4>
-                </div>
-                <div>
-                    <div *ngIf="!this.passwordReset">
-                        <mat-checkbox [(ngModel)]="this.usernameDialog" name="createUsername" #isUser="ngModel">Sukurti vartotojo vardą</mat-checkbox>
-                        <fieldset *ngIf="this.usernameDialog" @slide style="overflow: hidden;">
-                            <legend><i class="fas fa-user"></i> Vartotojo vardas</legend>
-                            <input type="text" class="noi" name="username" placeholder="Vartotojo slaptažodis" maxlength="20" autocomplete="off" #username="ngModel" ngModel required>
-                        </fieldset>
-                    </div>
-                    <fieldset>
-                        <legend><i class="fas fa-key"></i> Slaptažodis</legend>
-                        <input type="password" class="noi" placeholder="Naujas slaptažodis" name="password" autocomplete="off" required="" #password="ngModel" ngModel>
-                        <input type="password" class="noi" placeholder="Pakartokite slaptažodį" name="repeatedPassword" autocomplete="off" required="" #repeatedPassword="ngModel" ngModel>
-                        <div class="flexnw margin" id="passwordInfo"></div>
-                    </fieldset>
-                </div>
-            </div>
-            <button style="margin-top:50px;" type="submit" name="submit">{{ ((this.passwordReset) ? 'Išsaugoti slaptažodį' : 'Registruotis') }}</button>
-        </form>
-
-
-        <aside *ngIf="state == 'end'">
-            <div class="success"><i class="fas fa-check-circle"></i>Duomenys sėkmingai įrašyti.</div>
-            <fieldset class="margin20">
-                <h2>Galite prisijungti!</h2>
-                <div class="margin">El. paštas: <strong>{{ this.user.email }}</strong></div>
-                <div class="margin" *ngIf="!this.passswordReset">Vartotojo vardas: <strong>{{ this.user.username }}</strong></div>
-            </fieldset>
-            <a routerLink="/" class="margin">
-                <button type="button" name="button">Prisijungti</button>
-            </a>
-        </aside>
-
-        <!-- <div class="error"><i class="fas fa-times-circle"></i>Vartojo vardas yra užimtas! Prašome sugalvoti kitą!</div>
-        <div class="error"><i class="fas fa-times-circle"></i>Atnaujinant duomenis įvyko klaida! Bandykite iš naujo! Arba rašyk pagalbai!</div> -->
-        <div class="warning" *ngIf="this.state == 'error'"><i class="fas fa-exclamation-circle"></i>Netinkama / negaliojanti nuoroda! <br> Jeigu manai, jog tai klaida, parašyk žinutę pagalbai!</div>
     </div>
 </div>

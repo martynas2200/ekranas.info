@@ -1,0 +1,38 @@
+<div class="header">
+    <div>
+        <h2>{{ this.date.getFullYear() }}</h2>
+        <h1>{{ this.LTU_months[this.date.getMonth()]}}</h1>
+    </div>
+    <div>
+        <i class="fas fa-angle-left arrow" (click)="this.previousMonth();"></i>
+        <i class="fas fa-angle-right arrow" (click)="this.nextMonth();"></i>
+    </div>
+</div>
+<div class="base week-days-container">
+    <div class="week-day">Pir</div>
+    <div class="week-day">Ant</div>
+    <div class="week-day">Tre</div>
+    <div class="week-day">Ket</div>
+    <div class="week-day">Pen</div>
+    <div class="week-day">Šeš</div>
+    <div class="week-day">Sek</div>
+    <!-- <div class="week-day">Mon</div>
+    <div class="week-day">Tue</div>
+    <div class="week-day">Wed</div>
+    <div class="week-day">Thu</div>
+    <div class="week-day">Fri</div>
+    <div class="week-day">Sat</div>
+    <div class="week-day">Sun</div> -->
+</div>
+<div class="base">
+    <div @slide *ngFor="let day of this.days" [ngClass]="{'previous': day.previous, 'next': day.next, 'today': day.today }">{{ day.number }}</div>
+</div>
+<!-- <div class="today">5</div>
+    <div>6</div>
+    <div>7
+        <div class="dots-box">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </div> -->

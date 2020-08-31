@@ -2,12 +2,16 @@
 <div class="success" *ngIf="this.msg"><i class="fas fa-check-circle"></i>Jūsų žinutė buvo sėkmingai išsiųsta! AČIŪ JUMS!</div>
 <form #contactForm="ngForm" (ngSubmit)="submit(contactForm)" *ngIf="!this.busy && !this.msg">
     <mat-form-field appearance="outline">
-        <mat-label>Jūsų vardas</mat-label>
+        <mat-label>Vardas</mat-label>
         <input matInput name="name" required ngModel>
         <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
     </mat-form-field>
     <mat-form-field appearance="outline">
-        <mat-label>Gimnazijos pavadinimas</mat-label>
+        <mat-label>El.pašto adresas</mat-label>
+        <input matInput name="email" required ngModel>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Švietimo įstaigos pavadinimas</mat-label>
         <input matInput placeholder="Beržo gimnazija" name="organization" required ngModel>
         <mat-icon matSuffix>school</mat-icon>
     </mat-form-field>

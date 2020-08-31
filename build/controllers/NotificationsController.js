@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -34,7 +35,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var Notification_1 = require("../entity/Notification");
@@ -73,7 +73,7 @@ var NotificationsController = /** @class */ (function () {
         return dateString;
     };
     ;
-    NotificationsController.listAll = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    NotificationsController.listAll = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var notificationsRepository, notifications, currentDate;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -166,7 +166,7 @@ var NotificationsController = /** @class */ (function () {
     //     return;
     //   }
     // };
-    NotificationsController.new = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    NotificationsController.new = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var notification, currentDate, notificationsRepository, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -272,7 +272,7 @@ var NotificationsController = /** @class */ (function () {
             }
         });
     }); };
-    NotificationsController.toggleVisibility = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    NotificationsController.toggleVisibility = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var id, notificationRepository, notification, error_1, e_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -334,7 +334,7 @@ var NotificationsController = /** @class */ (function () {
             }
         });
     }); };
-    NotificationsController.update = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    NotificationsController.update = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var id, notificationRepository, notification, error_2, e_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -430,7 +430,7 @@ var NotificationsController = /** @class */ (function () {
             }
         });
     }); };
-    NotificationsController.delete = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    NotificationsController.delete = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var id, notificationRepository, notification, error_3, error_4;
         return __generator(this, function (_a) {
             switch (_a.label) {

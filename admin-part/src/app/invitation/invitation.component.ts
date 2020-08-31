@@ -4,23 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { User } from '../login.service';
 import { NgForm } from '@angular/forms';
 import { SnackbarService } from '../ui/snackbar/snackbar.service';
-import { trigger, transition, animate, style } from '@angular/animations';
+import { slide } from '../animations';
 
 @Component({
   selector: 'app-invitation',
   templateUrl: './invitation.component.html',
   styleUrls: ['./invitation.component.scss'],
   animations: [
-    trigger('slide', [
-      transition(':enter', [
-        style({ height: '0px', margin: '0px'  }),
-        animate('0.5s 300ms ease-in', style({ height: '*' }))
-      ]),
-      transition(':leave', [
-        style({ height: '*'  }),
-        animate('0.3s ease-out', style({ height: '0px', margin: '0px'  }))
-      ])
-    ])
+    slide
   ]
 })
 export class InvitationComponent implements OnInit {

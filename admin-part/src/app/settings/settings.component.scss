@@ -1,18 +1,26 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700');
-.container h3 i {
-    padding-right: 20px;
-    font-size: 1.5em;
-}
-
 .container {
-    background: #0003;
+    background: var(--component-bg);
+    color: var(--component-text);
     padding: 0px;
     padding-bottom: 10px;
+    position: sticky;
+    top: 7em;
+    min-height: 15em;
+    h3 {
+        background: var(--ff);
+        color: white;
+        padding: 8px 20px;
+        display: flex;
+        align-items: center;
+        i {
+            padding-right: 20px;
+            font-size: 1.5em;
+        }
+    }
 }
 
-.container h3 {
-    background: var(--ff);
-    padding: 8px 20px;
-    display: flex;
-    align-items: center;
+.parent-container {
+    min-height: 90vh;
+    position: relative;
 }

@@ -1,0 +1,68 @@
+:host {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+}
+
+.movingLine br {
+  display: none;
+}
+
+.movingLine br:after {
+  content: " || ";
+}
+
+.movingLine {
+  display: inline-block;
+  font-size: 2vw;
+  color: #FFFFFF;
+  background: #000000;
+  line-height: 1;
+  margin: 0px;
+  padding-left: 100%;
+  font-family: 'Proza Libre', sans-serif;
+  white-space: nowrap;
+}
+
+.movingLine * {
+  display: inline-block;
+  padding: 0px 3px;
+}
+
+.movingLine strong {
+  color: var(--s2);
+}
+
+.movingLine.fast {
+  -webkit-animation: marquee 15s linear infinite;
+          animation: marquee 15s linear infinite;
+}
+
+.movingLine.slow {
+  -webkit-animation: marquee 200s linear infinite;
+          animation: marquee 200s linear infinite;
+}
+
+@-webkit-keyframes marquee {
+  0% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+  }
+  100% {
+    -webkit-transform: translate(-100%, 0);
+            transform: translate(-100%, 0);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+  }
+  100% {
+    -webkit-transform: translate(-100%, 0);
+            transform: translate(-100%, 0);
+  }
+}
+/*# sourceMappingURL=day-info.component.css.map */

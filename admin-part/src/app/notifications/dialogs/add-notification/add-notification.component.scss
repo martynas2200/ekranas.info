@@ -32,6 +32,10 @@ fieldset {
 .file-select {
     background-color: #e9ecef;
     color: black;
+    display: inline-flex;
+    justify-content: space-around;
+    width: 120px;
+    align-items: center;
 }
 
 .photos {
@@ -70,9 +74,7 @@ img.selected::after {
     width: 2em;
 }
 
-
-/* ................... Uploads ................... */
-
+// ------------------- Uploads --------------------
 #preview-box {
     display: flex;
     flex-wrap: wrap;

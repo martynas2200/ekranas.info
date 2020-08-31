@@ -7,24 +7,16 @@ import * as path from 'path';
 export class Mail {
     transporter: any;
     constructor() {
-        if (process.env.NODE_ENV === 'production') {
         this.transporter = nodemailer.createTransport({
           pool: true,
           host: "smtp-relay.sendinblue.com",
           port: 587,
-          secure: false, // use TLS
+          secure: (process.env.NODE_ENV === 'production'), // use TLS
           auth: {
             user: "martynas2200@gmail.com",
             pass: "bhV53CFHwg08PKzr"
           }
         });
-        } else {
-          this.transporter = nodemailer.createTransport({
-            sendmail: true,
-            newline: 'unix',
-            path: '/var/email/',
-          });
-        }
     }
     public async sendtoAdmin(subject: string, data: Object) {
       return this.transporter.sendMail({

@@ -1,14 +1,19 @@
-.selectBox.active {
-    border-color: var(--s5);
-}
-
-.selectBox:hover h2 {
-    color: var(--s5);
-}
-
 .option {
     position: relative;
     margin: 20px;
+    i.minus {
+        position: absolute;
+        bottom: -12px;
+        right: -12px;
+        padding: 0px;
+        background: red;
+        background: #000;
+        border-radius: 60%;
+        font-size: 1.4em;
+        &:hover {
+            font-size: 1.6em;
+        }
+    }
 }
 
 .selectBox {
@@ -22,44 +27,32 @@
     border-width: 5px;
     background: var(--ss);
     min-height: 250px;
+    div {
+        font-family: 'Source Code Pro', monospace;
+        padding-top: 10px;
+        color: var(--container-text);
+        white-space: pre-wrap;
+    }
+    &.active {
+        border-color: var(--s5);
+    }
+    &:hover h2 {
+        color: var(--s5);
+    }
+    &.add {
+        display: flex;
+        justify-content: center;
+        flex-direction: column-reverse;
+        align-items: center;
+        i {
+            font-size: 2.5em;
+            color: var(--container-text);
+        }
+    }
 }
 
-.selectBox div {
-    font-family: 'Source Code Pro', monospace;
-    padding-top: 10px;
+i {
     color: white;
-    white-space: pre-wrap;
-}
-
-.selectBox i,
-.option i {
-    color: white;
-}
-
-.option i:hover {
-    font-size: 1.6em;
-}
-
-.selectBox.add {
-    display: flex;
-    justify-content: center;
-    flex-direction: column-reverse;
-    align-items: center;
-}
-
-.selectBox.add i {
-    font-size: 2.5em;
-}
-
-.option i.minus {
-    position: absolute;
-    bottom: -12px;
-    right: -12px;
-    padding: 0px;
-    background: red;
-    background: #000;
-    border-radius: 60%;
-    font-size: 1.4em;
 }
 
 .alltimes p {

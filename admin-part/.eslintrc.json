@@ -4,7 +4,10 @@
         "es6": true
     },
     "extends": [
-        "google"
+        "google",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:prettier/recommended"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -16,8 +19,11 @@
         "sourceType": "module"
     },
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "@eslint-plugin-angular",
+        "@prettier"
     ],
     "rules": {
+        "prettier/prettier": "error"
     }
 }

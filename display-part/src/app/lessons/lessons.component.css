@@ -1,0 +1,62 @@
+.lesson_slide {
+  display: none;
+  background: transparent;
+  background: var(--s1);
+  color: white;
+  font-size: 3vw;
+  position: relative;
+  -webkit-animation: animateleft 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+          animation: animateleft 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  padding: 10px 0px 0px 0px;
+  text-align: center;
+}
+
+.lesson_slide > div {
+  padding: 5px;
+  line-height: 1.1;
+}
+
+.lesson_slide .grid {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 0.7fr 1.3fr;
+      grid-template-columns: 0.7fr 1.3fr;
+  font-size: 0.6em;
+  color: black;
+  background: var(--s2);
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@-webkit-keyframes animateleft {
+  from {
+    left: -100%;
+    background: black;
+    opacity: 0.2;
+  }
+  to {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes animateleft {
+  from {
+    left: -100%;
+    background: black;
+    opacity: 0.2;
+  }
+  to {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+.show {
+  display: block;
+}
+/*# sourceMappingURL=lessons.component.css.map */

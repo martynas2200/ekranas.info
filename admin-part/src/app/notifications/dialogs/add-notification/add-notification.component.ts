@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { LoginService } from 'src/app/login.service';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -27,7 +26,6 @@ interface Notification {
 export class AddNotificationComponent  {
   busy = false;
   formData: Notification = {} as Notification;
-  public Editor = ClassicEditor;
 
   constructor(public dialogRef: MatDialogRef<AddNotificationComponent>,
               @Inject(MAT_DIALOG_DATA) public config: {files: boolean; edit: boolean; data: Notification },
@@ -46,7 +44,6 @@ export class AddNotificationComponent  {
       this.formData.images = [];
     } else {
       this.formData = Object.assign({}, config.data);
-      // console.log(this.formData);
       config.files = this.formData.images.length > 0 ? true : false;
     }
   }

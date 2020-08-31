@@ -24,8 +24,8 @@ export interface User {
 interface LoginResponse {
   success: boolean;
   message: string;
-  hash: string;
-  user: User;
+  hash?: string;
+  user?: User;
 }
 
 @Injectable({
@@ -73,7 +73,7 @@ export class LoginService {
     const d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     const expires = 'expires=' + d.toUTCString();
-    document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+    document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/;samesite=strict';
   }
   loggout() {
     this.http.get('api/auth/loggout').subscribe(() => {
@@ -84,6 +84,24 @@ export class LoginService {
       this.snackBar.show('Atsiprašome, bet atsijungti nepavyko! Parašyk pagalbai žinutę.', 'error');
     });
   }
+  async passwordReset(formData: any) {
+    this.busy = true;
+    return new Promise((resolve, reject) => {
+      this.http.post<LoginResponse>('api/auth/forgot', formData).subscribe(data => {
+        if (data.message) { this.snackBar.show(data.message, 'success'); }
+        if (data.success) {
+          resolve();
+        }
+        this.busy = false;
+      },
+      error => {
+        this.busy = false;
+        this.snackBar.show(error.error, 'error');
+        reject();
+        });
+    });
+  }
+
   loginAttempt(formData: any) {
     this.busy = true;
     this.http.post<LoginResponse>('api/auth/login', formData).subscribe(data => {

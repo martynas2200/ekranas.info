@@ -62,7 +62,7 @@ export class TimetableComponent implements OnInit {
       data: { settings: { ...this.data.settings} }
     });
     dialogRef.afterClosed().subscribe(callback => {
-      if (callback.status) {
+      if (callback && callback.status) {
         this.data.settings = callback.settings;
       }
     });

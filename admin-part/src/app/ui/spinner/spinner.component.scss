@@ -4,9 +4,11 @@
     align-items: center;
     justify-content: center;
     align-content: center;
-}
-
-img {
-    width: 100px;
-    height: auto;
+    overflow: hidden;
+    height: 140px;
+    width: 140px;
+    margin: auto;
+    position: relative;
+    display: block;
+    padding: 2em;
 }

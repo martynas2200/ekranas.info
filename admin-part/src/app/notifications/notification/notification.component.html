@@ -1,7 +1,6 @@
 <div class="notification" [ngClass]="{ 'disabled': !this.data.visibility, 'relevant': this.isRelevant() }" [class.disabled]="!this.data.visibility">
     <div class="flex">
-        <div class="flex1">{{ this.index + 1 }}</div>
-        <div class="flex2"><i class="fas fa-circle" title="Pranešimas nebus rodomas išanksto" *ngIf="!this.data.showBefore"></i> {{ (this.data.repeatTimes) ? this.data.date1 + ' - ' + this.data.date2 : this.data.date1 }}</div>
+        <div class="flex2"><i class="fas fa-circle" title="Pranešimas nebus rodomas iš anksto" *ngIf="!this.data.showBefore"></i> {{ (this.data.repeatTimes) ? this.data.date1.substr(5) + ' - ' + this.data.date2.substr(5) : this.data.date1.substr(5) }}</div>
         <div class="flex3">
             <i *ngIf='!this.data.displayAuthor' class="fas fa-user-slash" title="Autorius pranešime nerodomas"></i>
             <i *ngIf='this.data.displayAuthor' class="fas fa-user" title="Autorius pranešime rodomas"></i> {{ this.data.author }}

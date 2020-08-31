@@ -1,68 +1,51 @@
-<header>
-    <div class="brand">
-        <div class="dropdown">
-            <!-- ?php
-$changes = $db->query('SELECT receipt_time FROM schools WHERE id=' . (int)$_SESSION['user']->school->id . ';');
-if ($changes->num_rows > 0)	{
-$changes = $changes->fetch_assoc();
-if (time() - strtotime($changes['receipt_time']) < 60 * 2) {
-$aa =  '<div class="status ok">Ekranas veikia!</div>';
-$icon = 'check';
-}
-elseif (time() - strtotime($changes['receipt_time']) < 60 * 4) {
-$aa =  '<div class="status warning">Ekranas Galimas ekrano sutrikimas!</div>';
-$icon = 'exclamation';
-}
-else {
-$aa =  '<div class="status error">Ekranas neveikia!</div><div class="status error">Aktyvus buvo prieš ' . time_ago($changes['receipt_time']) . '</div>';
-$icon = 'times';
-}
-}
-?> -->
-            <div style="position: relative;">
-                <img src="assets/logolight.svg">
-                <!-- <?php
-switch ($icon) {
-case 'check':
-echo '#2ecc71';
-break;
-case 'exclamation':
-echo '#e67e22';
-break;
-default:
-echo 'red';
-break;
-}
-?> -->
-                <!-- <i style="color: red;position: absolute;left: 0px;bottom: 0px;/*! background: white; */border-radius: 10px;" class="fas fa-<?= $icon;?>-circle"></i> -->
-            </div>
-            <div class="dropdown-left">
-            </div>
+<header [class.hidden]="this.hidden">
+    <div class="logo">
+        <div style="position: relative;">
+            <img src="assets/logoblue.svg" />
+            <!-- <i style="color: red;position: absolute;left: 0px;bottom: 0px;/*! background: white; */border-radius: 10px;" class="fas fa-<?= $icon;?>-circle"></i> -->
         </div>
-        <div>
-            <h1>Ekranas.INFO&nbsp;<sup>BETA</sup></h1>
+        <p>Ekranas.info</p>
+    </div>
+    <div class="menu-toggle" *ngIf="isHandset$ | async" (click)="toggleMenu()"><i class="fas fa-bars"></i></div>
+    <nav class="main" *ngIf="!(isHandset$ | async) || !this.hidden" @slide>
+        <a matRipple routerLink="pranesimai" (click)="hide()" routerLinkActive="active">
+            <i class="far fa-sticky-note"></i>
+            <span>Pranešimai</span>
+        </a>
+        <a matRipple routerLink="tvarkarastis" (click)="hide()" routerLinkActive="active">
+            <i class="fas fa-chalkboard"></i>
+            <span>Tvarkaraštis</span>
+        </a>
+        <a matRipple routerLink="nustatymai" (click)="hide()" routerLinkActive="active">
+            <i class="fas fa-cogs"></i>
+            <span>Nustatymai</span>
+        </a>
+    </nav>
+    <div class="dropdown" @slide *ngIf="!(isHandset$ | async) || !this.hidden">
+        <div class="user">
+            <img class="school-logo" src="{{ this.loginService.user.school.logo }}" />
+            <div class="details">
+                <p class="name">{{ this.loginService.user.name.split(' ')[0] }}</p>
+                <p class="role">{{ this.loginService.getRoleName() }}</p>
+            </div>
+            <i class="fas fa-angle-down"></i>
+        </div>
+        <div class="dropdown-right">
+            <a matRipple routerLink="paskyra" (click)="hide()">
+                <i class="fas fa-user-cog" aria-hidden="true"></i>
+                <span>Paskyros nustatymai</span>
+            </a>
+            <a matRipple class="hover" (click)="toggleDarkMode();hide()">
+                <i class="fas fa-moon" [ngClass]="{'fas': true, 'fa-moon': !this.darkMode, 'fa-sun': this.darkMode }"></i>
+                <span>{{ (this.darkMode) ? 'Šviesa' : 'Tamsa' }}</span>
+            </a>
+            <a matRipple (click)="loggout();" href="#">
+                <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                <span>Atsijungti</span>
+            </a>
         </div>
     </div>
-    <nav>
-        <div id="menuToggle" (click)="toggleMenu()"><i class="fas fa-bars"></i></div>
-        <div id="toggled" [style.display]="(this.hidden) ? 'none': 'block'">
-            <a routerLink="pranesimai" (click)="hide()" [class.active]="this.router.url == '/pranesimai'">Pranešimai</a>
-            <a routerLink="tvarkarastis" (click)="hide()" [class.active]="this.router.url == '/tvarkarastis'">Tvarkaraštis</a>
-            <a routerLink="nustatymai" (click)="hide()" [class.active]="this.router.url == '/nustatymai'">Nustatymai</a>
-            <div class="dropdown">
-                <span><i class="fas fa-user"></i><span>{{ this.loginService.user.name }}</span></span>
-                <div class="dropdown-right">
-                    <img class="details" src="{{ this.loginService.user.school.logo }}" />
-                    <a routerLink="paskyra" (click)="hide()">
-                        <i class="fas fa-user-cog" aria-hidden="true"></i>
-                        <span>Paskyros nustatymai</span>
-                    </a>
-                    <a (click)="loggout();">
-                        <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
-                        <span>Atsijungti</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <!-- <div class="mobile-menu" *ngIf="isHandset$ | async">
+        Mobile menu!
+    </div> -->
 </header>

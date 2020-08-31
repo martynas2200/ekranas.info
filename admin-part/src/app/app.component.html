@@ -1,7 +1,7 @@
-<ngx-loading-bar></ngx-loading-bar>
+<ngx-loading-bar color="#F9BD0E"></ngx-loading-bar>
 <app-nav *ngIf="this.loginService.user.name"></app-nav>
-<!-- <router-outlet></router-outlet> -->
-<div [@routeAnimations]="prepareRoute(outlet)" style="position: relative;">
+<!-- <app-main-nav></app-main-nav> -->
+<main [@routeAnimations]="prepareRoute(outlet)">
     <router-outlet #outlet="outlet"></router-outlet>
-</div>
+</main>
 <app-snackbar></app-snackbar>

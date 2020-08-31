@@ -9,6 +9,7 @@ class AuthController {
 
 
   static login = async (req: Request, res: Response) => {
+
     //Check if username and password are set
     let { username, password } = req.body;
     if (!(username && password)) {
@@ -18,6 +19,8 @@ class AuthController {
       });
       return;
     }
+
+    await new Promise(done => setTimeout(done, 1000));
 
     //Get user from database
     const userRepository = getRepository(User);
@@ -34,18 +37,36 @@ class AuthController {
       return;
     }
 
+    if (!user.password) {
+      res.status(401).send({
+        success: false,
+        message: 'Registracija nebaigta! Prašome patikrinti pašto dėžutę ir užpildyti reikalingus duomenis!'
+      });
+      return;
+    }
+
     //Check if encrypted password match
-    if (!user.checkIfUnencryptedPasswordIsValid(password)) {
+    let result = await user.checkIfUnencryptedPasswordIsValid(password);
+    if (!result) {
       res.status(401).send({
         success: false,
         message: 'Neteisingas vartotojo slaptažodis'
       });
       return;
     }
+
     const cdate = new Date();
     user.lastLogin = cdate;
-    const updated = userRepository.save(user);
 
+    let clueDestruction = false;
+    if (user.clue != null) {
+      user.clue = null;
+      clueDestruction = true;
+    }
+
+    await userRepository.save(user);
+
+    delete user.clue;
     delete user.password;
     delete user.createdAt;
     delete user.updatedAt;
@@ -67,11 +88,13 @@ class AuthController {
     delete user.school.lastChange;
     delete user.school.receiptTime;
 
+
+
     req.session.user = user;
     const hash = crypto.createHmac("SHA256", "dae4ff4167cf7d4e15dd62c22816fe23e8ce6ff5").update(user.email).digest("hex");
     res.send({
       success: true,
-      message: 'Sėkmingai prisijungėte',
+      message: 'Sėkmingai prisijungėte' + (clueDestruction ? ', slaptažodžio keitimo užklausa ištrinta!':''),
       user: user,
       hash
     });
@@ -87,7 +110,7 @@ class AuthController {
   };
 
   static UserData = async (req: Request, res: Response) => {
-    if (req.session.user) {
+    if (req.session && req.session.user) {
       const hash = crypto.createHmac("SHA256", "dae4ff4167cf7d4e15dd62c22816fe23e8ce6ff5").update(req.session.user.email).digest("hex");
       res.status(200).send({
         success: true,
@@ -217,21 +240,23 @@ class AuthController {
 
 
   static forgotPassword = async (req: Request, res: Response) => {
+    
+    await new Promise(done => setTimeout(done, 1000));
+    
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     
     if (!re.test(String(req.body.email).toLowerCase())) {
-      res.status(400).send('Nurodytas neteisingas elektroninio pašto adresas');
+      res.status(400).send('Neteisingas elektroninio pašto adresas');
       return;
     }
+
+
     const userRepository = getRepository(User);
     let user: User;
     try {
       user = await userRepository.findOneOrFail({ where: { email: req.body.email } });
     } catch (error) {
-      res.status(401).send({
-        success: false,
-        message: 'Nerastas vartotojas'
-      });
+      res.status(401).send('Nerastas vartotojas');
       return;
     }
     user.clue = crypto.randomBytes(45).toString('hex');
@@ -240,16 +265,12 @@ class AuthController {
       let mailer = new Mail();
       let info = await mailer.send(user.email,'Ekranas.info paskyros slaptažožio atstatymas', 'reset.pug', {
           user,
-          school: req.session.user.school,
           agent: req.headers['user-agent'],
           ip: req.ip || req.ips
       });
     } catch (error) {
-      res.status(400).send({
-        success: true,
-        message: 'Nepavyko, išsaugoti naujų duomenų duomenų bazėje, parašyk pagalbai.',
-        error
-      });
+      console.log(error);
+      res.status(400).send('Nepavyko, sukurti užklausos duomenų bazėje, parašyk pagalbai.');
       return;
     }
 

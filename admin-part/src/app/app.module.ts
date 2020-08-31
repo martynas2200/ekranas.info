@@ -1,10 +1,9 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-// import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { NotificationsComponent } from './notifications/notifications.component';
@@ -13,14 +12,13 @@ import { SettingsComponent } from './settings/settings.component';
 import { IndexComponent } from './index/index.component';
 import { ContactUsDialogComponent } from './contact/contact.component';
 import { LoginService } from './login.service';
-
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NgsRevealModule} from 'ngx-scrollreveal';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -28,9 +26,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatRippleModule } from '@angular/material/core';
 import { SpinnerComponent } from './ui/spinner/spinner.component';
 import { UnauthorizedComponent } from './ui/unauthorized/unauthorized.component';
-// import { MatSnackBarModule} from '@angular/material/snack-bar';
 import { NotFoundComponent } from './ui/not-found/not-found.component';
 import { SelectNotificationComponent } from './notifications/dialogs/select-notification/select-notification.component';
 import { AddNotificationComponent } from './notifications/dialogs/add-notification/add-notification.component';
@@ -58,6 +56,17 @@ import { LogoComponent } from './settings/logo/logo.component';
 import { NewScreenComponent } from './settings/dialogs/new-screen/new-screen.component';
 import { ScreensComponent } from './settings/screens/screens.component';
 import { DialogChangeSettingsComponent } from './timetable/dialog-change-settings/dialog-change-settings.component';
+import { DisciplinesService } from './disciplines.service';
+import { CalendarComponent } from './notifications/calendar/calendar.component';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { TextFieldComponent } from './notifications/dialogs/add-notification/text-field/text-field.component';
+import { VideoFieldComponent } from './notifications/dialogs/add-notification/video-field/video-field.component';
+import { ImagesFieldComponent } from './notifications/dialogs/add-notification/images-field/images-field.component';
+import { SlideFieldComponent } from './notifications/dialogs/add-notification/slide-field/slide-field.component';
 // import { from } from 'rxjs';
 
 
@@ -96,7 +105,13 @@ import { DialogChangeSettingsComponent } from './timetable/dialog-change-setting
     LogoComponent,
     NewScreenComponent,
     ScreensComponent,
-    DialogChangeSettingsComponent
+    DialogChangeSettingsComponent,
+    CalendarComponent,
+    MainNavComponent,
+    TextFieldComponent,
+    VideoFieldComponent,
+    ImagesFieldComponent,
+    SlideFieldComponent
   ],
   imports: [
     BrowserModule,
@@ -112,7 +127,6 @@ import { DialogChangeSettingsComponent } from './timetable/dialog-change-setting
     MatDialogModule,
     ReactiveFormsModule,
     FormsModule,
-    // MatSnackBarModule,
     NgsRevealModule,
     NgxMasonryModule,
     MatDatepickerModule,
@@ -120,9 +134,13 @@ import { DialogChangeSettingsComponent } from './timetable/dialog-change-setting
     MatSlideToggleModule,
     MatCheckboxModule,
     MatAutocompleteModule,
+    MatRippleModule,
     CKEditorModule,
     LoadingBarHttpClientModule,
-    // LoadingBarRouterModule
+    LayoutModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule
   ],
   entryComponents: [
     ContactUsDialogComponent,
@@ -141,7 +159,7 @@ import { DialogChangeSettingsComponent } from './timetable/dialog-change-setting
     EditUserComponent,
     DialogChangeSettingsComponent
   ],
-  providers: [ {provide: MAT_DATE_LOCALE, useValue: 'lt-LT'}, LoginService, DisciplinesComponent ],
+  providers: [ {provide: MAT_DATE_LOCALE, useValue: 'lt-LT'}, LoginService, DisciplinesService, Title ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

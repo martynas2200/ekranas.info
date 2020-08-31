@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -34,7 +35,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var User_1 = require("../entity/User");
@@ -43,8 +43,8 @@ var Mail_1 = require("./Mail");
 var AuthController = /** @class */ (function () {
     function AuthController() {
     }
-    AuthController.login = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-        var _a, username, password, userRepository, user, error_1, cdate, updated, hash;
+    AuthController.login = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+        var _a, username, password, userRepository, user, error_1, result, cdate, clueDestruction, hash;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -56,27 +56,39 @@ var AuthController = /** @class */ (function () {
                         });
                         return [2 /*return*/];
                     }
-                    userRepository = typeorm_1.getRepository(User_1.User);
-                    _b.label = 1;
+                    return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
                 case 1:
-                    _b.trys.push([1, 3, , 4]);
+                    _b.sent();
+                    userRepository = typeorm_1.getRepository(User_1.User);
+                    _b.label = 2;
+                case 2:
+                    _b.trys.push([2, 4, , 5]);
                     return [4 /*yield*/, userRepository.findOneOrFail({ where: [
                                 { username: username },
                                 { email: username }
                             ] })];
-                case 2:
-                    user = _b.sent();
-                    return [3 /*break*/, 4];
                 case 3:
+                    user = _b.sent();
+                    return [3 /*break*/, 5];
+                case 4:
                     error_1 = _b.sent();
                     res.status(401).send({
                         success: false,
                         message: 'Neteisingas vartotojo vardas'
                     });
                     return [2 /*return*/];
-                case 4:
-                    //Check if encrypted password match
-                    if (!user.checkIfUnencryptedPasswordIsValid(password)) {
+                case 5:
+                    if (!user.password) {
+                        res.status(401).send({
+                            success: false,
+                            message: 'Registracija nebaigta! Prašome patikrinti pašto dėžutę ir užpildyti reikalingus duomenis!'
+                        });
+                        return [2 /*return*/];
+                    }
+                    return [4 /*yield*/, user.checkIfUnencryptedPasswordIsValid(password)];
+                case 6:
+                    result = _b.sent();
+                    if (!result) {
                         res.status(401).send({
                             success: false,
                             message: 'Neteisingas vartotojo slaptažodis'
@@ -85,7 +97,15 @@ var AuthController = /** @class */ (function () {
                     }
                     cdate = new Date();
                     user.lastLogin = cdate;
-                    updated = userRepository.save(user);
+                    clueDestruction = false;
+                    if (user.clue != null) {
+                        user.clue = null;
+                        clueDestruction = true;
+                    }
+                    return [4 /*yield*/, userRepository.save(user)];
+                case 7:
+                    _b.sent();
+                    delete user.clue;
                     delete user.password;
                     delete user.createdAt;
                     delete user.updatedAt;
@@ -110,7 +130,7 @@ var AuthController = /** @class */ (function () {
                     hash = crypto.createHmac("SHA256", "dae4ff4167cf7d4e15dd62c22816fe23e8ce6ff5").update(user.email).digest("hex");
                     res.send({
                         success: true,
-                        message: 'Sėkmingai prisijungėte',
+                        message: 'Sėkmingai prisijungėte' + (clueDestruction ? ', slaptažodžio keitimo užklausa ištrinta!' : ''),
                         user: user,
                         hash: hash
                     });
@@ -118,7 +138,7 @@ var AuthController = /** @class */ (function () {
             }
         });
     }); };
-    AuthController.loggout = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    AuthController.loggout = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             req.session.destroy(function (err) {
                 // -
@@ -130,7 +150,7 @@ var AuthController = /** @class */ (function () {
             return [2 /*return*/];
         });
     }); };
-    AuthController.UserData = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    AuthController.UserData = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var hash;
         return __generator(this, function (_a) {
             if (req.session.user) {
@@ -146,7 +166,7 @@ var AuthController = /** @class */ (function () {
             return [2 /*return*/];
         });
     }); };
-    AuthController.changeUsername = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    AuthController.changeUsername = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var id, _a, username, password, userRepository, user, id_1, usernameRegex, error_2;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -206,7 +226,7 @@ var AuthController = /** @class */ (function () {
             }
         });
     }); };
-    AuthController.changeEmail = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    AuthController.changeEmail = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var id, _a, email, password, userRepository, user, id_2, re, error_3;
         return __generator(this, function (_b) {
             switch (_b.label) {
@@ -266,58 +286,53 @@ var AuthController = /** @class */ (function () {
             }
         });
     }); };
-    AuthController.forgotPassword = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    AuthController.forgotPassword = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var re, userRepository, user, error_4, mailer, info, error_5;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
+                case 0: return [4 /*yield*/, new Promise(function (done) { return setTimeout(done, 1000); })];
+                case 1:
+                    _a.sent();
                     re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                     if (!re.test(String(req.body.email).toLowerCase())) {
-                        res.status(400).send('Nurodytas neteisingas elektroninio pašto adresas');
+                        res.status(400).send('Neteisingas elektroninio pašto adresas');
                         return [2 /*return*/];
                     }
                     userRepository = typeorm_1.getRepository(User_1.User);
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, userRepository.findOneOrFail({ where: { email: req.body.email } })];
+                    _a.label = 2;
                 case 2:
-                    user = _a.sent();
-                    return [3 /*break*/, 4];
+                    _a.trys.push([2, 4, , 5]);
+                    return [4 /*yield*/, userRepository.findOneOrFail({ where: { email: req.body.email } })];
                 case 3:
-                    error_4 = _a.sent();
-                    res.status(401).send({
-                        success: false,
-                        message: 'Nerastas vartotojas'
-                    });
-                    return [2 /*return*/];
+                    user = _a.sent();
+                    return [3 /*break*/, 5];
                 case 4:
-                    user.clue = crypto.randomBytes(45).toString('hex');
-                    _a.label = 5;
+                    error_4 = _a.sent();
+                    res.status(401).send('Nerastas vartotojas');
+                    return [2 /*return*/];
                 case 5:
-                    _a.trys.push([5, 8, , 9]);
-                    return [4 /*yield*/, userRepository.save(user)];
+                    user.clue = crypto.randomBytes(45).toString('hex');
+                    _a.label = 6;
                 case 6:
+                    _a.trys.push([6, 9, , 10]);
+                    return [4 /*yield*/, userRepository.save(user)];
+                case 7:
                     _a.sent();
                     mailer = new Mail_1.Mail();
                     return [4 /*yield*/, mailer.send(user.email, 'Ekranas.info paskyros slaptažožio atstatymas', 'reset.pug', {
                             user: user,
-                            school: req.session.user.school,
                             agent: req.headers['user-agent'],
                             ip: req.ip || req.ips
                         })];
-                case 7:
-                    info = _a.sent();
-                    return [3 /*break*/, 9];
                 case 8:
-                    error_5 = _a.sent();
-                    res.status(400).send({
-                        success: true,
-                        message: 'Nepavyko, išsaugoti naujų duomenų duomenų bazėje, parašyk pagalbai.',
-                        error: error_5
-                    });
-                    return [2 /*return*/];
+                    info = _a.sent();
+                    return [3 /*break*/, 10];
                 case 9:
+                    error_5 = _a.sent();
+                    console.log(error_5);
+                    res.status(400).send('Nepavyko, sukurti užklausos duomenų bazėje, parašyk pagalbai.');
+                    return [2 /*return*/];
+                case 10:
                     res.status(200).send({
                         success: true,
                         message: 'Sėkmingai pavyko išsiųsti slaptažodio atstatymo laišką'
@@ -326,7 +341,7 @@ var AuthController = /** @class */ (function () {
             }
         });
     }); };
-    AuthController.changePassword = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    AuthController.changePassword = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var id, _a, oldPassword, newPassword, repeatedPassword, userRepository, user, id_3;
         return __generator(this, function (_b) {
             switch (_b.label) {

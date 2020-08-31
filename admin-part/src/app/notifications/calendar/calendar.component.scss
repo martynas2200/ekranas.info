@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap&subset=latin-ext');
+$primary: #455af7;
+body {
+    background: #ccc;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    margin: 2em;
+}
+
+:host {
+    display: block;
+    color: black;
+    margin: 1em auto;
+    background: #fff;
+    border-radius: 0.6em;
+    padding: 1.3em;
+    position: relative;
+    // width: calc(7 * 2.5em+6 * 0.3em);
+}
+
+.header {
+    h1 {
+        font-size: 1.8em;
+        margin: 0;
+    }
+    h2 {
+        margin: 0;
+        font-size: 1em;
+        opacity: 0.9;
+    }
+    .arrow {
+        color: var(--s2);
+        font-size: 1.8em;
+        margin-left: 0.8em;
+    }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0.42em 1em 0.42em;
+}
+
+.week-days-container {
+    margin-bottom: 0.2em;
+}
+
+.base {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 0.2em 0.3em;
+    align-items: center;
+    justify-items: center;
+    .dots-box {
+        position: absolute;
+        transform: translateY(0.6rem);
+        display: block;
+        z-index: 5;
+    }
+    .dot {
+        display: inline-block;
+        height: 0.35em;
+        width: 0.35em;
+        background: red;
+        border-radius: 100%;
+        margin: 0 0.01em;
+    }
+    &>* {
+        height: 2.6rem;
+        width: 2.5rem;
+        font-size: 0.9em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .week-day {
+        // text-transform: uppercase;
+        font-size: 0.7em;
+        opacity: 0.8;
+    }
+    .previous,
+    .next {
+        opacity: 0.4;
+    }
+    .today {
+        background: $primary;
+        color: white;
+        border-radius: 0.7em;
+        z-index: 3;
+        &::after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            background: rgba(69, 90, 247, 0.07);
+            height: 2.9em;
+            left: 0;
+            right: 0;
+            border-radius: 0.7em;
+            pointer-events: none;
+        }
+    }
+}

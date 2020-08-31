@@ -1,5 +1,6 @@
 .main-title {
-    background: rgba($color: #000000, $alpha: .2);
+    background: var(--component-bg);
+    color: var(--component-text);
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -9,10 +10,12 @@
     h1 {
         font-size: 2em;
         padding: 0.4em;
+        margin: none;
     }
     mat-icon {
         font-size: 2em;
         cursor: pointer;
+        color: var(--component-text);
         &:hover {
             color: var(--s5);
         }
@@ -73,13 +76,16 @@ button {
     h1 {
         font-size: 1.6em;
         font-weight: bold;
+        margin: none;
     }
     h2 {
         font-size: 1.2em;
+        margin: none;
     }
     mat-icon {
         font-size: 5em;
         cursor: pointer;
+        color: var(--component-text);
     }
 }
 

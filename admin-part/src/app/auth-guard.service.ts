@@ -1,10 +1,8 @@
-
 import { Injectable } from '@angular/core';
 import { LoginService } from './login.service';
 import {
   CanActivate, Router,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot
+  ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -14,14 +12,12 @@ import { map, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 
-export class NeedAuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
 
   constructor(private loginService: LoginService, private router: Router, private httpClient: HttpClient) {
   }
   // state: RouterStateSnapshot
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
-
-    // const redirectUrl = route['routerState']['url'];
 
     if (this.loginService.isLogged()) {
       return of(true);
@@ -40,9 +36,6 @@ export class NeedAuthGuard implements CanActivate {
         return of(false);
       })
     );
-
-    // else {
-    // }
 
   }
 

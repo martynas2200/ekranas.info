@@ -1,39 +1,37 @@
 <div class="title">Paskyra</div>
-<div class="margin">
-    <div class="account">
-        <div class="item-row">
-            <div>Vardas, Pavardė</div>
-            <strong class="without-cta">{{ this.loginService.user.name }}</strong>
-        </div>
-        <div class="item-row">
-            <div>Teisės</div>
-            <strong>{{ this.loginService.getRoleName() }}</strong>
-            <button type="button" name="button" class="btn small" (click)='openRoleDialog()'>Plačiau</button>
-        </div>
-        <div class="item-row">
-            <div>Įstaiga</div>
-            <strong class="without-cta">{{ this.loginService.user.school.name }}</strong>
-        </div>
-        <div class="item-row">
-            <div>Prisijungimo vardas</div>
-            <ng-template *ngIf="this.loginService.user.username; else nousername">
-                <strong>{{ this.loginService.user.username }}</strong>
-                <button type="button" name="button" class="btn small" (click)='openUsernameDialog()'>Keisti</button>
-            </ng-template>
-            <ng-template #nousername>
-                <div class="disabled">Nenustatyta</div>
-                <button type="button" name="button" class="btn small" (click)='openUsernameDialog()'>Sukurti</button>
-            </ng-template>
-        </div>
-        <div class="item-row">
-            <div>El. paštas</div>
-            <strong id="email">{{ this.loginService.user.email }}</strong>
-            <button type="button" name="button" class="btn small" (click)='openEmailDialog()'>Keisti</button>
-        </div>
-        <div class="item-row">
-            <div>Slaptažodis</div>
-            <strong>••••••••</strong>
-            <button type="button" name="button" class="btn small" (click)='openPasswordDialog()'>Keisti</button>
-        </div>
+<div class="account">
+    <div class="item-row">
+        <div>Vardas, Pavardė</div>
+        <strong class="without-cta">{{ this.loginService.user.name }}</strong>
+    </div>
+    <div class="item-row">
+        <div>Teisės</div>
+        <strong>{{ this.loginService.getRoleName() }}</strong>
+        <button type="button" name="button" class="btn small" (click)='openRoleDialog()'>Plačiau</button>
+    </div>
+    <div class="item-row">
+        <div>Įstaiga</div>
+        <strong class="without-cta">{{ this.loginService.user.school.name }}</strong>
+    </div>
+    <div class="item-row">
+        <div>Prisijungimo vardas</div>
+        <ng-container *ngIf="this.loginService.user.username; else nousername">
+            <strong>{{ this.loginService.user.username }}</strong>
+            <button type="button" name="button" class="btn small" (click)='openUsernameDialog()'>Keisti</button>
+        </ng-container>
+        <ng-template #nousername>
+            <div class="disabled">Nenustatyta</div>
+            <button type="button" name="button" class="btn small" (click)='openUsernameDialog()'>Sukurti</button>
+        </ng-template>
+    </div>
+    <div class="item-row">
+        <div>El. paštas</div>
+        <strong id="email">{{ this.loginService.user.email }}</strong>
+        <button type="button" name="button" class="btn small" (click)='openEmailDialog()'>Keisti</button>
+    </div>
+    <div class="item-row">
+        <div>Slaptažodis</div>
+        <strong>••••••••</strong>
+        <button type="button" name="button" class="btn small" (click)='openPasswordDialog()'>Keisti</button>
     </div>
 </div>

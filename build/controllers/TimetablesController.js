@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -34,7 +35,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var Timetable_1 = require("../entity/Timetable");
@@ -42,7 +42,7 @@ var Discipline_1 = require("../entity/Discipline");
 var TimetablesController = /** @class */ (function () {
     function TimetablesController() {
     }
-    TimetablesController.getClasses = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    TimetablesController.getClasses = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var rawRows, classes_1, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -73,7 +73,7 @@ var TimetablesController = /** @class */ (function () {
             }
         });
     }); };
-    TimetablesController.getByDayAndSemester = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    TimetablesController.getByDayAndSemester = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var day, semester, classes, rawRows, error_2, rows, error_3;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -137,7 +137,7 @@ var TimetablesController = /** @class */ (function () {
             }
         });
     }); };
-    TimetablesController.update = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    TimetablesController.update = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var id;
         return __generator(this, function (_a) {
             id = parseInt(req.params.id);
@@ -159,7 +159,7 @@ var TimetablesController = /** @class */ (function () {
             return [2 /*return*/];
         });
     }); };
-    TimetablesController.create = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    TimetablesController.create = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var _a, disciplineId, lessons, _b, weekDay, semester, disciplinesRepository, discipline, error_4, newRows, lessonNr, a, error_5;
         return __generator(this, function (_c) {
             switch (_c.label) {
@@ -246,7 +246,7 @@ var TimetablesController = /** @class */ (function () {
             }
         });
     }); };
-    TimetablesController.delete = function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    TimetablesController.delete = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
         var id, weekDay, semester;
         return __generator(this, function (_a) {
             id = parseInt(req.params.id);
@@ -271,7 +271,7 @@ var TimetablesController = /** @class */ (function () {
     // {"success":true,"rows":
     // {"disciplineId":13,"room":"30","teacher":"Rima Lukoševičienė","name":"Kūno kultūra","lessons":{"1":"7","2":"IIG","3":"5","5":"IVG","6":"IIG"}},
     //{"disciplineId":16,"room":"7","teacher":"Laimutė Žakienė","name":"Chemija","lessons":{"1":"8","2":"IIIG","3":"9","4":"6","5":"9"}},{"disciplineId":20,"room":"24 | 25 | 28","teacher":"Eglė Pangonienė","name":"Matematika","lessons":{"2":"IVG","3":"8","5":"5","6":"6","7":"IIG"}},{"disciplineId":25,"room":"11","teacher":"Kristina Palubinskienė","name":"Technologijos","lessons":{"1":"IIIG"}},{"disciplineId":26,"room":"12","teacher":"Algimantas Avulis","name":"Technologijos","lessons":{"4":"7"}}]}
-    TimetablesController.deleteQuery = function (id, school, semester, weekDay) { return __awaiter(_this, void 0, void 0, function () {
+    TimetablesController.deleteQuery = function (id, school, semester, weekDay) { return __awaiter(void 0, void 0, void 0, function () {
         var error_6;
         return __generator(this, function (_a) {
             switch (_a.label) {
