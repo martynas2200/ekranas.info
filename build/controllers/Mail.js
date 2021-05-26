@@ -46,7 +46,7 @@ var Mail = /** @class */ (function () {
             pool: true,
             host: "smtp-relay.sendinblue.com",
             port: 587,
-            secure: (process.env.NODE_ENV === 'production'),
+            secureConnection: false,
             auth: {
                 user: "martynas2200@gmail.com",
                 pass: "bhV53CFHwg08PKzr"
