@@ -27,6 +27,13 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatRippleModule } from '@angular/material/core';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatCheckboxModule} from '@angular/material/checkbox';
+import { NgxMasonryModule } from 'ngx-masonry';
+// ----------
 import { SpinnerComponent } from './ui/spinner/spinner.component';
 import { UnauthorizedComponent } from './ui/unauthorized/unauthorized.component';
 import { NotFoundComponent } from './ui/not-found/not-found.component';
@@ -34,8 +41,6 @@ import { SelectNotificationComponent } from './notifications/dialogs/select-noti
 import { AddNotificationComponent } from './notifications/dialogs/add-notification/add-notification.component';
 import { NotificationComponent } from './notifications/notification/notification.component';
 import { DeleteNotificationComponent } from './notifications/dialogs/delete-notification/delete-notification.component';
-import { NgxMasonryModule } from 'ngx-masonry';
-import { MatCheckboxModule} from '@angular/material/checkbox';
 import { AccountComponent } from './account/account.component';
 import { EditTimetableComponent } from './timetable/edit-timetable/edit-timetable.component';
 import { ChangePasswordComponent } from './account/change-password/change-password.component';
@@ -59,10 +64,6 @@ import { DialogChangeSettingsComponent } from './timetable/dialog-change-setting
 import { DisciplinesService } from './disciplines.service';
 import { CalendarComponent } from './notifications/calendar/calendar.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
-import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
 import { TextFieldComponent } from './notifications/dialogs/add-notification/text-field/text-field.component';
 import { VideoFieldComponent } from './notifications/dialogs/add-notification/video-field/video-field.component';
 import { ImagesFieldComponent } from './notifications/dialogs/add-notification/images-field/images-field.component';

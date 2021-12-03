@@ -49,13 +49,13 @@ if (process.env.NODE_ENV !== 'production') {
     database: "ekranas",
     synchronize: true,
     logging: false,
-    entities: [ "src/entity/**/*.ts" ],
-    migrations: [ "src/migration/**/*.ts" ],
-    subscribers: [ "src/subscriber/**/*.ts" ],
+    entities: [ "./entity/**/*.ts" ],
+    migrations: [ "./migration/**/*.ts" ],
+    subscribers: [ "./subscriber/**/*.ts" ],
     cli: {
-      entitiesDir: "src/entity",
-      migrationsDir: "src/migration",
-      subscribersDir: "src/subscriber"
+      entitiesDir: "./entity",
+      migrationsDir: "./migration",
+      subscribersDir: "./subscriber"
     }
   };
 } else {
@@ -72,9 +72,9 @@ if (process.env.NODE_ENV !== 'production') {
       migrations: [ "build/migration/**/*.js" ],
       subscribers: [ "build/subscriber/**/*.js" ],
       cli: {
-        entitiesDir: "src/entity",
-        migrationsDir: "src/migration",
-        subscribersDir: "src/subscriber"
+        entitiesDir: "./entity",
+        migrationsDir: "./migration",
+        subscribersDir: "./subscriber"
       }
     };
     
