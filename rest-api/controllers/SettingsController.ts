@@ -15,7 +15,7 @@ class SettingsController {
     try {
       const school = await dataSource.getRepository(School).findOneOrFail(req.session.user.school.id, {
         select: ["showTimetable", "firstSemester", "secondSemester", "endSemesters"]
-      })
+      });
       let currentSemester = getCurrentSemester(school);
       let numberOfSavedRows = 0;
       if (currentSemester == 2 || currentSemester == 1) {
