@@ -59,7 +59,7 @@ var School_1 = require("./entity/School");
 var Time_1 = require("./entity/Time");
 var Timetable_1 = require("./entity/Timetable");
 var User_1 = require("./entity/User");
-var Screen_1 = require("entity/Screen");
+var Screen_1 = require("./entity/Screen");
 exports.dataSource = new typeorm_1.DataSource({
     type: "mysql",
     host: ((process.env.NODE_ENV !== 'production') ? "145.239.94.18" : "localhost"),
