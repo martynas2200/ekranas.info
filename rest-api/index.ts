@@ -74,17 +74,17 @@ dataSource.initialize().then(async connection => {
     // Call midlewares
     app.use(cors());
     app.use(helmet());
-    // app.use(function (req, res, next) {
-    //   res.setHeader(
-    //     'Content-Security-Policy',
-    //     "default-src 'self'; font-src 'self' https://fonts.googleapis.com https://use.fontawesome.com https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com; script-src 'self'; style-src 'self' https://fonts.googleapis.com https://use.fontawesome.com; frame-src 'self';"
-    //   );
-    //   res.setHeader(
-    //     'Cross-Origin-Resource-Policy',
-    //     "cross-origin"
-    //   );
-    //   next();
-    // });
+    app.use(function (req, res, next) {
+      res.setHeader(
+        'Content-Security-Policy',
+        "default-src 'self'; font-src 'self' https://fonts.googleapis.com https://use.fontawesome.com https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://use.fontawesome.com; frame-src 'self';"
+      );
+      // res.setHeader(
+      //   'Cross-Origin-Resource-Policy',
+      //   "cross-origin"
+      // );
+      next();
+    });
     app.use(bodyParser.urlencoded({ extended: false }))
     app.use(bodyParser.json());
     
