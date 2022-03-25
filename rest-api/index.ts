@@ -79,6 +79,10 @@ dataSource.initialize().then(async connection => {
         'Content-Security-Policy',
         "default-src 'self'; font-src 'self' https://fonts.googleapis.com https://use.fontawesome.com https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com; script-src 'self'; style-src 'self' https://fonts.googleapis.com https://use.fontawesome.com; frame-src 'self';"
       );
+      res.setHeader(
+        'Cross-Origin-Resource-Policy',
+        "cross-origin"
+      );
       next();
     });
     app.use(bodyParser.urlencoded({ extended: false }))
