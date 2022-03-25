@@ -2,7 +2,7 @@ module.exports = {
     apps : [
         {
           name: "ekranas",
-          script: "./app.js",
+          script: "./build/app.js",
           watch: true,
           env: {
               "NODE_ENV": "production"
