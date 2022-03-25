@@ -67,6 +67,7 @@ import { TextFieldComponent } from './notifications/dialogs/add-notification/tex
 import { VideoFieldComponent } from './notifications/dialogs/add-notification/video-field/video-field.component';
 import { ImagesFieldComponent } from './notifications/dialogs/add-notification/images-field/images-field.component';
 import { SlideFieldComponent } from './notifications/dialogs/add-notification/slide-field/slide-field.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 // import { from } from 'rxjs';
 
 
@@ -139,7 +140,8 @@ import { SlideFieldComponent } from './notifications/dialogs/add-notification/sl
     LayoutModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    FontAwesomeModule
   ],
   entryComponents: [ //It could be all removed 
     ContactUsDialogComponent,
