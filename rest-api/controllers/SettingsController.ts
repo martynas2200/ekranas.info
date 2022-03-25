@@ -262,7 +262,7 @@ class SettingsController {
     try {
       await screenRepository.findOneOrFail({
         where: {
-          school: req.session.user.school,
+          school: <any> req.session.user.school,
           id
         }
       });
@@ -293,7 +293,7 @@ class SettingsController {
     try {
       await screenRepository.findOneOrFail({
         where: {
-          school: req.session.user.school,
+          school: <any> req.session.user.school,
           id
         }
       });

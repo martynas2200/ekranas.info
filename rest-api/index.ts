@@ -22,6 +22,7 @@ import { School } from "./entity/School";
 import { Time } from "./entity/Time";
 import { Timetable } from "./entity/Timetable";
 import { User } from "./entity/User";
+import { Screen } from "entity/Screen";
 export var socket:any;
 
 declare module 'express-session' {
@@ -38,7 +39,7 @@ export const dataSource = new DataSource({
   database: "ekranas",
   synchronize: true,
   logging: false,
-  entities: [Discipline, Image, Notification, School, Session, Time, Timetable, User],
+  entities: [Discipline, Image, Notification, School, Screen, Session, Time, Timetable, User],
   migrations: [],
   subscribers: [],
 });

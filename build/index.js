@@ -59,6 +59,7 @@ var School_1 = require("./entity/School");
 var Time_1 = require("./entity/Time");
 var Timetable_1 = require("./entity/Timetable");
 var User_1 = require("./entity/User");
+var Screen_1 = require("entity/Screen");
 exports.dataSource = new typeorm_1.DataSource({
     type: "mysql",
     host: ((process.env.NODE_ENV !== 'production') ? "145.239.94.18" : "localhost"),
@@ -68,7 +69,7 @@ exports.dataSource = new typeorm_1.DataSource({
     database: "ekranas",
     synchronize: true,
     logging: false,
-    entities: [Discipline_1.Discipline, Image_1.Image, Notification_1.Notification, School_1.School, Session_1.Session, Time_1.Time, Timetable_1.Timetable, User_1.User],
+    entities: [Discipline_1.Discipline, Image_1.Image, Notification_1.Notification, School_1.School, Screen_1.Screen, Session_1.Session, Time_1.Time, Timetable_1.Timetable, User_1.User],
     migrations: [],
     subscribers: [],
 });
