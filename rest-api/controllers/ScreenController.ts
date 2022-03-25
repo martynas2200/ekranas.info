@@ -10,6 +10,7 @@ import { Notification } from "../entity/Notification";
 import { format } from "date-fns";
 import { Time } from "../entity/Time";
 import { School } from "../entity/School";
+import { dataSource } from "../index";
 
 // TypeORM query operators polyfills
 enum EDateType {
@@ -30,7 +31,7 @@ export const getCurrentSemester = (school: School) => {
 };
 
 export const getScreenByKey = async (clue: string) => {
-    const screenReposity = await getRepository(Screen);
+    const screenReposity = await dataSource.getRepository(Screen);
     try {
         const screen = await screenReposity.findOneOrFail({
             where: { clue }
@@ -130,7 +131,7 @@ class WallDataController {
         if (screen.school.restart) {
             screen.school.restart = false;
             try {
-                await getRepository(School).save(screen.school);
+                await dataSource.getRepository(School).save(screen.school);
             } catch (error) {
                 console.log(error);
             }
@@ -140,9 +141,9 @@ class WallDataController {
 
         let times: any;
         try {
-            times = await getRepository(Time).findOneOrFail({
+            times = await dataSource.getRepository(Time).findOneOrFail({
                 where: {
-                    school: screen.school,
+                    school: <any>screen.school,
                     active: true
                 }
             });
@@ -166,7 +167,7 @@ class WallDataController {
             });
             return;
         }
-        const notificationsRepository = getRepository(Notification);
+        const notificationsRepository = dataSource.getRepository(Notification);
         let currentDate = new Date();
         currentDate.setHours(0, 0, 0, 0);
         let tommorowDate = new Date();
@@ -175,12 +176,12 @@ class WallDataController {
         let notifications: any;
         notifications = await notificationsRepository.find({
             where: [{
-                school: screen.school.id,
+                school: <any>screen.school.id,
                 date1: currentDate,
                 visibility: true,
                 deletedAt: null
             }, {
-                school: screen.school.id,
+                school: <any>screen.school.id,
                 date1: LessThanOrEqual(currentDate),
                 date2: MoreThanOrEqual(currentDate),
                 visibility: true,
@@ -192,7 +193,7 @@ class WallDataController {
         let notifications2: any;
         notifications2 = await notificationsRepository.find({
             where: [{
-                school: screen.school.id,
+                school: <any>screen.school.id,
                 date1: tommorowDate,
                 showBefore: true,
                 visibility: true,
@@ -225,7 +226,7 @@ class WallDataController {
         }
         let semester = getCurrentSemester(screen.school);
         if (!semester) screen.school.showTimetable = false;
-        const day = new Date().getDay();
+        const day: number = new Date().getDay();
         
         if (!screen.school.showTimetable) {
             res.send({
@@ -238,8 +239,8 @@ class WallDataController {
         }
 
         // use custom bilder
-        const lessons = await getRepository(Timetable).find({
-            where: { weekDay: day, semester, school: screen.school },
+        const lessons = await dataSource.getRepository(Timetable).find({
+            where: { weekDay: <any> day, semester: <any> semester, school: screen.school },
             select: ['className', 'lessonNr'],
             relations: ['discipline']
         });

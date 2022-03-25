@@ -3,13 +3,14 @@ import { Request, Response } from "express";
 import { getRepository, MoreThanOrEqual} from "typeorm";
 import { Timetable } from "../entity/Timetable";
 import { Discipline } from "../entity/Discipline";
+import { dataSource } from "../index";
 
 class TimetablesController {
     
     
     static getClasses = async (req: Request, res: Response) => {
         try {
-            const rawRows = await getRepository(Timetable).query('SELECT  `timetable`.`className` FROM `timetable` WHERE `timetable`.`schoolId` = ' + req.session.user.school.id + ' GROUP BY `className`;');
+            const rawRows = await dataSource.getRepository(Timetable).query('SELECT  `timetable`.`className` FROM `timetable` WHERE `timetable`.`schoolId` = ' + req.session.user.school.id + ' GROUP BY `className`;');
             let classes: Array<string> = [];
             rawRows.forEach(row => {
                 classes.push(row.className);
@@ -51,7 +52,7 @@ class TimetablesController {
 
         let classes: Array<string> = [];
         try {
-            const rawRows = await getRepository(Timetable).query('SELECT  `timetable`.`className` FROM `timetable` WHERE `timetable`.`schoolId` = ' + req.session.user.school.id + ' GROUP BY `className`;');
+            const rawRows = await dataSource.getRepository(Timetable).query('SELECT  `timetable`.`className` FROM `timetable` WHERE `timetable`.`schoolId` = ' + req.session.user.school.id + ' GROUP BY `className`;');
             rawRows.forEach(row => {
                 classes.push(row.className);
             });
@@ -68,7 +69,7 @@ class TimetablesController {
 
 
         try {
-            const rows = await getRepository(Timetable).query('SELECT `timetable`.`disciplineId`, GROUP_CONCAT(DISTINCT CONCAT(`lessonNr`, ":!*!:", `className`) ORDER BY `lessonNr` SEPARATOR "@^n^@") AS `variants`, `discipline`.`room`, `discipline`.`teacher`, `discipline`.`name` FROM `timetable` LEFT JOIN `discipline` ON `timetable`.`disciplineId` = `discipline`.`id` WHERE `timetable`.`weekDay` = ' + day + ' AND `timetable`.`semester` = ' + semester + ' AND `timetable`.`schoolId` = ' + req.session.user.school.id + ' GROUP BY `disciplineId`');
+            const rows = await dataSource.getRepository(Timetable).query('SELECT `timetable`.`disciplineId`, GROUP_CONCAT(DISTINCT CONCAT(`lessonNr`, ":!*!:", `className`) ORDER BY `lessonNr` SEPARATOR "@^n^@") AS `variants`, `discipline`.`room`, `discipline`.`teacher`, `discipline`.`name` FROM `timetable` LEFT JOIN `discipline` ON `timetable`.`disciplineId` = `discipline`.`id` WHERE `timetable`.`weekDay` = ' + day + ' AND `timetable`.`semester` = ' + semester + ' AND `timetable`.`schoolId` = ' + req.session.user.school.id + ' GROUP BY `disciplineId`');
             
             
             rows.forEach(discipline => {
@@ -140,7 +141,7 @@ class TimetablesController {
 
         
 
-        const disciplinesRepository = await getRepository(Discipline);
+        const disciplinesRepository = await dataSource.getRepository(Discipline);
         try {
             const discipline = await disciplinesRepository.findOneOrFail({
                 where: {
@@ -174,7 +175,7 @@ class TimetablesController {
             return;
         }
         try {
-            const a = await getRepository(Timetable)
+            const a = await dataSource.getRepository(Timetable)
             .createQueryBuilder()
             .insert()
             .into(Timetable)
@@ -217,7 +218,7 @@ class TimetablesController {
         
         static deleteQuery = async (id, school, semester, weekDay) => {
             try {
-                await getRepository(Timetable)
+                await dataSource.getRepository(Timetable)
                 .createQueryBuilder()
                 .delete()
                 .where("disciplineId = :id", { id })

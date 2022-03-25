@@ -23,9 +23,9 @@ export class NotificationsComponent implements OnInit {
     visual: true
   };
 
-  public myOptions: NgxMasonryOptions = {
-    transitionDuration: '1.8s'
-  };
+  // public myOptions: NgxMasonryOptions = {
+  //   //transitionDuration: '1.8s'
+  // };
 
   constructor(private httpClient: HttpClient, private dialog: MatDialog, private snackBar: SnackbarService) { }
 

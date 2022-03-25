@@ -5,6 +5,7 @@ import * as path from "path";
 import 'express-fileupload';
 import { Image } from "../entity/Image";
 import { School } from "../entity/School";
+import { dataSource } from "../index";
 
 class UploadsController {
 
@@ -28,7 +29,7 @@ class UploadsController {
                 return;
             }
             try {
-                await getRepository(School).save({
+                await dataSource.getRepository(School).save({
                     id: req.session.user.school.id,
                     logo: publicLocation
                 });
@@ -85,7 +86,7 @@ class UploadsController {
                     user: req.session.user,
                     school: req.session.user.school
                 };
-                const ImagesRepository = getRepository(Image);
+                const ImagesRepository = await dataSource.getRepository(Image);
                 try {
                     let imageRef = await ImagesRepository.save(uploadedImage);
                     delete imageRef.user;

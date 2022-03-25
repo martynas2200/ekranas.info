@@ -1,4 +1,4 @@
-<input type="file" name="pictures[]" accept="image/*" multiple #upload (change)="uploadsDistribution(upload.files);upload.value ='';">
+<input type="file" name="pictures[]" accept="image/*" multiple #upload (change)="this.initUpload(upload.files);upload.value ='';">
 <div class="margin">
     <span (click)="upload.click()" class="file-select btn">
                     <i class="fas fa-upload"></i>

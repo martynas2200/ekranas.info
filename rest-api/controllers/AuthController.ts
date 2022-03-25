@@ -4,7 +4,7 @@ import { getRepository } from "typeorm";
 import { User } from "../entity/User";
 import * as crypto from "crypto";
 import { Mail } from "./Mail";
-
+import { dataSource } from "../index";
 class AuthController {
 
 
@@ -23,15 +23,19 @@ class AuthController {
     await new Promise(done => setTimeout(done, 1000));
 
     //Get user from database
-    const userRepository = getRepository(User);
+    const userRepository = dataSource.getRepository(User);
     let user: User;
     try {
-      user = await userRepository.findOneOrFail({ where: [
-        { username },
-        { email: username }] });
+      user = await userRepository.findOne({ 
+        where: [
+          { username },
+          { email: username }
+        ]
+      });
     } catch (error) {
       res.status(401).send({
         success: false,
+        error,
         message: 'Neteisingas vartotojo vardas'
       });
       return;
@@ -139,7 +143,7 @@ class AuthController {
     }
 
     // Get user from the database
-    const userRepository = getRepository(User);
+    const userRepository = dataSource.getRepository(User);
     let user: User;
     try {
       user = await userRepository.findOneOrFail(id);
@@ -195,7 +199,7 @@ class AuthController {
     }
 
     // Get user from the database
-    const userRepository = getRepository(User);
+    const userRepository = dataSource.getRepository(User);
     let user: User;
     try {
       user = await userRepository.findOneOrFail(id);
@@ -251,7 +255,7 @@ class AuthController {
     }
 
 
-    const userRepository = getRepository(User);
+    const userRepository = dataSource.getRepository(User);
     let user: User;
     try {
       user = await userRepository.findOneOrFail({ where: { email: req.body.email } });
@@ -293,7 +297,7 @@ class AuthController {
     }
 
     //Get user from the database
-    const userRepository = getRepository(User);
+    const userRepository = dataSource.getRepository(User);
     let user: User;
     try {
       user = await userRepository.findOneOrFail(id);

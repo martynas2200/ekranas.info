@@ -30,7 +30,7 @@ routes.get('/wall/first.txt', function (req, res) {
   res.status(200).sendFile('first.txt', { root: 'img'});
 });
 routes.get('/connection/test', function (req, res) {
-  socket.emit('chat message', 'hello friends!');
+  //socket.emit('chat message', 'hello friends!');
   // data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M/wHwAEBgIApD5fRAAAAABJRU5ErkJggg==
   var img = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M/wHwAEBgIApD5fRAAAAABJRU5ErkJggg==', 'base64');
    res.writeHead(200, {

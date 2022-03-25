@@ -118,7 +118,7 @@ export class AddNotificationComponent  {
     }
 
   }
-  uploadsDistribution(fileList: FileList) {
+  public uploadsDistribution(fileList: FileList) {
     // console.log(fileList);
   // uploadsDistribution(a: any) {
   //   console.log(a);

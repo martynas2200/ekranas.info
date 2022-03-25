@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-images-field',
@@ -8,10 +8,16 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ImagesFieldComponent implements OnInit {
 
   @Input() formData: any;
+  @Output() newUpload: EventEmitter<FileList> =   new EventEmitter();
+  notification: any;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+  
+  public initUpload(fileList: FileList) {
+    this.newUpload.emit(fileList);
   }
 
 }

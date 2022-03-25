@@ -63,7 +63,6 @@ import { ScreensComponent } from './settings/screens/screens.component';
 import { DialogChangeSettingsComponent } from './timetable/dialog-change-settings/dialog-change-settings.component';
 import { DisciplinesService } from './disciplines.service';
 import { CalendarComponent } from './notifications/calendar/calendar.component';
-import { MainNavComponent } from './main-nav/main-nav.component';
 import { TextFieldComponent } from './notifications/dialogs/add-notification/text-field/text-field.component';
 import { VideoFieldComponent } from './notifications/dialogs/add-notification/video-field/video-field.component';
 import { ImagesFieldComponent } from './notifications/dialogs/add-notification/images-field/images-field.component';
@@ -108,7 +107,6 @@ import { SlideFieldComponent } from './notifications/dialogs/add-notification/sl
     ScreensComponent,
     DialogChangeSettingsComponent,
     CalendarComponent,
-    MainNavComponent,
     TextFieldComponent,
     VideoFieldComponent,
     ImagesFieldComponent,
@@ -143,7 +141,7 @@ import { SlideFieldComponent } from './notifications/dialogs/add-notification/sl
     MatSidenavModule,
     MatListModule
   ],
-  entryComponents: [
+  entryComponents: [ //It could be all removed 
     ContactUsDialogComponent,
     SelectNotificationComponent,
     AddNotificationComponent,

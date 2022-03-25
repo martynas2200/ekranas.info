@@ -16,7 +16,8 @@
             <button type="button" (click)="selectNotificationDialog()" class="btn"><i class="fas fa-plus"></i>&nbsp;&nbsp;Pridėti pranešimą</button>
         </div>
         <div *ngIf="this.filters.mode == 'deleted'" class="info" style="margin: 10px 7px;"><i class="fas fa-info-circle"></i><span>Pranešimai, buvę šiukšliadėžėje daugiau nei 30 dienų, bus ištrinti automatiškai.</span></div>
-        <ngx-masonry [options]="myOptions" [useImagesLoaded]="true">
+        <ngx-masonry>
+            <!-- [options]="myOptions" -->
             <notification ngxMasonryItem class="notification" *ngFor="let noti of this.notifications; let i = index" [data]='noti' [index]='i'></notification>
         </ngx-masonry>
         <div class="flex mbcolumn" *ngIf="this.notifications.length == 0">

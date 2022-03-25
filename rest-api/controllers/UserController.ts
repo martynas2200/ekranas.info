@@ -5,11 +5,12 @@ import { validate } from "class-validator";
 import * as crypto from 'crypto';
 import { User } from "../entity/User";
 import { Mail } from './Mail';
+import { dataSource } from "../index";
 class UserController {
 
   static listAll = async (req: Request, res: Response) => {
     // Get users from database
-    const userRepository = getRepository(User);
+    const userRepository = dataSource.getRepository(User);
     const users = await userRepository.find({
       select: ["id", "username", "role", "name", "email", "lastLogin"],
       where: { school: { id: req.session.user.school.id } } // We dont want to send the passwords on response
@@ -26,7 +27,7 @@ class UserController {
       return;
     }
     // Get the user from database
-    const userRepository = getRepository(User);
+    const userRepository = dataSource.getRepository(User);
     let user: User;
     try {
       user = await userRepository.findOneOrFail({
@@ -112,7 +113,7 @@ class UserController {
       return;
     }
     await new Promise(resolve => setTimeout(resolve, 1000));
-    const userRepository = getRepository(User);
+    const userRepository = dataSource.getRepository(User);
     try {
       const user = await userRepository.findOneOrFail({
         where: { clue: req.params.clue }
@@ -165,7 +166,7 @@ class UserController {
 
     //Try to save. If fails, the username is already in use
     const clue = crypto.randomBytes(45).toString('hex');
-    const userRepository = getRepository(User);
+    const userRepository = dataSource.getRepository(User);
     try {
       let mailer =  new Mail();
       let info = await mailer.send(email, 'Ekranas.info paskyros kūrimas', 'activation.pug', {
@@ -213,7 +214,7 @@ class UserController {
     //Get the ID from the url
     const id = parseInt(req.params.id);
     //Try to find user on database
-    const userRepository = getRepository(User);
+    const userRepository = dataSource.getRepository(User);
     let user;
     try {
       user = await userRepository.findOneOrFail(id);
@@ -244,7 +245,7 @@ class UserController {
     //Get the ID from the url
     const id = req.params.id;
 
-    const userRepository = getRepository(User);
+    const userRepository = dataSource.getRepository(User);
     let user: User;
     try {
       user = await userRepository.findOneOrFail(id);

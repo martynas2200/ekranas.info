@@ -8,7 +8,7 @@ import { SettingsService } from './settings.service';
 export class SocketService {
   protected status = false;
   protected connection = true;
-  socket: SocketIOClient.Socket;
+  //socket: SocketIOClient.Socket;
   constructor() { }
   // constructor(private settings: SettingsService) { }
 

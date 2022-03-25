@@ -90,7 +90,7 @@ export class LoginService {
       this.http.post<LoginResponse>('api/auth/forgot', formData).subscribe(data => {
         if (data.message) { this.snackBar.show(data.message, 'success'); }
         if (data.success) {
-          resolve();
+          resolve(true);
         }
         this.busy = false;
       },

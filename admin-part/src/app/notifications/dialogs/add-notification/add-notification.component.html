@@ -40,7 +40,7 @@
         </fieldset>
         <fieldset *ngIf="this.config.files">
             <legend><i class="fas fa-image"></i> Nuotraukos</legend>
-            <app-images-field [formData]="this.formData"></app-images-field>
+            <app-images-field (newUpload)="uploadsDistribution($event)" [formData]="this.formData"></app-images-field>
         </fieldset>
         <!-- <fieldset *ngIf="this.config.files">
             <legend><i class="fas fa-image"></i> Vaizdo įrašas</legend>

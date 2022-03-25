@@ -8,17 +8,18 @@ import * as crypto from 'crypto';
 import { Timetable } from "../entity/Timetable";
 import { getCurrentSemester } from "./ScreenController";
 // import { validate } from "class-validator";
+import { dataSource } from "../index";
 
 class SettingsController {
   static getTimetableSettings = async (req: Request, res: Response) => {
     try {
-      const school = await getRepository(School).findOneOrFail(req.session.user.school.id, {
+      const school = await dataSource.getRepository(School).findOneOrFail(req.session.user.school.id, {
         select: ["showTimetable", "firstSemester", "secondSemester", "endSemesters"]
       })
       let currentSemester = getCurrentSemester(school);
       let numberOfSavedRows = 0;
       if (currentSemester == 2 || currentSemester == 1) {
-        numberOfSavedRows = await getRepository(Timetable).count({
+        numberOfSavedRows = await dataSource.getRepository(Timetable).count({
           school: { id: req.session.user.school.id },
           semester: currentSemester
         })
@@ -46,7 +47,7 @@ class SettingsController {
     }
 
     try {
-      await getRepository(School).save({
+      await dataSource.getRepository(School).save({
         id: req.session.user.school.id,
         showTimetable: (showTimetable == "true" || showTimetable),
         firstSemester,
@@ -68,7 +69,7 @@ class SettingsController {
     });
   }
   static getTimes = async (req: Request, res: Response) => {
-    const times = await getRepository(Time).find({
+    const times = await dataSource.getRepository(Time).find({
       where: { school: { id: req.session.user.school.id } }
     });
     res.status(200).send({
@@ -83,7 +84,7 @@ class SettingsController {
     }
 
     try {
-      await getRepository(Time).delete(id);
+      await dataSource.getRepository(Time).delete(id);
     } catch (error) {
       res.status(400).send('Pamokų laiko nepavyko ištrinti!');
       return;
@@ -113,7 +114,7 @@ class SettingsController {
     });
 
     try {
-      const newTime = await getRepository(Time).save({
+      const newTime = await dataSource.getRepository(Time).save({
         name,
         times,
         school: req.session.user.school
@@ -138,7 +139,7 @@ class SettingsController {
     }
     // "UPDATE `time` SET `active` = CASE WHEN id = $id THEN 1 ELSE 0 END WHERE schoolId = ?;"
     try {
-      await getRepository(Time)
+      await dataSource.getRepository(Time)
         .createQueryBuilder()
         .update(Time)
         .set({
@@ -159,7 +160,7 @@ class SettingsController {
 
 
   static getSettings = async (req: Request, res: Response) => {
-    const settings = await getRepository(School).findOne({
+    const settings = await dataSource.getRepository(School).findOne({
       where: { id: req.session.user.school.id },
       select: ['ip', 'turnOnTime', 'turnOffTime']
     });
@@ -198,7 +199,7 @@ class SettingsController {
         return;
       }
     try {
-      await getRepository(School).save({
+      await dataSource.getRepository(School).save({
         id: req.session.user.school.id,
         ip, 
         turnOnTime, 
@@ -216,7 +217,7 @@ class SettingsController {
   }
 
   static getScreens = async (req: Request, res: Response) => {
-    const screens = await getRepository(Screen).find({
+    const screens = await dataSource.getRepository(Screen).find({
       where: { school: { id: req.session.user.school.id } }
     });
     res.status(200).send({
@@ -233,7 +234,7 @@ class SettingsController {
     await new Promise(done => setTimeout(done, 5000));
     const clue = crypto.randomBytes(90).toString('hex');
     try {
-      const newScreen = await getRepository(Screen).save({
+      const newScreen = await dataSource.getRepository(Screen).save({
         name,
         settings,
         clue,
@@ -257,7 +258,7 @@ class SettingsController {
       res.status(400).send('Netinkamas id!');
       return;
     }
-    const screenRepository = await getRepository(Screen);
+    const screenRepository = await dataSource.getRepository(Screen);
     try {
       await screenRepository.findOneOrFail({
         where: {
@@ -288,7 +289,7 @@ class SettingsController {
   static updateScreenSettings = async (req: Request, res: Response) => {
     const id: number = parseInt(req.params.id);
 
-    const screenRepository = await getRepository(Screen);
+    const screenRepository = await dataSource.getRepository(Screen);
     try {
       await screenRepository.findOneOrFail({
         where: {
@@ -311,7 +312,7 @@ class SettingsController {
     }
 
     try {
-      const newScreen = await getRepository(Screen).save({
+      const newScreen = await dataSource.getRepository(Screen).save({
         id,
         name,
         settings
@@ -332,7 +333,7 @@ class SettingsController {
     const id: number = parseInt(req.params.id);
     const clue = crypto.randomBytes(90).toString('hex');
     try {
-      await getRepository(Screen)
+      await dataSource.getRepository(Screen)
         .createQueryBuilder()
         .update(Screen)
         .set({

@@ -94,3 +94,7 @@
         flex-direction: column;
     }
 }
+
+.masonry-item {
+    transition: top 1.5s ease-in-out, left 1.5s ease-in-out;
+  }

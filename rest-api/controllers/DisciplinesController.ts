@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { getRepository, MoreThanOrEqual} from "typeorm";
 import { validate } from "class-validator";
 import { Discipline } from "../entity/Discipline";
+import { dataSource } from "../index";
 
 class DisciplinesController {
 
@@ -10,7 +11,7 @@ class DisciplinesController {
 
 
 
-        const disciplinesRepository = await getRepository(Discipline);
+        const disciplinesRepository = await dataSource.getRepository(Discipline);
         let disciplines = await disciplinesRepository.find({
             where: {
                 school: req.session.user.school
@@ -47,7 +48,7 @@ class DisciplinesController {
             return;
         }
             
-        const disciplinesRepository = getRepository(Discipline);
+        const disciplinesRepository = dataSource.getRepository(Discipline);
         try {
             const discipline = await disciplinesRepository.save({
                 school: req.session.user.school,
@@ -88,7 +89,7 @@ class DisciplinesController {
             res.status(400).send('Nėra tinkamų duomenų');
             return;
         }
-        const disciplinesRepository = getRepository(Discipline);
+        const disciplinesRepository = dataSource.getRepository(Discipline);
 
         try {
             const Checkdiscipline = await disciplinesRepository.findOneOrFail({
@@ -129,7 +130,7 @@ class DisciplinesController {
           return;
         }
         
-        const disciplinesRepository = getRepository(Discipline);
+        const disciplinesRepository = dataSource.getRepository(Discipline);
         try {
             const Checkdiscipline = await disciplinesRepository.findOneOrFail({
                 where: {

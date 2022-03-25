@@ -4,6 +4,8 @@ import { getRepository, MoreThanOrEqual, IsNull, Not} from "typeorm";
 import { validate } from "class-validator";
 import { Notification } from "../entity/Notification";
 import { IsDateInRange } from "./Functions";
+import { dataSource } from "../index";
+
 
 class NotificationsController {
 
@@ -38,7 +40,7 @@ static returnDateString(date: Date): string {
 
 static listAll = async (req: Request, res: Response) => {
   //Get notifications from database
-  const notificationsRepository = await getRepository(Notification);
+  const notificationsRepository = await dataSource.getRepository(Notification);
   let notifications: any;
   //We dont want to send the passwords on response
   let currentDate = new Date();
@@ -106,7 +108,7 @@ static listAll = async (req: Request, res: Response) => {
 //   }
 
 //   //Get the notification from database
-//   const notificationsRepository = await getRepository(Notification);
+//   const notificationsRepository = await dataSource.getRepository(Notification);
 //   try {
 //     const notification = await notificationsRepository.findOneOrFail(id);
 //     res.status(200).send({
@@ -200,7 +202,7 @@ static new = async (req: Request, res: Response) => {
   notification.type = ((notification.images.length > 0) ? 'image' : 'note');
 
   // Try save new notification
-  const notificationsRepository = await getRepository(Notification);
+  const notificationsRepository = await dataSource.getRepository(Notification);
   try {
     await notificationsRepository.save(notification);
   } catch (e) {
@@ -223,7 +225,7 @@ static new = async (req: Request, res: Response) => {
 static toggleVisibility = async (req: Request, res: Response) => {
   const id: number = parseInt(req.params.id);
 
-  const notificationRepository = await getRepository(Notification);
+  const notificationRepository = await dataSource.getRepository(Notification);
   // Try to find notification on database
   let notification: Notification;
   try {
@@ -280,7 +282,7 @@ static update = async (req: Request, res: Response) => {
   }
 
   
-  const notificationRepository = await getRepository(Notification);
+  const notificationRepository = await dataSource.getRepository(Notification);
   // Try to find notification on database
   let notification: Notification;
   try {
@@ -366,7 +368,7 @@ static delete = async (req: Request, res: Response) => {
     return;
   }
 
-  const notificationRepository = await getRepository(Notification);
+  const notificationRepository = await dataSource.getRepository(Notification);
   let notification: Notification;
   try {
     notification = await notificationRepository.findOneOrFail({

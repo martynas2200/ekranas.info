@@ -34,8 +34,7 @@
                         "scripts": [
                             "node_modules/jquery/dist/jquery.min.js",
                             "node_modules/slick-carousel/slick/slick.min.js"
-                        ],
-                        "es5BrowserSupport": true
+                        ]
                     },
                     "configurations": {
                         "production": {
@@ -46,7 +45,6 @@
                             "optimization": true,
                             "outputHashing": "all",
                             "sourceMap": false,
-                            "extractCss": true,
                             "namedChunks": false,
                             "aot": true,
                             "extractLicenses": true,
