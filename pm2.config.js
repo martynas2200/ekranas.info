@@ -2,7 +2,7 @@ module.exports = {
     apps : [
         {
           name: "ekranas",
-          script: "./build/app.js",
+          script: "./build/index.js",
           autorestart: true,
           watch: true,
           env: {
