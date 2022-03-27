@@ -1,3 +1,6 @@
+# Uploads
+img/uploads/*
+
 # Logs
 logs
 *.log
