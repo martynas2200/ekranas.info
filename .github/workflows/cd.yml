@@ -29,5 +29,5 @@ jobs:
           npm install --only=prod
           pm2 stop all
           pm2 delete all
-          pm2 start ./pm2.config.js
+          pm2 start pm2.config.js
           pm2 save

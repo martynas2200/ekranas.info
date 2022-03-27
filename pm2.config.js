@@ -3,8 +3,7 @@ module.exports = {
         {
           name: "ekranas",
           script: "./build/index.js",
-          autorestart: true,
-          watch: true,
+          watch: false,
           env: {
               "NODE_ENV": "production"
           }
