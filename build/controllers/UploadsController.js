@@ -55,7 +55,7 @@ var UploadsController = /** @class */ (function () {
             }
             image = req.files.image;
             newName = image.md5 + path.extname(image.name);
-            filesLocation = path.join(__dirname, 'img/logos/', newName);
+            filesLocation = path.join('img/logos/', newName);
             publicLocation = path.join('/img/logos/', newName);
             // Use the mv() method to place the file somewhere on your server
             image.mv(filesLocation, function (err) {
