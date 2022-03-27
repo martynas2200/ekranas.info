@@ -18,7 +18,7 @@ class UploadsController {
         let image = req.files.image as any;
 
         const newName = image.md5 + path.extname(image.name);
-        const filesLocation = path.join('img/logos/', newName);
+        const filesLocation = path.join(path.dirname('/srv/ekranas/img/'), 'img/logos/', newName);
         const publicLocation = path.join('/img/logos/', newName);
 
         // Use the mv() method to place the file somewhere on your server
@@ -69,7 +69,7 @@ class UploadsController {
         }
 
         const newName = image.md5 + path.extname(image.name);
-        const filesLocation = path.join('img/uploads/', newName);
+        const filesLocation = path.join(path.dirname('/srv/ekranas/img/') ,'img/uploads/', newName);
         const publicLocation = path.join('/img/uploads/', newName);
 
         // Use the mv() method to place the file somewhere on your server

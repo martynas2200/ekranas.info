@@ -55,7 +55,7 @@ var UploadsController = /** @class */ (function () {
             }
             image = req.files.image;
             newName = image.md5 + path.extname(image.name);
-            filesLocation = path.join('img/logos/', newName);
+            filesLocation = path.join(path.dirname('/srv/ekranas/img/'), 'img/logos/', newName);
             publicLocation = path.join('/img/logos/', newName);
             // Use the mv() method to place the file somewhere on your server
             image.mv(filesLocation, function (err) {
@@ -116,7 +116,7 @@ var UploadsController = /** @class */ (function () {
                 return [2 /*return*/];
             }
             newName = image.md5 + path.extname(image.name);
-            filesLocation = path.join('img/uploads/', newName);
+            filesLocation = path.join(path.dirname('/srv/ekranas/img/'), 'img/uploads/', newName);
             publicLocation = path.join('/img/uploads/', newName);
             // Use the mv() method to place the file somewhere on your server
             image.mv(filesLocation, function (err) {
