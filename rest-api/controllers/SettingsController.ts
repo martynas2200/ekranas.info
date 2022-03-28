@@ -13,14 +13,15 @@ import { dataSource } from "../index";
 class SettingsController {
   static getTimetableSettings = async (req: Request, res: Response) => {
     try {
-      const school = await dataSource.getRepository(School).findOneOrFail(req.session.user.school.id, {
-        select: ["showTimetable", "firstSemester", "secondSemester", "endSemesters"]
+      const school = await dataSource.getRepository(School).findOneOrFail({
+        select: ["showTimetable", "firstSemester", "secondSemester", "endSemesters"],
+        where: { id: req.session.user.school.id}
       });
       let currentSemester = getCurrentSemester(school);
       let numberOfSavedRows = 0;
       if (currentSemester == 2 || currentSemester == 1) {
-        numberOfSavedRows = await dataSource.getRepository(Timetable).count({
-          school: { id: req.session.user.school.id },
+        numberOfSavedRows = await dataSource.getRepository(Timetable).count(<any>{
+          school: req.session.user.school,
           semester: currentSemester
         })
       }

@@ -1,6 +1,6 @@
 
 import { Request, Response } from "express";
-import { getRepository, MoreThanOrEqual, IsNull, Not} from "typeorm";
+import { getRepository, MoreThanOrEqual, IsNull, Not, FindOperator} from "typeorm";
 import { validate } from "class-validator";
 import { Notification } from "../entity/Notification";
 import { IsDateInRange } from "./Functions";
@@ -48,7 +48,7 @@ static listAll = async (req: Request, res: Response) => {
   if (req.query.type == 'archive') {
     notifications = await notificationsRepository.find({
       where: {
-        school: req.session.user.school,
+        school: <any> req.session.user.school,
         deletedAt: null
       },
       relations: ["user", "images"]
@@ -57,7 +57,7 @@ static listAll = async (req: Request, res: Response) => {
   else if (req.query.type == 'deleted') {
     notifications = await notificationsRepository.find({
       where: {
-        school: req.session.user.school,
+        school: <any> req.session.user.school,
         deletedAt: Not(IsNull())
       },
       relations: ["user", "images"]
@@ -66,11 +66,11 @@ static listAll = async (req: Request, res: Response) => {
   else {
     notifications = await notificationsRepository.find({
       where: [{
-        school: req.session.user.school,
+        school: <any> req.session.user.school,
         date1: MoreThanOrEqual(currentDate),
         deletedAt: IsNull()
       },{
-        school: req.session.user.school,
+        school: <any> req.session.user.school,
         date2: MoreThanOrEqual(currentDate),
         deletedAt: IsNull()
       }
@@ -231,7 +231,7 @@ static toggleVisibility = async (req: Request, res: Response) => {
   try {
     notification = await notificationRepository.findOneOrFail({
       where: {
-        school: req.session.user.school,
+        school: <any> req.session.user.school,
         id
       },
       relations: ["user"]
@@ -288,7 +288,7 @@ static update = async (req: Request, res: Response) => {
   try {
     notification = await notificationRepository.findOneOrFail({
        where: {
-        school: req.session.user.school,
+        school: <any> req.session.user.school,
         id  
       },
       relations: ['school', 'user']
@@ -373,7 +373,7 @@ static delete = async (req: Request, res: Response) => {
   try {
     notification = await notificationRepository.findOneOrFail({
       where: {
-        school: req.session.user.school,
+        school: <any> req.session.user.school,
         id
       },
       relations: ['user']

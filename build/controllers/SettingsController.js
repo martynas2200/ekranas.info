@@ -55,8 +55,9 @@ var SettingsController = /** @class */ (function () {
             switch (_b.label) {
                 case 0:
                     _b.trys.push([0, 4, , 5]);
-                    return [4 /*yield*/, index_1.dataSource.getRepository(School_1.School).findOneOrFail(req.session.user.school.id, {
-                            select: ["showTimetable", "firstSemester", "secondSemester", "endSemesters"]
+                    return [4 /*yield*/, index_1.dataSource.getRepository(School_1.School).findOneOrFail({
+                            select: ["showTimetable", "firstSemester", "secondSemester", "endSemesters"],
+                            where: { id: req.session.user.school.id }
                         })];
                 case 1:
                     school = _b.sent();
@@ -64,7 +65,7 @@ var SettingsController = /** @class */ (function () {
                     numberOfSavedRows = 0;
                     if (!(currentSemester == 2 || currentSemester == 1)) return [3 /*break*/, 3];
                     return [4 /*yield*/, index_1.dataSource.getRepository(Timetable_1.Timetable).count({
-                            school: { id: req.session.user.school.id },
+                            school: req.session.user.school,
                             semester: currentSemester
                         })];
                 case 2:
