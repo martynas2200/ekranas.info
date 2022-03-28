@@ -112,11 +112,11 @@ var NotificationsController = /** @class */ (function () {
                         where: [{
                                 school: req.session.user.school,
                                 date1: (0, typeorm_1.MoreThanOrEqual)(currentDate),
-                                deletedAt: null
+                                deletedAt: (0, typeorm_1.IsNull)()
                             }, {
                                 school: req.session.user.school,
                                 date2: (0, typeorm_1.MoreThanOrEqual)(currentDate),
-                                deletedAt: null
+                                deletedAt: (0, typeorm_1.IsNull)()
                             }
                         ],
                         relations: ["user", "images"]

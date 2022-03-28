@@ -13,8 +13,8 @@ export class Mail {
           port: 587,
           secureConnection: false,
           auth: {
-            user: "martynas2200@gmail.com",
-            pass: "bhV53CFHwg08PKzr"
+            user: process.env.SENDING_BLUE_USER,
+            pass: process.env.SENDING_BLUE_PASS
           }
         });
     }

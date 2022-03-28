@@ -68,11 +68,11 @@ static listAll = async (req: Request, res: Response) => {
       where: [{
         school: req.session.user.school,
         date1: MoreThanOrEqual(currentDate),
-        deletedAt: null
+        deletedAt: IsNull()
       },{
         school: req.session.user.school,
         date2: MoreThanOrEqual(currentDate),
-        deletedAt: null
+        deletedAt: IsNull()
       }
     ],
       relations: ["user", "images"]
