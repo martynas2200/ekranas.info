@@ -45,13 +45,9 @@ export const getScreenByKey = async (clue: string) => {
 const getContentByURL = (url) => {
     return new Promise((resolve, reject) => {
         const http = require('http'),
-            https = require('https');
+              https = require('https');
 
-        let client = http;
-
-        if (url.toString().indexOf("https") === 0) {
-            client = https;
-        }
+        let client = (url.toString().indexOf("https") === 0) ? https : http ;
 
         client.get(url, (resp) => {
             let data = '';
@@ -92,6 +88,7 @@ class WallDataController {
             body = body.replace(/(<([^>]+)>)/ig, '');
             celebrations = body.split(',');
         }, error => { });
+        // Free horoscopes content
         await getContentByURL('http://www.vytautus.com/hor_rss.xml').then(async (body: string) => await parser.xmlToJson(body, (err, json: any) => {
             if (!err) {
                 // json.rss.channel.pubDate;
@@ -110,14 +107,23 @@ class WallDataController {
         });
     }
     static weather = async (req: Request, res: Response) => {
-        await getContentByURL('https://api.openweathermap.org/data/2.5/weather?id=597231&lang=en&units=metric&appid=815bcde19fc5c6054748ea55195b7fc9&parameters=all').then((body: string) => {
+        let params: any = {
+            id: 597231, // <- change number
+            lang: "en",
+            units: "metric",
+            appid: process.env.OPEN_WEATHER_MAP,
+            parameters: "all"
+        };
+        let query = 'https://api.openweathermap.org/data/2.5/weather?' +
+                    Object.keys(params).map(key => key + "=" + params[key]).join("&");
+
+        await getContentByURL(query).then((body: string) => {
             res.status(200).send(JSON.parse(body));
         }, error => {
-            res.status(400).send({});
+            res.status(500).send({});
         });
     }
     static getSettings = async (req: Request, res: Response) => {
-        // d2bb50042399a0ac61f39c10e96511fcca11f1c7b9f4a7916db2bcd28dc877e7720a9320bb7c981c475925fe06615fcd53a9004fd9a1beac3eee73d97602aab7fc4613b340eac1dc4a7c989920eeb048e7a5ea87217411091a27
         const clue: string = req.params.clue;
         let screen = await getScreenByKey(clue);
         if (!screen) {
@@ -201,9 +207,9 @@ class WallDataController {
             }],
             relations: ["images"]
         });
-        const dayNames: Array<string> = ['Sekmadienį', 'Pirmadienį', 'Antradienį', 'Trečiadienį', 'Ketvirtadienį', 'Penktadienį', 'Šeštadienį', 'Sekmadienį'];
+        const dayNames: Array<string> = ["Sekmadienį", "Pirmadienį", "Antradienį", "Trečiadienį", "Ketvirtadienį", "Penktadienį", "Šeštadienį", "Sekmadienį"];
         notifications.forEach(element => {
-            element.day = 'Šiandien';
+            element.day = "Šiandien";
         });
         notifications2.forEach(element => {
             element.day = dayNames[tommorowDate.getDay()];
@@ -241,8 +247,8 @@ class WallDataController {
         // use custom bilder
         const lessons = await dataSource.getRepository(Timetable).find({
             where: { weekDay: <any> day, semester: <any> semester, school: screen.school },
-            select: ['className', 'lessonNr'],
-            relations: ['discipline']
+            select: ["className", "lessonNr"],
+            relations: ["discipline"]
         });
 
         await lessons.sort((a, b) => {

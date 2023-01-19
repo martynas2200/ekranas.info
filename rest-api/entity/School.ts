@@ -31,6 +31,11 @@ import {
     })
     ip: string;
 
+    @Column({
+        type: "varchar",
+        length: 20
+      })
+    weatherID: string;
     
     @Column({
         default: true

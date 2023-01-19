@@ -99,10 +99,7 @@ exports.getScreenByKey = getScreenByKey;
 var getContentByURL = function (url) {
     return new Promise(function (resolve, reject) {
         var http = require('http'), https = require('https');
-        var client = http;
-        if (url.toString().indexOf("https") === 0) {
-            client = https;
-        }
+        var client = (url.toString().indexOf("https") === 0) ? https : http;
         client.get(url, function (resp) {
             var data = '';
             // A chunk of data has been recieved.
@@ -146,6 +143,7 @@ var WallDataController = /** @class */ (function () {
                         }, function (error) { })];
                 case 2:
                     _b.sent();
+                    // Free horoscopes content
                     return [4 /*yield*/, getContentByURL('http://www.vytautus.com/hor_rss.xml').then(function (body) { return __awaiter(void 0, void 0, void 0, function () {
                             return __generator(this, function (_b) {
                                 switch (_b.label) {
@@ -164,6 +162,7 @@ var WallDataController = /** @class */ (function () {
                             });
                         }); })];
                 case 3:
+                    // Free horoscopes content
                     _b.sent();
                     res.status(200).send({
                         nameDays: nameDays,
@@ -175,13 +174,24 @@ var WallDataController = /** @class */ (function () {
         });
     }); };
     WallDataController.weather = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+        var params, query;
         return __generator(_a, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, getContentByURL('https://api.openweathermap.org/data/2.5/weather?id=597231&lang=en&units=metric&appid=815bcde19fc5c6054748ea55195b7fc9&parameters=all').then(function (body) {
-                        res.status(200).send(JSON.parse(body));
-                    }, function (error) {
-                        res.status(400).send({});
-                    })];
+                case 0:
+                    params = {
+                        id: 597231,
+                        lang: "en",
+                        units: "metric",
+                        appid: process.env.OPEN_WEATHER_MAP,
+                        parameters: "all"
+                    };
+                    query = 'https://api.openweathermap.org/data/2.5/weather?' +
+                        Object.keys(params).map(function (key) { return key + "=" + params[key]; }).join("&");
+                    return [4 /*yield*/, getContentByURL(query).then(function (body) {
+                            res.status(200).send(JSON.parse(body));
+                        }, function (error) {
+                            res.status(500).send({});
+                        })];
                 case 1:
                     _b.sent();
                     return [2 /*return*/];
@@ -295,9 +305,9 @@ var WallDataController = /** @class */ (function () {
                         })];
                 case 3:
                     notifications2 = _b.sent();
-                    dayNames = ['Sekmadienį', 'Pirmadienį', 'Antradienį', 'Trečiadienį', 'Ketvirtadienį', 'Penktadienį', 'Šeštadienį', 'Sekmadienį'];
+                    dayNames = ["Sekmadienį", "Pirmadienį", "Antradienį", "Trečiadienį", "Ketvirtadienį", "Penktadienį", "Šeštadienį", "Sekmadienį"];
                     notifications.forEach(function (element) {
-                        element.day = 'Šiandien';
+                        element.day = "Šiandien";
                     });
                     notifications2.forEach(function (element) {
                         element.day = dayNames[tommorowDate.getDay()];
@@ -342,8 +352,8 @@ var WallDataController = /** @class */ (function () {
                     }
                     return [4 /*yield*/, index_1.dataSource.getRepository(Timetable_1.Timetable).find({
                             where: { weekDay: day, semester: semester, school: screen.school },
-                            select: ['className', 'lessonNr'],
-                            relations: ['discipline']
+                            select: ["className", "lessonNr"],
+                            relations: ["discipline"]
                         })];
                 case 2:
                     lessons = _b.sent();

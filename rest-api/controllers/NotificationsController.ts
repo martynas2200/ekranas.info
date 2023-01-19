@@ -127,29 +127,6 @@ static listAll = async (req: Request, res: Response) => {
 // };
 
 static new = async (req: Request, res: Response) => {
-  // Get parameters from the body
-  // if (!req.body.notification) {
-  //   res.status(400).send({
-  //     success: false,
-  //     message: 'Nėra duomenų'
-  //   });
-  //   return;
-  // }
-  // if ( req.body.notification.hasOwnProperty('date1') &&
-  // req.body.notification.hasOwnProperty('showBefore') &&
-  // req.body.notification.hasOwnProperty('repeatTimes') &&
-  // req.body.notification.hasOwnProperty('note') &&
-  // req.body.notification.hasOwnProperty('important') &&
-  // req.body.notification.hasOwnProperty('author') &&
-  // req.body.notification.hasOwnProperty('displayAuthor') &&
-  // req.body.notification.hasOwnProperty('images')) {}
-  // else {
-  //   res.status(400).send({
-  //     success: false,
-  //     message: 'Nėra visų parametrų'
-  //   });
-  //   return;
-  // }
   if(!NotificationsController.checkNotificationProperties(req.body.notification)) {
     res.status(400).send({
       success: false,

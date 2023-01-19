@@ -37,11 +37,18 @@ var School = /** @class */ (function () {
     __decorate([
         (0, typeorm_1.Column)({
             type: "varchar",
-            default: '000.000.000.000',
             length: 20
         }),
         __metadata("design:type", String)
     ], School.prototype, "ip", void 0);
+    __decorate([
+        (0, typeorm_1.Column)({
+            type: "varchar",
+            default: '000.000.000.000',
+            length: 20
+        }),
+        __metadata("design:type", String)
+    ], School.prototype, "weatherID", void 0);
     __decorate([
         (0, typeorm_1.Column)({
             default: true

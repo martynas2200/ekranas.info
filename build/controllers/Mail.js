@@ -59,7 +59,7 @@ var Mail = /** @class */ (function () {
             return __generator(this, function (_a) {
                 return [2 /*return*/, this.transporter.sendMail({
                         from: '"Ekranas.info" <logs@ekranas.info>',
-                        to: 'martynas2200@gmail.com',
+                        to: 'admin@ekranas.info>',
                         subject: subject,
                         text: JSON.stringify(data)
                     })];
