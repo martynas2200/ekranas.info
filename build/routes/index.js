@@ -10,7 +10,7 @@ var timetables_1 = require("./timetables");
 var settings_1 = require("./settings");
 var contact_1 = require("./contact");
 var screen_1 = require("./screen");
-// import * as path from "path";
+var path = require("path");
 // import main from "./main";
 var routes = (0, express_1.Router)();
 routes.use("/api/auth", auth_1.default);
@@ -22,14 +22,19 @@ routes.use("/api/disciplines", disciplines_1.default);
 routes.use("/api/settings", settings_1.default);
 routes.use("/api/contact", contact_1.default);
 routes.use("/api/screen", screen_1.default);
+routes.get('/dirr/', function (req, res) {
+    res.status(200).send({
+        dirname: __dirname
+    });
+});
 routes.get('/show/:key', function (req, res) {
-    res.status(200).sendFile('index.html', { root: 'show' });
+    res.status(200).sendFile('index.html', { root: path.join(__dirname, '/ekranas/show/') });
 });
 routes.get('/wall/first.txt', function (req, res) {
-    res.status(200).sendFile('first.txt', { root: 'img' });
+    res.status(200).sendFile('first.txt', { root: path.resolve(__dirname, '../img/') });
 });
 routes.get('/connection/test', function (req, res) {
-    //socket.emit('chat message', 'hello friends!');
+    // socket.emit('chat message', 'hello friends!');
     // data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M/wHwAEBgIApD5fRAAAAABJRU5ErkJggg==
     var img = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M/wHwAEBgIApD5fRAAAAABJRU5ErkJggg==', 'base64');
     res.writeHead(200, {

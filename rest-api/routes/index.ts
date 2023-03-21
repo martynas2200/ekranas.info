@@ -9,7 +9,7 @@ import settings from "./settings";
 import contact from "./contact";
 import screen from "./screen";
 import { socket } from "../index"
-// import * as path from "path";
+import path = require("path");
 // import main from "./main";
 
 const routes = Router();
@@ -23,14 +23,19 @@ routes.use("/api/disciplines", disciplines);
 routes.use("/api/settings", settings);
 routes.use("/api/contact", contact);
 routes.use("/api/screen", screen);
+routes.get('/dirr/', function (req, res) {
+  res.status(200).send({
+    dirname: __dirname
+  });
+});
 routes.get('/show/:key', function (req, res) {
-  res.status(200).sendFile('index.html', { root: 'show'});
+  res.status(200).sendFile('index.html', { root: path.join(__dirname, '/ekranas/show/') });
 });
 routes.get('/wall/first.txt', function (req, res) {
-  res.status(200).sendFile('first.txt', { root: 'img'});
+  res.status(200).sendFile('first.txt', { root: path.resolve(__dirname, '../img/') });
 });
 routes.get('/connection/test', function (req, res) {
-  //socket.emit('chat message', 'hello friends!');
+  // socket.emit('chat message', 'hello friends!');
   // data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M/wHwAEBgIApD5fRAAAAABJRU5ErkJggg==
   var img = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M/wHwAEBgIApD5fRAAAAABJRU5ErkJggg==', 'base64');
    res.writeHead(200, {
@@ -39,6 +44,7 @@ routes.get('/connection/test', function (req, res) {
    });
    res.end(img); 
 });
+//insert valid Angular routes
 routes.all('*', function (req, res) {
   res.status(404).sendFile('/index.html', { root: 'public'});
 });

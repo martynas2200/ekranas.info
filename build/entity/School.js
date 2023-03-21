@@ -37,6 +37,7 @@ var School = /** @class */ (function () {
     __decorate([
         (0, typeorm_1.Column)({
             type: "varchar",
+            default: '000.000.000.000',
             length: 20
         }),
         __metadata("design:type", String)
@@ -44,7 +45,6 @@ var School = /** @class */ (function () {
     __decorate([
         (0, typeorm_1.Column)({
             type: "varchar",
-            default: '000.000.000.000',
             length: 20
         }),
         __metadata("design:type", String)

@@ -1,6 +1,5 @@
 import "reflect-metadata";
 import { DataSource, getRepository } from "typeorm";
-import { Db } from "typeorm-static";
 import * as express from "express";
 import * as path from "path";
 // import * as expressValidator from "express-validator";
@@ -30,6 +29,7 @@ declare module 'express-session' {
     user: User;
   }
 }
+console.log(process.env.DB_USER);
 export const dataSource = new DataSource({
   type: "mysql",
   host: ((process.env.NODE_ENV !== 'production') ? "145.239.94.18" : "localhost"),
@@ -61,11 +61,6 @@ export const dataSource = new DataSource({
 //   ]
 // });
 
-
-
-
-  
-  
 dataSource.initialize().then(async connection => {
     // Create a new express application instance
     const app = express();
@@ -79,10 +74,6 @@ dataSource.initialize().then(async connection => {
         'Content-Security-Policy',
         "default-src 'self'; font-src 'self' https://fonts.googleapis.com https://use.fontawesome.com https://fonts.gstatic.com; img-src 'self' https://images.unsplash.com; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://use.fontawesome.com; frame-src 'self';"
       );
-      // res.setHeader(
-      //   'Cross-Origin-Resource-Policy',
-      //   "cross-origin"
-      // );
       next();
     });
     app.use(bodyParser.urlencoded({ extended: false }))

@@ -21,7 +21,7 @@ export class Mail {
     public async sendtoAdmin(subject: string, data: Object) {
       return this.transporter.sendMail({
         from: '"Ekranas.info" <logs@ekranas.info>',
-        to: 'admin@ekranas.info>',
+        to: 'admin@ekranas.info',
         subject: subject, 
         text: JSON.stringify(data)
       });
