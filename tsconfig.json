@@ -1,22 +1,19 @@
 {
+   "allowSyntheticDefaultImports": true,
    "compilerOptions": {
-      "lib": [
-         "es5",
-         "es6"
-      ],
-      "target": "es5",
-      "module": "commonjs",
+      "lib": ["ES2022", "dom" ],
+      "target": "ES2022",
+      // "module": "ES2022",
       "moduleResolution": "node",
       "outDir": "build",
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
       "sourceMap": true,
+      // "noImplicitAny": true,
+      "forceConsistentCasingInFileNames": true,
       "baseUrl": "rest-api"
    },
-   "exclude": [
-      "node_modules",
-      "**/*.spec.ts",
-      "display-part/*",
-      "admin-part/*"
+   "include": [
+      "rest-api/*"
   ]
 }

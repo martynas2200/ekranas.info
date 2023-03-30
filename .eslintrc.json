@@ -1,0 +1,57 @@
+{
+  "env": {
+    "es6": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "google",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:unicorn/recommended"
+  ],
+  "overrides": [
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": ["./tsconfig.eslint.json"],
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "brace-style": "error",
+    "indent": ["warn", 4],
+    "quotes" : ["warn", "double"],
+    "object-curly-spacing" : ["warn", "always"],
+    "max-len": "warn",
+    "no-trailing-spaces": "warn",
+    "comma-dangle": ["warn", "never"],
+    "curly": "off",
+    "require-jsdoc": "off",
+    "new-cap": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "unicorn/no-misused-promises": "off",
+    "unicorn/no-static-only-class": "off",
+    "unicorn/no-null": "off",
+    "unicorn/filename-case": ["off"],
+    "unicorn/prefer-module": "warn",
+    "unicorn/prevent-abbreviations": [
+      "error",
+      {
+        "ignore": [
+          "req",
+          "res"
+        ]
+      }
+    ],
+    "prefer-arrow/prefer-arrow-functions": [
+      "warn",
+      {
+        "disallowPrototype": true,
+        "singleReturnOnly": false,
+        "classPropertiesAllowed": false
+      }
+    ]
+  },
+  "plugins": ["@typescript-eslint", "prefer-arrow", "unicorn"]
+}
